@@ -1,0 +1,140 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Page Not Found | Cunny Code</title>
+    <link rel="shortcut icon" type="image/x-icon" href="https://sethclydesdale.github.io/cunny-code/resources/images/favicon.ico">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://sethclydesdale.github.io/cunny-code/resources/css/stylesheet.min.css">
+    <script src="https://sethclydesdale.github.io/cunny-code/resources/javascript/ga.js" async></script>
+  </head>
+
+  <body id="page">
+    <header>
+      <h1><a href="https://sethclydesdale.github.io/cunny-code/" id="logo"><img src="https://sethclydesdale.github.io/cunny-code/resources/images/logo.png" alt="Cunny Code"></a></h1>
+      <a id="fork-me" href="https://github.com/SethClydesdale/cunny-code">Fork Me</a>
+    </header>
+    
+    <nav>
+      <a href="https://sethclydesdale.github.io/cunny-code/">Home<i class="fa">&#xf015;</i></a>
+      <a href="https://sethclydesdale.github.io/cunny-code/code/">The Code<i class="fa" id="cc-chart">&#xf0db;<span id="cunny">😭</span><span id="correction">💢</span></i></a>
+      <a href="https://sethclydesdale.github.io/cunny-code/arona/">About Arona<i class="fa"><img src="resources/images/arona-icon.png" alt="&#xf059;"></i></a>
+      <a href="https://sethclydesdale.github.io/cunny-code/report/">Reports &amp; Feedback<i class="fa">&#xf188;</i></a>
+      <a href="https://sethclydesdale.github.io/cunny-code/download/">Download<i class="fa">&#xf019;</i></a>
+      <a href="https://sethclydesdale.github.io/cunny-code/donate/">Donate<i class="fa">&#xf004;</i></a>
+      <a href="https://github.com/SethClydesdale/cunny-code">GitHub<i class="fa">&#xf09b;</i></a>
+    </nav>
+    
+    <div id="content">
+      <div class="content-block clear">
+        <div id="encoder" class="menu">
+          <div class="menu-inner center">
+            <h2 class="title" id="not-found" style="font-size:36px;">404 Cunny Not Found</h2>
+            <p style="font-size:20px;">Sorry, but the cute and funny that you're looking for cannot be found.</p>
+            <div class="center"><img id="alice_dance" src="https://sethclydesdale.github.io/cunny-code/resources/images/alice.gif" alt="alice" style="display:none; cursor:pointer;"><img id="alice_idle" src="https://sethclydesdale.github.io/cunny-code/resources/images/alice.png" alt="alice" style="cursor:pointer;"><audio id="audio" loop><source src="https://sethclydesdale.github.io/cunny-code/resources/audio/Usagi Flap.mp3" type="audio/mpeg"></audio></div>
+            <div id="dialogue" class="alice-dialogue" style="margin-top:-20px;margin-bottom:-20px;">Click Alice, Sensei!</div>
+            <p><a href="https://sethclydesdale.github.io/cunny-code/" id="404-home" class="button"><i>Return to the Homepage</i></a></p>
+          </div>
+        </div>
+        
+        <div id="arona">
+          <div id="arona_inner">
+            <div id="arona_body">
+              <img id="holo" src="resources/images/arona/30.png" alt="Arona">
+              <div id="arona_face" class="arona_action" onclick="Arona.touch('face');"></div>
+              <div id="arona_head" class="arona_action" onclick="Arona.touch('head');"></div>
+              <div id="arona_chest" class="arona_action" onclick="Arona.touch('chest');"></div>
+              <div id="arona_skirt" class="arona_action" onclick="Arona.touch('skirt');"></div>
+              <div id="arona_leg1" class="arona_action" onclick="Arona.touch('leg');"></div>
+              <div id="arona_leg2" class="arona_action" onclick="Arona.touch('leg');"></div>
+              <div id="arona_leg3" class="arona_action" onclick="Arona.touch('leg');"></div>
+              <div id="arona_leg4" class="arona_action" onclick="Arona.touch('leg');"></div>
+              <div id="arona_shoes" class="arona_action" onclick="Arona.touch('shoe');"></div>
+            </div>
+            <div id="dialogue_container" class="fade-in">
+              <div id="dialogue">I-I'm sorry, Sensei...<br>I searched and searched, but I can't find what you're looking for.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+      
+    <footer class="clear">
+      <ul class="footer-left">
+        <li><a href="https://sethclydesdale.github.io/cunny-code/privacy/">Privacy</a></li>
+        <li><a href="#logo">Top</a></li>
+      </ul>
+
+      <ul class="footer-right">
+        <li>Created by <a href="https://github.com/SethClydesdale">Seth-sensei</a> and the <a href="https://github.com/SethClydesdale/cunny-code/graphs/contributors">Kivotos Community</a></li>
+      </ul>
+    </footer>
+    
+    
+    <script>(function (window, document) {
+      document.getElementById('audio').volume = 0.4; // normalize audio volume
+        
+      // alice dance start
+      document.getElementById('alice_idle').onclick = function () {
+        this.style.display = 'none';
+        document.getElementById('alice_dance').style.display = '';
+        document.getElementById('audio').play();
+        document.querySelector('.alice-dialogue').style.display = 'none'
+      };
+        
+      // alice dance stop
+      document.getElementById('alice_dance').onclick = function () {
+        this.style.display = 'none';
+        document.getElementById('alice_idle').style.display = '';
+        document.getElementById('audio').pause();
+      };
+        
+      // makes corrections to the page if used on the local file system
+      if (window.location.protocol == 'file:') {
+        var domain = 'https://sethclydesdale.github.io/cunny-code/',
+            a = document.querySelectorAll('a[href*="' + domain + '"], script[src*="' + domain + '"], link[href*="' + domain + '"], img[src*="' + domain + '"], source[src*="' + domain + '"]'),
+            i = 0,
+            j = a.length, script;
+        
+        for (; i < j; i++) {
+          switch (a[i].tagName) {
+            // change the anchor values to their offline files
+            case 'A' :
+              a[i].href = a[i].href.replace(domain, '');
+              /404\.html$/.test(a[i].href) ? a[i].href = './index.html' : a[i].href += 'index.html';
+              break;
+              
+            case 'IMG' :
+              a[i].src = a[i].src.replace(domain, '');
+              break;
+            
+            // change link sources to their offline resources
+            case 'LINK' :
+              a[i].href = a[i].href.replace(domain, '');
+              break;
+            
+            // change link sources to their offline resources
+            case 'SOURCE' :
+              a[i].src = a[i].src.replace(domain, '');
+              a[i].parentNode.load();
+              break;
+              
+            // change the js source to the offline version
+            case 'SCRIPT' :
+              // since we cannot stop js execution, check if the user actually has no internet connection before appending the script
+              if (!/ga\.js$/.test(a[i].src) && !navigator.onLine) {
+                script = document.createElement('SCRIPT');
+                script.src = a[i].src.replace(domain, '');
+                script.type = 'text/javascript';
+                
+                document.body.removeChild(a[i]);
+                document.body.appendChild(script);
+              }
+              break;
+          }
+        }
+      }
+    }(window, document));</script>
+  </body>
+</html>

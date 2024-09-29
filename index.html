@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns#">
+  <head>
+    <meta charset="UTF-8">
+    <title>Cunny Code</title>
+    <meta name="title" content="Cunny Code">
+    <meta name="twitter:title" content="Cunny Code">
+    <meta property="og:title" content="Cunny Code">
+    <meta name="description" content="The Cute and Funny Morse Code Tool.">
+    <meta property="og:description" content="The Cute and Funny Morse Code Tool.">
+    <link rel="shortcut icon" type="image/x-icon" href="resources/images/favicon.ico">
+
+    <meta name="keywords" content="Blue Archive, Morse Code, Encoder, Decoder" lang="en">
+    <meta name="language" content="en">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta property="og:site_name" content="sethclydesdale.github.io">
+    <meta property="og:url" content="https://sethclydesdale.github.io/cunny-code/">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://sethclydesdale.github.io/cunny-code/resources/images/thumb.png">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:creator" content="@SethC1995">
+
+    <link rel="stylesheet" href="resources/css/stylesheet.min.css">
+    <script src="resources/javascript/ga.js" async></script>
+  </head>
+
+  <body id="page">
+    <header>
+      <h1><a href="./" id="logo"><img src="resources/images/logo.png" alt="Cunny Code"></a></h1>
+      <a id="fork-me" href="https://github.com/SethClydesdale/cunny-code">Fork Me</a>
+    </header>
+    
+    <nav>
+      <a href="code/">The Code<i class="fa" id="cc-chart">&#xf0db;<span id="cunny">😭</span><span id="correction">💢</span></i></a>
+      <a href="arona/">About Arona<i class="fa"><img src="resources/images/arona-icon.png" alt="&#xf059;"></i></a>
+      <a href="report/">Reports &amp; Feedback<i class="fa">&#xf188;</i></a>
+      <a href="download/">Download<i class="fa">&#xf019;</i></a>
+      <a href="donate/">Donate<i class="fa">&#xf004;</i></a>
+      <a href="https://github.com/SethClydesdale/cunny-code">GitHub<i class="fa">&#xf09b;</i></a>
+    </nav>
+    
+    <div id="bg_layer"><div id="bg_layer2"></div></div>
+    <div id="content">
+      <div class="content-block clear">
+        <div id="encoder" class="menu">
+          <div class="menu-inner">
+            <h3>Input <a href="javascript:Arona.help();" id="help" title="Help me, Arona!"><i class="fa">&#xf059;</i></a></h3>
+            <textarea id="input"></textarea>
+
+            <div id="buttons" class="center">
+              <button id="encode" onclick="Arona.encode(Arona.node.input.value, this);"><i>Encode</i></button>
+              <button id="swap" onclick="Arona.swap();" title="Swap input and output"><i class="fa">&#xf021;</i></button>
+              <button id="decode" onclick="Arona.decode(Arona.node.input.value, this);"><i>Decode</i></button>
+            </div>
+
+            <h3>Output</h3>
+            <textarea id="output" readonly></textarea>
+            
+            <div class="center">
+              <button id="copy" onclick="Arona.node.output.select(); Arona.copyText(Arona.node.output.value);"><i>Copy</i></button>
+            </div>
+            
+            <div id="bgm">
+              <img id="bgm_icon" src="resources/images/mute.png" onclick="Arona.toggleBGM();" onkeyup="if (/enter/i.test(event.key)) Arona.toggleBGM();" title="Toggle BGM" alt="BGM" tabindex="0">
+              <audio id="bgm_player" ontimeupdate="if (this.currentTime >= 114.5) this.currentTime = 0;" loop><source src="resources/audio/Shooting%20Stars.mp3" type="audio/mpeg"></audio>
+            </div>
+            
+            <div id="version">v1.0.0</div>
+          </div>
+        </div>
+    
+        <div id="arona">
+          <div id="arona_inner">
+            <div id="arona_body">
+              <img id="holo" src="resources/images/arona/1.png" alt="Arona">
+              <div id="arona_face" class="arona_action" onclick="Arona.touch('face');"></div>
+              <div id="arona_head" class="arona_action" onclick="Arona.touch('head');"></div>
+              <div id="arona_chest" class="arona_action" onclick="Arona.touch('chest');"></div>
+              <div id="arona_skirt" class="arona_action" onclick="Arona.touch('skirt');"></div>
+              <div id="arona_leg1" class="arona_action" onclick="Arona.touch('leg');"></div>
+              <div id="arona_leg2" class="arona_action" onclick="Arona.touch('leg');"></div>
+              <div id="arona_leg3" class="arona_action" onclick="Arona.touch('leg');"></div>
+              <div id="arona_leg4" class="arona_action" onclick="Arona.touch('leg');"></div>
+              <div id="arona_shoes" class="arona_action" onclick="Arona.touch('shoe');"></div>
+            </div>
+            <div id="dialogue_container" class="fade-in">
+              <div id="dialogue"><noscript>Please enable JavaScript, Sensei.<br>You can't use me without it!</noscript></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+      
+    <footer class="clear">
+      <ul class="footer-left">
+        <li><a href="privacy/">Privacy</a></li>
+        <li><a href="#logo">Top</a></li>
+      </ul>
+
+      <ul class="footer-right">
+        <li>Created by <a href="https://github.com/SethClydesdale">Seth-sensei</a> and the <a href="https://github.com/SethClydesdale/cunny-code/graphs/contributors">Kivotos Community</a></li>
+      </ul>
+    </footer>
+    
+    <script src="resources/javascript/arona.min.js"></script>
+    <script>
+      // have Arona greet her dear Sensei
+      var msg = Arona.speech.greetings[Math.floor(Math.random() * Arona.speech.greetings.length)];
+      Arona.say(msg[0], msg[1], 10000);
+      
+      Arona.preload.assets(); // preload images
+      Arona.idle(true); // start idle listener
+    </script>
+  </body>
+</html>

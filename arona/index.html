@@ -1,0 +1,212 @@
+﻿<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns#">
+  <head>
+    <meta charset="UTF-8">
+    <title>About Arona | Cunny Code</title>
+    <meta name="title" content="About Arona | Cunny Code">
+    <meta name="twitter:title" content="About Arona | Cunny Code">
+    <meta property="og:title" content="About Arona | Cunny Code">
+    <meta name="description" content="This page lists out all of Arona's functions and easter eggs.">
+    <meta property="og:description" content="This page lists out all of Arona's functions and easter eggs.">
+    <link rel="shortcut icon" type="image/x-icon" href="../resources/images/favicon.ico">
+
+    <meta name="keywords" content="Cunny Code, Blue Archive, Morse Code, Tool" lang="en">
+    <meta name="language" content="en">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta property="og:site_name" content="sethclydesdale.github.io">
+    <meta property="og:url" content="https://sethclydesdale.github.io/cunny-code/chart/">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://sethclydesdale.github.io/cunny-code/resources/images/thumb.png">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:creator" content="@SethC1995">
+
+    <link rel="stylesheet" href="../resources/css/stylesheet.min.css">
+    <script src="../resources/javascript/ga.js" async></script>
+  </head>
+
+  <body id="page">
+    <header>
+      <h1><a href="../" id="logo"><img src="../resources/images/logo.png" alt="Cunny Code"></a></h1>
+      <a id="fork-me" href="https://github.com/SethClydesdale/cunny-code">Fork Me</a>
+    </header>
+    
+    <nav>
+      <a href="../">Home<i class="fa">&#xf015;</i></a>
+      <a href="../code/">The Code<i class="fa" id="cc-chart">&#xf0db;<span id="cunny">😭</span><span id="correction">💢</span></i></a>
+      <a href="../report/">Reports &amp; Feedback<i class="fa">&#xf188;</i></a>
+      <a href="../download/">Download<i class="fa">&#xf019;</i></a>
+      <a href="../donate/">Donate<i class="fa">&#xf004;</i></a>
+      <a href="https://github.com/SethClydesdale/cunny-code">GitHub<i class="fa">&#xf09b;</i></a>
+    </nav>
+
+    <div id="bg_layer"><div id="bg_layer2"></div></div>
+    <div id="content">
+      <div class="content-block clear">
+        <div id="encoder" class="menu">
+          <div class="menu-inner">
+            <h2>About Arona</h2>
+            <p>This page lists out all of Arona's functions and easter eggs.</p>
+            <ul>
+              <li><a href="#cunny-code">Encoding and Decoding</a></li>
+              <li><a href="#responses">Responses</a></li>
+              <li><a href="#custom-messages">Custom Messages</a></li>
+              <li><a href="#getting-upset">Getting Upset</a></li>
+              <li><a href="#poking">Poking</a></li>
+              <li><a href="#speaking">Speaking</a></li>
+              <li><a href="#helping">Helping</a></li>
+              <li><a href="#teasing">Teasing</a></li>
+              <li><a href="#playing-music">Playing Music</a></li>
+              <li><a href="#idling-and-sleeping">Idling and Sleeping</a></li>
+              <li><a href="#writing">Writing</a></li>
+            </ul>
+            
+            <h3 id="cunny-code">Encoding and Decoding</h3>
+            <p>Arona's standard function for this tool is encoding and decoding Cunny Code. You can perform this function from the <a href="../">homepage</a>, but you can also perfom it through the console using the following functions.</p>
+            
+            <strong>Arona.encode(string)</strong>
+            <div class="columns-2 clear">
+              <div style="width:80%;margin-bottom:5px;;"><code class="block">Arona.encode("Cunny");</code></div>
+              <div style="width:20%;margin-bottom:5px;;"><button onclick="Arona.say('Here is your encoded message, Sensei!<br>&quot;' + Arona.encode('Cunny') + '&quot;', 12); document.getElementById('arona_inner').focus();"><i>Run</i></button></div>
+            </div>
+            
+            <strong>Arona.decode(string)</strong>
+            <div class="columns-2 clear">
+              <div style="width:80%;margin-bottom:5px;;"><code class="block">Arona.decode("^💢😭💢😭 😭😭💢 💢😭 💢😭 💢😭💢💢");</code></div>
+              <div style="width:20%;margin-bottom:5px;;"><button onclick="Arona.say('Here is your decoded message, Sensei!<br>&quot;' + Arona.decode('^💢😭💢😭 😭😭💢 💢😭 💢😭 💢😭💢💢') + '&quot;', 12); document.getElementById('arona_inner').focus();"><i>Run</i></button></div>
+            </div>
+            <br>
+            
+            <h3 id="responses">Responses</h3>
+            <p>Aside from Arona's usual responses to encoding or decoding messages, she also has unique responses based on certain keywords or phrases that you may encode or decode. A few notable examples are:</p>
+            <ul>
+              <li>uoh</li>
+              <li>cunny</li>
+              <li>cute and funny</li>
+              <li>correction</li>
+              <li>strawberry milk</li>
+              <li>Arona is cute/cunny/cute and funny/best girl</li>
+              <li>Hello, Arona./How are you, Arona?/I love you, Arona.</li>
+              <li>Who was the first person to decode Cunny Code?</li>
+              <li>😭</li>
+              <li>💢</li>
+              <li>🦀</li>
+            </ul>
+            <p>Try encoding or decoding some of these to see what Arona says!</p>
+            
+            <h3 id="custom-messages">Custom Messages</h3>
+            <p>A fun feature of this tool is that you can hijack Arona's speech module to make her say whatever you want. You can do this by encoding or decoding the following phrase:</p>
+            <code class="block"><span style="color:red">Arona say</span> <span style="color:green;">Cunny</span> <span style="color:blue;">{32}</span></code>
+            <ul>
+              <li><span style="color:red">red</span>: command used to hijack the speech module</li>
+              <li><span style="color:green;">green</span>: message you want Arona to say</li>
+              <li><span style="color:blue;">blue</span>: Arona's emote (1-35 available)</li>
+            </ul>
+            <p>You can also use the following function via the console to make Arona say whatever you want.</p>
+            <strong>Arona.say(message, emote, duration, callback)</strong>
+            <div class="columns-2 clear">
+              <div style="width:80%;margin-bottom:5px;;"><code class="block">Arona.say("Cunny", 32, 3000);</code></div>
+              <div style="width:20%;margin-bottom:5px;;"><button onclick="Arona.say('Cunny', 32, 3000); document.getElementById('arona_inner').focus();"><i>Run</i></button></div>
+            </div>
+            
+            <h3 id="getting-upset">Getting Upset</h3>
+            <p>One thing Sensei should never do is be mean to cute innocent little Arona. If Sensei is mean to Arona 5 times, she will leave and won't come back until you apologize. The following phrases will upset Arona:</p>
+            <ul>
+              <li>Arona is dumb</li>
+              <li>Arona smells</li>
+              <li>Arona sucks</li>
+            </ul>
+            <p>Remember to say "Sorry" or "I'm sorry" if you upset Arona!</p>
+            
+            <h3 id="poking">Poking</h3>
+            <p>Aside from encoding and decoding, you can also interact with Arona by clicking or "poking" her. The following parts of Arona can be clicked for different reactions:</p>
+            <ul>
+              <li>Head</li>
+              <li>Face</li>
+              <li>Chest</li>
+              <li>Skirt</li>
+              <li>Legs</li>
+              <li>Shoes (ask Arona "show me your shoes")</li>
+            </ul>
+            
+            <h3 id="speaking">Speaking</h3>
+            <p>Although limited, Arona's voice module allows her to speak! You may have heard her do so earlier if you poked her. You can use the following function in the console to make Arona speak:</p>
+            <strong>Arona.speak(filename)</strong>
+            <div class="columns-2 clear">
+              <div style="width:80%;margin-bottom:5px;;"><code class="block">Arona.speak("sensei");</code></div>
+              <div style="width:20%;margin-bottom:5px;;"><button onclick="Arona.say('Sensei!', 31, 2000); Arona.speak('sensei'); document.getElementById('arona_inner').focus();"><i>Run</i></button></div>
+            </div>
+            <p>Currently, her voice module only has four files: <code>sensei</code>, <code>ah</code>, <code>huh</code>, <code>heeheehee</code>.</p>
+            
+            <h3 id="helping">Helping</h3>
+            <p>You may have noticed a "<i class="fa">&#xf059;</i>" in the top right of the encoder on the <a href="../">homepage</a>. Clicking this will initiate a tutorial where Arona will help teach you how to use Cunny Code.</p>
+            
+            <h3 id="teasing">Teasing</h3>
+            <p>If you did the tutorial, you may have noticed that you could deny Arona's help. You can tease her in this manner by denying her help 5 times. What happens after you ask for help a 6th time? Well, that's for you to find out!</p>
+            
+            <h3 id="playing-music">Playing Music</h3>
+            <p>Arona can play her favorite music for you on the <a href="../">homepage</a> if you click the <img src="../resources/images/mute.png" alt="music" style="vertical-align:middle; height:20px;"> icon. Give it a try if you want something to listen to while you encode/decode!</p>
+            
+            <h3 id="idling-and-sleeping">Idling and Sleeping</h3>
+            <p>If you're inactive for 30 seconds, Arona will wonder where her dear Sensei went. After 3 minutes and a half she'll eventually fall asleep and wait for your return while sleep talking about various things. When you finally return, Arona will welcome you back!</p>
+            
+            <h3 id="writing">Writing</h3>
+            <p>If you did the tutorial, you probably noticed Arona typing into the input field, albeit slowly since her AI needs an upgrade. At this time, this is the only area where this function is employed, however, if you're a high-level Sensei, you can still use this function via the console on the <a href="../">homepage</a>. You can also take it for a spin below.</p>
+            
+            <strong>Arona.write(string)</strong>
+            <div class="columns-2 clear">
+              <div style="width:80%;margin-bottom:5px;;"><code class="block">Arona.write("UOHHHHHHHHHH CUNNY 😭");</code></div>
+              <div style="width:20%;margin-bottom:5px;;"><button onclick="Arona.say('*confident typing*', 22, 3500); Arona.write('UOHHHHHHHHHH CUNNY 😭'); document.getElementById('arona_inner').focus();"><i>Run</i></button></div>
+            </div>
+            <textarea id="input-demo" style="height:50px;" readonly></textarea>
+          </div>
+        </div>
+    
+        <div id="arona">
+          <div id="arona_inner" tabindex="0" style="outline:none;">
+            <div id="arona_body">
+              <img id="holo" src="../resources/images/arona/11.png" alt="Arona">
+              <div id="arona_face" class="arona_action" onclick="Arona.touch('face');"></div>
+              <div id="arona_head" class="arona_action" onclick="Arona.touch('head');"></div>
+              <div id="arona_chest" class="arona_action" onclick="Arona.touch('chest');"></div>
+              <div id="arona_skirt" class="arona_action" onclick="Arona.touch('skirt');"></div>
+              <div id="arona_leg1" class="arona_action" onclick="Arona.touch('leg');"></div>
+              <div id="arona_leg2" class="arona_action" onclick="Arona.touch('leg');"></div>
+              <div id="arona_leg3" class="arona_action" onclick="Arona.touch('leg');"></div>
+              <div id="arona_leg4" class="arona_action" onclick="Arona.touch('leg');"></div>
+              <div id="arona_shoes" class="arona_action" onclick="Arona.touch('shoe');"></div>
+            </div>
+            <div id="dialogue_container" class="fade-in">
+              <div id="dialogue">This page is about me!</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+      
+    <footer class="clear">
+      <ul class="footer-left">
+        <li><a href="../privacy/">Privacy</a></li>
+        <li><a href="#logo">Top</a></li>
+      </ul>
+
+      <ul class="footer-right">
+        <li>Created by <a href="https://github.com/SethClydesdale">Seth-sensei</a> and the <a href="https://github.com/SethClydesdale/cunny-code/graphs/contributors">Kivotos Community</a></li>
+      </ul>
+    </footer>
+    
+    <script src="../resources/javascript/arona.min.js"></script>
+    <script>
+      Arona.node.input = document.getElementById('input-demo');
+      
+      // change Arona to default state after 10 seconds
+      Arona.messageTimeout = setTimeout(function () {
+        Arona.node.dialogue_container.className = 'fade-out';
+        Arona.node.holo.src = getPaths() + 'resources/images/arona/1.png';
+      }, 10000);
+      
+      Arona.preload.assets(); // preload images
+      Arona.idle(true); // start idle listener
+    </script>
+  </body>
+</html>
