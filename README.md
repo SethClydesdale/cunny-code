@@ -1,6 +1,6 @@
 ﻿<p align="center"><img src="resources/images/logo.png" align="center" height="150" alt="Cunny Code"></p>
 
-Cunny Code is a silly Morse Code tool that allows the Senseis of Kivotos to secretly exchange cute and funny messages under the guise of 😭 and 💢. It can be used online or offline via the following links:
+Cunny Code is a silly Morse Code tool that allows the Senseis of Kivotos to secretly exchange cute and funny messages encoded as 😭 and 💢. It can be used online or offline via the following links:
 
 **Online Version:** https://sethclydesdale.github.io/cunny-code/
 
