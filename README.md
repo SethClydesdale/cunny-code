@@ -111,5 +111,5 @@ If you found this project cute or funny, please see the [Donate page](https://se
 
 -----
 
-<div align="center"><a href="https://sethclydesdale.github.io/cunny-code/404"><img src="resources/images/alice.gif" align="center" height="100"></a></div>
+<div align="center"><a href="https://sethclydesdale.github.io/cunny-code/404"><img src="resources/images/alice.png" align="center" height="100"></a></div>
 <div align="center">Built with Cunny and Love</div>
