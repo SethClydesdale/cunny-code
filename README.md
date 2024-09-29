@@ -25,7 +25,7 @@ Give it a try by decoding the message below!
 
 ### What is Cunny Code?
 
-<img src="resources/images/readme/arona.png" align="right" height="240">
+<img src="resources/images/readme/arona.png" align="right" height="230">
 
 Cunny Code is a variation of Morse Code that utilizes the 😭 and 💢 emojis for the standard dot and dash respectively. It has some differences, however, such as custom characters, uppercase AND lowercase support, and 2 spaces to separate words instead of 3. As for "Cunny," it is a meme used amongst a sub-culture of anime fans in reference to **C**ute and f**UNNY** characters, usually loli, as they are naturally cute and often have funny dialogue. Essentially, this is a meme tool designed for fun.
 
@@ -52,7 +52,7 @@ Aside from encoding and decoding, this tool also comes packed with some other fu
 
 #### Why Did You Choose the 😭 and 💢 Emojis for This Tool?
 
-<img src="resources/images/readme/mutsuki.png" align="left" height="340">
+<img src="resources/images/readme/mutsuki.png" align="left" height="320">
 
 These emojis were chosen due to their relation to the "cunny" meme. I'll give a brief explanation below.
 
@@ -111,5 +111,5 @@ If you found this project cute or funny, please see the [Donate page](https://se
 
 -----
 
-<div align="center">[<img src="resources/images/alice.gif" align="center" height="100">](https://sethclydesdale.github.io/cunny-code/404)</div>
+<div align="center"><a href="https://sethclydesdale.github.io/cunny-code/404"><img src="resources/images/alice.gif" align="center" height="100"></a></div>
 <div align="center">Built with Cunny and Love</div>
