@@ -379,6 +379,51 @@ nav a:active i { border-color:#DC2; }
 
 #encoder .menu-inner { position:relative; }
 
+#error {
+  background:#FEE;
+  border:2px solid #F99;
+  border-radius:10px;
+  padding:5px;
+  margin-bottom:10px;
+  overflow:hidden;
+  position:relative;
+}
+
+#error h3 {
+  color:#FFF;
+  background:#F99;
+  border-color:#F99;
+  margin:-5px -5px 5px -5px;
+  padding:0 5px;
+}
+
+#error a.close-button {
+  color:#900;
+  font-size:20px;
+  position:absolute;
+  top:0px;
+  right:5px;
+}
+
+#error a.close-button:hover {
+  color:#C00;
+}
+
+#error a.close-button:active, #error a.close-button:focus {
+  color:#F00;
+}
+
+#error .overflow-box {
+  color:#F00;
+  background:#FDD;
+  border:1px solid #FCC;
+  border-radius:10px;
+  padding:3px;
+  margin-top:3px;
+  max-height:100px;
+  overflow-y:auto;
+}
+
 #help {
   font-size:25px;
   position:absolute;

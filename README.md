@@ -9,7 +9,7 @@ Cunny Code is a silly Morse Code tool that allows the Senseis of Kivotos to secr
 Give it a try by decoding the message below!
 
 ```
-💢😭💢💢 💢💢💢 😭😭💢 💢 😭😭💢 💢😭😭😭 😭 😭💢😭💢😭💢 💢😭💢😭 💢💢💢 💢💢 💢😭😭💢😭 😭💢💢 😭💢 💢 💢😭💢😭 😭😭😭😭 😭😭💢💢😭😭 😭😭😭💢 💢😭😭😭💢 ^💢💢😭 😭😭💢😭 ^💢😭💢 💢😭💢 ^😭😭😭 💢💢 ^💢💢😭💢 😭💢😭 ^😭😭😭💢 ^😭💢💢💢 😭💢💢
+💢😭💢💢 💢💢💢 😭😭💢 💢 😭😭💢 😭💢😭💢😭💢 💢😭😭😭 😭 💢😭😭💢😭 ^💢💢😭 😭😭💢😭 ^💢😭💢 💢😭💢 ^😭😭😭 💢💢 ^💢💢😭💢 😭💢😭 ^😭😭😭💢 ^😭💢💢💢 😭💢💢
 ```
 
 -----

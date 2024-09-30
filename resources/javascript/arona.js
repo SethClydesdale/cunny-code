@@ -229,6 +229,15 @@
       ],
       empty_encode : ["I'm sorry, but I can't encode an empty message...", 18],
       
+      // messages for when an error occurs while encoding
+      encode_error : [
+        ['S-Something went wrong!', 28],
+        ["These characters were too hard for Arona to encode...", 30],
+        ["Sorry, Sensei... Arona made an oopsie...", 18],
+        ["Senseiii... these characters are too hard to encode.", 24],
+        ["Sorry, Sensei... I tried.", 10]
+      ],
+      
       // messages displayed when decoding
       decode : [
         ['Message decoded!', 12],
@@ -435,6 +444,7 @@
       output : document.getElementById('output'),
       encode : document.getElementById('encode'),
       decode : document.getElementById('decode'),
+      error : document.getElementById('error'),
       help : document.getElementById('help'),
       
       bgm : document.getElementById('bgm_player'),
@@ -449,8 +459,13 @@
         return false;
       }
       
+      // auto-hide error log on encode
+      Arona.node.error.style.display = 'none';
+      
       // encode the input using 💢 and 😭, and separate each encoded character by a space
-      for (var val = '', str = input, i = 0, j = str.length; i < j; i++) {
+      for (var val = '', str = input.replace(/[\uFF01-\uFF5E]/g, function (c) {
+        return String.fromCharCode(c.charCodeAt(0) - 0xFEE0); // convert full-width chars to half-width
+      }), err = '', i = 0, j = str.length; i < j; i++) {
         // standard encoding
         if (Arona.cunny.encoder[str[i]]) {
           val += Arona.cunny.encoder[str[i]] + ((str[i] == ' ' || (i + 1) == j) ? '' : ' ');
@@ -465,6 +480,12 @@
         else if (/\s/.test(str[i])) {
           val += ' ';
         }
+        
+        // characters that could not be encoded
+        else if (!/55358|55357|65039/.test(str[i].charCodeAt(0))) { // list of excluded chars
+          err += str[i];
+          console.error('failed to encode: ' + str[i] + ' (' + str[i].charCodeAt(0) + ')');
+        }
       }
       
       if (Arona.node.output) Arona.node.output.value = val;
@@ -478,7 +499,23 @@
         return false;
       }
       
-      Arona.response(input, 'encode');
+      // display error message if some characters could not be encoded
+      if (err.length) {
+        // parse error log
+        Arona.node.error.innerHTML =
+          '<h3>Error</h3>'+
+          '<strong>The following could not be encoded.</strong><br><div class="overflow-box">' + err.replace(/</g, '&lt;') + '</div>'+
+          '<a href="#close" class="close-button" onclick="this.parentNode.style.display = \'none\'; return false;" title="close"><i class="fa">&#xf00d;</i></a>';
+        Arona.node.error.style.display = '';
+        
+        // make Arona say something about the error
+        Arona.randomizeMessage(Arona.speech.encode_error);
+      }
+      
+      // standard encoding message
+      else {
+        Arona.response(input, 'encode');
+      }
     },
     
     
@@ -488,6 +525,9 @@
         Arona.say(Arona.speech.empty_decode[0], Arona.speech.empty_decode[1]);
         return false;
       }
+      
+      // auto-hide error log on decode
+      Arona.node.error.style.display = 'none';
       
       // decode the input
       // each letter is separated by a space, so we use that to split the input into an array for easy decoding
@@ -529,20 +569,13 @@
       Arona.node.output.value = input;
       
       // display message from Arona
-      var msg = Arona.speech.swap[Math.floor(Math.random() * Arona.speech.swap.length)];
-      
-      while (Arona.lastResponse == msg) {
-        msg = Arona.speech.swap[Math.floor(Math.random() * Arona.speech.swap.length)];
-      }
-
-      Arona.say(msg[0], msg[1]);
-      Arona.lastResponse = msg;
+      Arona.randomizeMessage(Arona.speech.swap);
     },
     
     
     // determines Arona's response to whatever is encoded or decoded
     anger : 0, // times sensei was mean to Arona
-    lastResponse : '', // last encode message, used to prevent repeat dialogue
+    lastResponse : [], // last encode message, used to prevent repeat dialogue
     response : function (value, mode) {
       // messages Arona says when encoding
       if (/^arona say .*?/i.test(value)) { // make Arona say something
@@ -682,16 +715,40 @@
       
       // default messages
       else {
-        var msg = Arona.speech[mode][Math.floor(Math.random() * Arona.speech[mode].length)];
-        
-        // to stop the same message from showing twice in a row, loop the RNG until it gives a new message
-        while (Arona.lastResponse == msg) {
-          msg = Arona.speech[mode][Math.floor(Math.random() * Arona.speech[mode].length)];
-        }
-        
-        Arona.say(msg[0], msg[1]);
-        Arona.lastResponse = msg;
+        Arona.randomizeMessage(Arona.speech[mode]);
       }
+    },
+    
+    // randomizes the message of an array in Arona.speech, but doesn't let the same message display twice in a row
+    // message = an array from Arona.speech
+    // cache = variable name (in string form) to store the last message and compare, like Arona.lastResponse
+    randomizeMessage : function (message, cache, duration, callback) {
+      cache = cache ? cache : 'lastResponse'; // default to Arona.lastResponse if no custom cache
+      
+      // create the cache if it doesn't already exist
+      if (typeof Arona[cache] === undefined) {
+        Arona[cache] = [];
+      }
+      
+      // randomize the message
+      var msg = message[Math.floor(Math.random() * message.length)];
+
+      // to stop the same message from showing twice in a row, loop the RNG until it gives a new message
+      while (Arona[cache] == msg) {
+        msg = message[Math.floor(Math.random() * message.length)];
+      }
+
+      // have Arona say the selected message
+      if (duration && callback) {
+        Arona.say(msg[0], msg[1] || 1, duration, callback);
+      } else if (duration) {
+        Arona.say(msg[0], msg[1] || 1, duration);
+      } else {
+        Arona.say(msg[0], msg[1] || 1);
+      }
+      
+      // cache current selection for comparison next time
+      Arona[cache] = msg;
     },
     
     // Arona quits helping Sensei after being mean to her 5 times
@@ -806,16 +863,7 @@
       if (value) {
         try {
           navigator.clipboard.writeText(value);
-          
-          // display message from Arona
-          var msg = Arona.speech.copy.success[Math.floor(Math.random() * Arona.speech.copy.success.length)];
-
-          while (Arona.lastResponse == msg) {
-            msg = Arona.speech.copy.success[Math.floor(Math.random() * Arona.speech.copy.success.length)];
-          }
-
-          Arona.say(msg[0], msg[1]);
-          Arona.lastResponse = msg;
+          Arona.randomizeMessage(Arona.speech.copy.success);
 
         } catch (err) {
           console.log(err);
@@ -1062,7 +1110,7 @@
     sleeping : false, // tells if Arona is sleeping
     idleCount : 0, // amount of idle messages before Arona falls asleep
     idling : null,
-    lastIdleMsg : '',
+    lastIdleMsg : [],
     idle : function (init) {
       // set event listeners (one time on initialization)
       if (init) {
@@ -1096,8 +1144,7 @@
                 Arona.node.bg.firstChild.className = '';
                 
                 // welcome sensei back
-                var msg = Arona.speech.idle_awaken[Math.floor(Math.random() * Arona.speech.idle_awaken.length)];
-                Arona.say(msg[0], msg[1]);
+                Arona.randomizeMessage(Arona.speech.idle_awaken, 'lastAwakenMessage');
               }, 900);
             }
           });
@@ -1115,21 +1162,12 @@
         if (/tutorial/.test(document.body.className) || Arona.anger >= 5) return false; // prevent execution while in tutorial or if arona is mad
         
         // Have Arona speak
-        var key = 'idle' + (Arona.sleeping ? '_sleep' : ''),
-            msg = Arona.speech[key][Math.floor(Math.random() * Arona.speech[key].length)];
-        
-        // to stop the same message from showing twice in a row, loop the RNG until it gives a new message
-        while (Arona.lastIdleMsg == msg) {
-          msg = Arona.speech[key][Math.floor(Math.random() * Arona.speech[key].length)];
-        }
-        
-        Arona.say(msg[0], msg[1], 10000, function () {
+        Arona.randomizeMessage(Arona.speech['idle' + (Arona.sleeping ? '_sleep' : '')], 'lastIdleMsg', 10000, function () {
           // change arona's holo to a sleepy face before finally falling asleep
           if (Arona.aboutToSleep) {
             Arona.node.holo.src = getPaths() + 'resources/images/arona/34.png';
           }
         });
-        Arona.lastIdleMsg = msg;
         
         // change background to Arona sleeping and hide the current Arona
         if (++Arona.idleCount == 6) {
