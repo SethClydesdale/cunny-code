@@ -196,7 +196,7 @@
         '\uDD80' : '😭💢😭💢😭😭', // 🦀 kani
         
         // Space
-        ' ' : ' '
+        ' ' : ' ' // replaces standard space with four-per-em space which doesn't collapse when there's two in a row for word separation
       },
       
       // decoder is fully auto-generated at end of this object
@@ -468,7 +468,7 @@
       }), err = '', i = 0, j = str.length; i < j; i++) {
         // standard encoding
         if (Arona.cunny.encoder[str[i]]) {
-          val += Arona.cunny.encoder[str[i]] + ((str[i] == ' ' || (i + 1) == j) ? '' : ' ');
+          val += Arona.cunny.encoder[str[i]] + ((str[i] == ' ' || (i + 1) == j) ? '' : ' ');
         }
         
         // linebreak encoding fallback
@@ -478,7 +478,7 @@
         
         // whitespace encoding fallback
         else if (/\s/.test(str[i])) {
-          val += ' ';
+          val += ' ';
         }
         
         // characters that could not be encoded
@@ -532,7 +532,7 @@
       // decode the input
       // each letter is separated by a space, so we use that to split the input into an array for easy decoding
       // line breaks are encoded as '💢😭😭😭😭💢😭 ' before decoding
-      for (var val = '', arr = input.replace(/^\s+|\s+$/g, '').replace(/\r\n|\n|\r/g, '💢😭😭😭😭💢😭 ').split(' '), i = 0, j = arr.length; i < j; i++) {
+      for (var val = '', arr = input.replace(/^\s+|\s+$/g, '').replace(/\r\n|\n|\r/g, '💢😭😭😭😭💢😭 ').replace(/\s/g, ' ').split(' '), i = 0, j = arr.length; i < j; i++) {
         if (Arona.cunny.decoder[arr[i]]) {
           val += Arona.cunny.decoder[arr[i]];
         } else if (arr[i] == '') { // double spaces == a space, and are entered into the array as an empty string
@@ -866,7 +866,7 @@
           Arona.randomizeMessage(Arona.speech.copy.success);
 
         } catch (err) {
-          console.log(err);
+          console.error(err);
           Arona.say(Arona.speech.copy.fail[0], Arona.speech.copy.fail[1]);
         }
       } else {
