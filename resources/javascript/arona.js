@@ -549,7 +549,7 @@
         caller.className = '';
         Arona.help(++Arona.helpStep);
         return false;
-      }console.log(arr);
+      }
       
       Arona.response(val, 'decode');
     },
