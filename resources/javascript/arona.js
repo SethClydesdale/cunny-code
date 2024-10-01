@@ -274,7 +274,7 @@
         kms : ["P-Please don't do that, Sensei! Arona would be lonely without you...", 28],
         seggs : ["S-S-S-Se...!?", 17],
         rickroll : ["Never gonna let you down🎵", 32],
-        mutsuki : ['Wouldn\'t you rather watch Arona dance? ...No? Okay... here\'s your dumb Mutsuki dance.<br><iframe id="video" src="https://www.youtube.com/embed/GfKkSmQrVJw" frameborder="0"></iframe>', 10],
+        mutsuki : ['Wouldn\'t you rather watch Arona dance? ...No? Fine...here\'s your dumb Mutsuki dance.<br><iframe id="video" src="https://www.youtube.com/embed/GfKkSmQrVJw?autoplay=1" frameborder="0"></iframe>', 10],
         
         // first public cunny code message
         // https://x.com/SethC1995/status/1839472034721456176
