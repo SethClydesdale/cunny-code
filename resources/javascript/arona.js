@@ -460,7 +460,7 @@
       }
       
       // auto-hide error log on encode
-      Arona.node.error.style.display = 'none';
+      if (Arona.node.error) Arona.node.error.style.display = 'none';
       
       // encode the input using 💢 and 😭, and separate each encoded character by a space
       for (var val = '', str = input.replace(/[\uFF01-\uFF5E]/g, function (c) {
@@ -500,7 +500,7 @@
       }
       
       // display error message if some characters could not be encoded
-      if (err.length) {
+      if (Arona.node.error && err.length) {
         // parse error log
         Arona.node.error.innerHTML =
           '<h3>Error</h3>'+
@@ -527,7 +527,7 @@
       }
       
       // auto-hide error log on decode
-      Arona.node.error.style.display = 'none';
+      if (Arona.node.error) Arona.node.error.style.display = 'none';
       
       // decode the input
       // each letter is separated by a space, so we use that to split the input into an array for easy decoding
@@ -549,7 +549,7 @@
         caller.className = '';
         Arona.help(++Arona.helpStep);
         return false;
-      }
+      }console.log(arr);
       
       Arona.response(val, 'decode');
     },
