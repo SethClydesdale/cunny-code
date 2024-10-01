@@ -262,14 +262,23 @@
       
       // special messages triggered when encoding/decoding certain words/phrases
       special : {
+        // normal
+        strawberry_milk : ["I love strawberry milk!<br>Can I have some, Sensei?", 21],
+        how_are_you : ["I'm doing good!<br>I hope you are as well, Sensei!", 32],
+        
+        // memey
         uoh : ["What are you uoh'ing at, Sensei?", 2],
         cunny : ['Am I cunny, Sensei?', 31],
         cute_and_funny : ['Is Arona cute and funny?', 31],
         correction : ["P-Please don't correct me, Sensei!<br>I've been good, I promise...!", 18],
         kms : ["P-Please don't do that, Sensei! Arona would be lonely without you...", 28],
         seggs : ["S-S-S-Se...!?", 17],
-        strawberry_milk : ["I love strawberry milk!<br>Can I have some, Sensei?", 21],
-        how_are_you : ["I'm doing good!<br>I hope you are as well, Sensei!", 32],
+        rickroll : ["Never gonna let you down🎵", 32],
+        mutsuki : ['Wouldn\'t you rather watch Arona dance? ...No? Okay... here\'s your dumb Mutsuki dance.<br><iframe id="video" src="https://www.youtube.com/embed/GfKkSmQrVJw" frameborder="0"></iframe>', 10],
+        
+        // first public cunny code message
+        // https://x.com/SethC1995/status/1839472034721456176
+        first_message : ['The first Cunny Code message was sent on September 26th, 2024 by Seth-sensei. It asked the question: "Do you know Cunny Code?"', 31],
         
         // first person to crack the cunny code before the encoder/decoder was released
         // https://x.com/Roxas13thXIII/status/1839909996383088696
@@ -606,7 +615,7 @@
       } 
       
       // Arona returns if you say sorry after making her mad
-      else if (/(?:I'm |)sorry/i.test(value) && Arona.anger >= 5) {
+      else if (Arona.anger >= 5 && (/(?:I'm |)sorry/i.test(value) && !/not sorry/.test(value))) {
         Arona.comeBack();
       } 
       
@@ -618,9 +627,21 @@
         Arona.say(Arona.speech.special.first_decoder[0], Arona.speech.special.first_decoder[1], 15000);
       } 
       
+      else if (/who (?:shared|sent) the first cunny code(?: message| post|)(?:\?|)|what was the first cunny code message(?:\?|)/i.test(value)) {
+        Arona.say(Arona.speech.special.first_message[0], Arona.speech.special.first_message[1], 15000);
+      } 
+      
       else if (/(?:hello|hi|hey|good day|good evening|good afternoon)(?:,|) arona/i.test(value)) {
         var msg = Arona.speech.greetings[Math.floor(Math.random() * 2)];
         Arona.say(msg[0], msg[1]);
+      } 
+      
+      else if (/never gonna give you up/i.test(value)) {
+        Arona.say(Arona.speech.special.rickroll[0], Arona.speech.special.rickroll[1]);
+      } 
+      
+      else if (/mutsuki dance/i.test(value)) {
+        Arona.say(Arona.speech.special.mutsuki[0], Arona.speech.special.mutsuki[1], Infinity);
       } 
       
       else if (/how are you(?:, arona| arona)\?/i.test(value)) {
@@ -1222,10 +1243,20 @@
           images.push('arona/' + (aronas--) + '.png');
         }
 
-        // finally, preload all the images
-        for (i = 0, j = images.length; i < j; i++) {
-          Arona.preload.image(images[i]);
-        }
+        // finally, preload all the images, but 100ms apart as to not assault the browser with requests all at once
+        Arona.preload.queue = images;
+        Arona.preload.loaded = 0;
+        Arona.preload.worker = setInterval(function () {
+          var img = Arona.preload.queue[Arona.preload.loaded];
+          
+          if (img) {
+            Arona.preload.image(img);
+            Arona.preload.loaded++;
+          } else {
+            clearInterval(Arona.preload.worker);
+            delete Arona.preload.worker;
+          }
+        }, 100);
       },
 
       // preloads an image

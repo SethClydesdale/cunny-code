@@ -655,6 +655,12 @@ button:active, .button:active {
   padding:10px;
 }
 
+#dialogue #video {
+  margin-top:5px;
+  height:200px;
+  width:350px;
+}
+
 /* dialogue arrow */
 #dialogue:after, .dialogue:after {
   content:"";
@@ -708,6 +714,14 @@ h2, h3 {
   margin-bottom:10px;
 }
 
+/* response list on the About Arona page */
+#response-list {
+  background:#FFF;
+  border:1px solid #DDD;
+  padding:5px 5px 5px 30px;
+  max-height:200px;
+  overflow-y:auto;
+}
 
 /* code */
 code {
