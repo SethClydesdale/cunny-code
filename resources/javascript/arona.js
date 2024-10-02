@@ -294,7 +294,7 @@
         kms : ["Please don't do that, {Sensei}! Arona would be lonely without you...", 28],
         seggs : ["S-S-S-Se...!?", 17],
         sixty_nine : ["Why does everybody say 69 is a nice number, Sensei?", 2],
-        rickroll : ['Never gonna let you down🎵<br><iframe id="video" src="https://www.youtube.com/embed/dQw4w9WgXcQ?start=43&autoplay=1" frameborder="0"></iframe>', 32, Infinity],
+        rickroll : ['Never gonna let you down🎵<br><iframe id="video" src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1" frameborder="0"></iframe>', 32, Infinity],
         mutsuki : ['Wouldn\'t you rather watch Arona dance? ...No? Fine...here\'s your dumb Mutsuki dance.<br><iframe id="video" src="https://www.youtube.com/embed/GfKkSmQrVJw?autoplay=1" frameborder="0"></iframe>', 10, Infinity],
         
         // first public cunny code message
