@@ -59,6 +59,7 @@
               <li><a href="#helping">Helping</a></li>
               <li><a href="#teasing">Teasing</a></li>
               <li><a href="#playing-music">Playing Music</a></li>
+              <li><a href="#fetching-videos">Fetching Videos</a></li>
               <li><a href="#idling-and-sleeping">Idling and Sleeping</a></li>
               <li><a href="#writing">Writing</a></li>
             </ul>
@@ -180,6 +181,14 @@
             
             <h3 id="playing-music">Playing Music</h3>
             <p>Arona can play her favorite music for you on the <a href="../">homepage</a> if you click the <img src="../resources/images/mute.png" alt="music" style="vertical-align:middle; height:20px;"> icon. Give it a try if you want something to listen to while you encode/decode!</p>
+            
+            <h3 id="fetching-videos">Fetching Videos</h3>
+            <p>If you encode or decode a YouTube video link, Arona will automatically fetch and play it for you! You can give it a try below.</p>
+            <div class="columns-2 clear">
+              <div style="width:80%;margin-bottom:5px;"><code class="block">Arona.encode("youtu.be/VSKIGdbf5Fg");</code></div>
+              <div style="width:20%;margin-bottom:5px;"><button onclick="Arona.say(Arona.speech.special.youtube[0].replace('{ID}', 'VSKIGdbf5Fg'), Arona.speech.special.youtube[1], 36000, function () { Arona.idlingStop = false; }); Arona.idlingStop = true;"><i>Run</i></button></div>
+            </div>
+            <p>※ Autoplay may not work depending on the browser and its settings. Also, certain videos may not work on the offline version.</p>
             
             <h3 id="idling-and-sleeping">Idling and Sleeping</h3>
             <p>If you're inactive for 30 seconds, Arona will wonder where her dear Sensei went. After 3 minutes and a half she'll eventually fall asleep and wait for your return while sleep talking about various things. When you finally return, Arona will welcome you back!</p>

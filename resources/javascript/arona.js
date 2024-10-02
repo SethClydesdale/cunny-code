@@ -285,7 +285,7 @@
         how_are_you : ["I'm doing good!<br>I hope you are as well, {Sensei}!", 32],
         goodnight : ["Goodnight, Sensei...", 34],
         goodbye : ["Aww... You're leaving already, Sensei? I wanted to spend more time with you...", 24],
-        youtube : ['Here\'s your YouTube video, Sensei!<br><iframe id="video" src="https://www.youtube.com/embed/{ID}?autoplay=1" frameborder="0"></iframe>', 32],
+        youtube : ['Here\'s your YouTube video, Sensei!<br><iframe id="video" src="https://www.youtube.com/embed/{ID}?autoplay=1" frameborder="0" allow="autoplay"></iframe>', 32],
         
         // memey
         uoh : ["What are you uoh'ing at, Sensei?", 2],
@@ -295,8 +295,8 @@
         kms : ["Please don't do that, {Sensei}! Arona would be lonely without you...", 28],
         seggs : ["S-S-S-Se...!?", 17],
         sixty_nine : ["Why does everybody say 69 is a nice number, Sensei?", 2],
-        rickroll : ['Never gonna let you down🎵<br><iframe id="video" src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1" frameborder="0"></iframe>', 32, Infinity],
-        mutsuki : ['Wouldn\'t you rather watch Arona dance? ...No? Fine...here\'s your dumb Mutsuki dance.<br><iframe id="video" src="https://www.youtube.com/embed/GfKkSmQrVJw?autoplay=1" frameborder="0"></iframe>', 10, Infinity],
+        rickroll : ['Never gonna let you down🎵<br><iframe id="video" src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1" frameborder="0" allow="autoplay"></iframe>', 32, Infinity],
+        mutsuki : ['Wouldn\'t you rather watch Arona dance? ...No? Fine...here\'s your dumb Mutsuki dance.<br><iframe id="video" src="https://www.youtube.com/embed/GfKkSmQrVJw?autoplay=1" frameborder="0" allow="autoplay"></iframe>', 10, Infinity],
         
         // first public cunny code message
         // https://x.com/SethC1995/status/1839472034721456176
