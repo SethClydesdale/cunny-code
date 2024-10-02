@@ -458,7 +458,7 @@ nav a:active i { border-color:#DC2; }
   user-select:none;
 }
 
-textarea {
+textarea, input[type="text"], input[type="number"] {
   font-size:18px;
   font-family:"Noto Sans", "Segoe UI", Helvetica, Arial, sans-serif, Twemoji, "Apple Color Emoji", "Segoe UI Emoji";
   color:#333;
@@ -470,9 +470,13 @@ textarea {
   outline:none;
   resize:none;
 }
+input[type="text"], input[type="number"] {
+  width:auto;
+  border-width:1px;
+}
 
-textarea:hover { border-color:#AAA; }
-textarea:focus { border-color:#18F; }
+textarea:hover, input[type="text"]:hover, input[type="number"]:hover { border-color:#AAA; }
+textarea:focus, input[type="text"]:focus, input[type="number"]:focus { border-color:#18F; }
 
 #buttons {
   margin-bottom:10px;
@@ -718,7 +722,7 @@ h2, h3 {
 #response-list {
   background:#FFF;
   border:1px solid #DDD;
-  padding:5px 5px 5px 30px;
+  padding:5px 5px 5px 35px;
   max-height:200px;
   overflow-y:auto;
 }

@@ -1,7 +1,13 @@
 (function (window, document) {
   'use strict';
   
-  var hour = new Date().getHours(); // used for Arona's greetings
+  // Global used for telling if the site is being used offline with MS Edge (pre-chromium).
+  // Helps prevent "unspecified errors" caused by checking for the existence of localStorage support offline.
+  window.offlineEdge = window.location.protocol == 'file:' && /Edge/.test(navigator.userAgent);
+  
+  // Global used for checking localStorage support (ex: storageOK && localStorage.myStorageItem)
+  // prevents long winded conditions everytime we want to use storage
+  window.storageOK = navigator.cookieEnabled && !offlineEdge && window.localStorage ? true : false;
   
   // # getPaths (helper function) #
   // finds out how deep a file is and returns a path that leads to the root
@@ -18,8 +24,12 @@
   };
   
   
+  var hour = new Date().getHours(); // used for Arona's greetings
+  
   // Arona's functionality
   window.Arona = {
+    sensei : (storageOK && localStorage.senseiName) ? localStorage.senseiName : '', // Sensei's name
+    
     // encoder/decoder lists
     cunny : {
       encoder : {
@@ -207,14 +217,16 @@
     
     
     // various lines that Arona will say to Sensei
+    // syntax: ['message', expression_id, duration, callback]
+    // callback is rarely used here, however, and is instead used within its respective code block.
     speech : {
       // messages displayed upon visit
       greetings : [
-        ['Hello, Sensei!', 32],
-        ['Good ' + (hour <= 11 ? 'morning' : hour <= 16 ? 'afternoon' : 'evening') + ', Sensei!', 31],
-        ['How are you doing today, Sensei?', 2],
-        ['What can I do for you today, Sensei?', 3],
-        ["Let's do our best today, Sensei!", 12]
+        ['Hello, {Sensei}!', 32],
+        ['Good ' + (hour <= 11 ? 'morning' : hour <= 16 ? 'afternoon' : 'evening') + ', {Sensei}!', 31],
+        ['How are you doing today, {Sensei}?', 2],
+        ['What can I do for you today, {Sensei}?', 3],
+        ["Let's do our best today, {Sensei}!", 12]
       ],
       
       // messages displayed when encoding
@@ -260,29 +272,38 @@
       ],
       empty_swap : ["There's nothing to swap, Sensei.", 24],
       
+      // messages for when setting a custom name
+      name : {
+        set : ['Okay! Nice to meet you, {Sensei}!', 32],
+        empty : ["I don't know what to call you if you don't write it, Sensei.", 24]
+      },
+      
       // special messages triggered when encoding/decoding certain words/phrases
       special : {
         // normal
         strawberry_milk : ["I love strawberry milk!<br>Can I have some, Sensei?", 21],
-        how_are_you : ["I'm doing good!<br>I hope you are as well, Sensei!", 32],
+        how_are_you : ["I'm doing good!<br>I hope you are as well, {Sensei}!", 32],
+        goodnight : ["Goodnight, Sensei...", 34],
+        goodbye : ["Aww... You're leaving already, Sensei? I wanted to spend more time with you...", 24],
         
         // memey
         uoh : ["What are you uoh'ing at, Sensei?", 2],
         cunny : ['Am I cunny, Sensei?', 31],
         cute_and_funny : ['Is Arona cute and funny?', 31],
         correction : ["P-Please don't correct me, Sensei!<br>I've been good, I promise...!", 18],
-        kms : ["P-Please don't do that, Sensei! Arona would be lonely without you...", 28],
+        kms : ["Please don't do that, {Sensei}! Arona would be lonely without you...", 28],
         seggs : ["S-S-S-Se...!?", 17],
-        rickroll : ["Never gonna let you down🎵", 32],
-        mutsuki : ['Wouldn\'t you rather watch Arona dance? ...No? Fine...here\'s your dumb Mutsuki dance.<br><iframe id="video" src="https://www.youtube.com/embed/GfKkSmQrVJw?autoplay=1" frameborder="0"></iframe>', 10],
+        sixty_nine : ["Why does everybody say 69 is a nice number, Sensei?", 2],
+        rickroll : ['Never gonna let you down🎵<br><iframe id="video" src="https://www.youtube.com/embed/dQw4w9WgXcQ?start=43&autoplay=1" frameborder="0"></iframe>', 32, Infinity],
+        mutsuki : ['Wouldn\'t you rather watch Arona dance? ...No? Fine...here\'s your dumb Mutsuki dance.<br><iframe id="video" src="https://www.youtube.com/embed/GfKkSmQrVJw?autoplay=1" frameborder="0"></iframe>', 10, Infinity],
         
         // first public cunny code message
         // https://x.com/SethC1995/status/1839472034721456176
-        first_message : ['The first Cunny Code message was sent on September 26th, 2024 by Seth-sensei. It asked the question: "Do you know Cunny Code?"', 31],
+        first_message : ['The first Cunny Code message was sent on September 26th, 2024 by Seth-sensei. It asked the question: "Do you know Cunny Code?"', 31, 15000],
         
         // first person to crack the cunny code before the encoder/decoder was released
         // https://x.com/Roxas13thXIII/status/1839909996383088696
-        first_decoder : ['The first person to decode Cunny Code before this tool was released was Haise-sensei on September 28th, 2024.<br>I heard he\'s a big fan of <img src="' + getPaths() + 'resources/images/kisaki-ball.png" style="height:40px; vertical-align:middle;" title="Kisaki" alt="Kisaki">!', 31],
+        first_decoder : ['The first person to decode Cunny Code before this tool was released was Haise-sensei on September 28th, 2024.<br>I heard he\'s a big fan of <img src="' + getPaths() + 'resources/images/kisaki-ball.png" style="height:40px; vertical-align:middle;" title="Kisaki" alt="Kisaki">!', 31, 15000],
         
         // emoji
         sob : ["Why are you sobbing, Sensei?", 24],
@@ -295,13 +316,14 @@
         arona_cute_and_funny : ["Yay! Arona is cute and funny!", 11],
         breedable : ["I-I-I-I am...?", 16],
         best : ["Aww... Thank you, Sensei!", 32],
-        love : ["I love you, too, Sensei!", 11],
+        love : ["I love you, too, {Sensei}!", 11],
         arona : {
           encode : ['What did you write about me?', 2],
           decode : ['What does it say about me?', 2]
         },
         
         // responses to sensei being mean
+        hate : ["Y-You don't really mean that, do you...?", 19],
         dumb : ['A-Am not!<br>Stop being mean!', 5],
         sucks : ['Quit being mean, Sensei!', 14],
         smells : ["N-No I don't!<br>I had a shower before you got here!", 18],
@@ -358,7 +380,7 @@
       ],
       
       idle_awaken : [
-        ["Welome back, Sensei!", 11],
+        ["Welome back, {Sensei}!", 11],
         ["Sensei! I've been waiting for you!", 12],
         ["Ah! Sensei! Did you bring me back anything yummy!?", 21],
         ["I was lonely without you, Sensei...", 24],
@@ -385,18 +407,18 @@
       // messages displayed during help
       help : {
         prompt : [
-          'Do you need my help using this tool, Sensei?'+
+          'Do you need my help using this tool, {Sensei}?'+
           '<div class="center">'+
             '<button id="NEXT" onclick="Arona.help(Arona.helpStep); Arona.updateHelpPrompt(true);"><i>Yes</i></button>'+
-            '<button onclick="Arona.say(Arona.speech.help.prompt_no[0][0], Arona.speech.help.prompt_no[0][1]); Arona.updateHelpPrompt(false);"><i>No</i></button>'+
-          '</div>', 2
+            '<button onclick="Arona.say(Arona.speech.help.prompt_no[0]); Arona.updateHelpPrompt(false);"><i>No</i></button>'+
+          '</div>', 2, Infinity
         ],
         
         prompt_angry : [
-          '<strong style="color:red;">Do you need my help or not, Sensei...? I won\'t take NO for an answer this time...</strong>'+
+          '<strong style="color:red;">Do you need my help or not, {Sensei}...? I won\'t take NO for an answer this time...</strong>'+
           '<div class="center">'+
             '<button id="NEXT" onclick="Arona.help(Arona.helpStep); Arona.updateHelpPrompt(true);"><i>Yes</i></button>'+
-          '</div>', 8
+          '</div>', 8, Infinity
         ],
         
         prompt_yes : ["Okay! Let's start the tutorial!", 12],
@@ -412,29 +434,29 @@
           'This tool is used for encoding and decoding messages, so the first thing you need to do is write something in the <strong>input field</strong> like I just did.'+
           '<div class="center">'+
             '<button id="NEXT" onclick="Arona.help(++Arona.helpStep);" style="display:none;"><i>Next</i></button>'+
-          '</div>', 20],
+          '</div>', 20, Infinity],
         
-        step2 : ["Once you've written what you want, you can click the <strong>Encode button</strong> to encode your message.<br>Go ahead and click it, Sensei!", 13],
+        step2 : ["Once you've written what you want, you can click the <strong>Encode button</strong> to encode your message.<br>Go ahead and click it, Sensei!", 13, Infinity],
         
         step3 : [
           'Wow, look! My message was encoded with cute and funny icons! You can copy and share this "Cunny Code" with other Senseis on the web!'+
           '<div class="center">'+
             '<button id="NEXT" onclick="Arona.help(++Arona.helpStep);"><i>Next</i></button>'+
-          '</div>', 32],
+          '</div>', 32, Infinity],
         
-        step4 : ['When you want to decode another Sensei\'s "Cunny Code," paste it into the <strong>Input field</strong> and click the <strong>Decode button</strong>.<br>Go ahead and click it to decode my message!', 22],
+        step4 : ['When you want to decode another Sensei\'s "Cunny Code," paste it into the <strong>Input field</strong> and click the <strong>Decode button</strong>.<br>Go ahead and click it to decode my message!', 22, Infinity],
         
         step5 : [
           "Look! It decoded my message! And just like it says: you did a good job!"+
           '<div class="center">'+
             '<button id="NEXT" onclick="Arona.help(++Arona.helpStep);"><i>Next</i></button>'+
-          '</div>', 11],
+          '</div>', 11, Infinity],
         
         step6 : [
           "This concludes the tutorial!<br>I hope you have fun exchanging cute and funny messages with your friends, Sensei!"+
           '<div class="center">'+
             '<button id="NEXT" onclick="Arona.help(7); this.disabled = true;"><i>End Tutorial</i></button>'+
-          '</div>', 31]
+          '</div>', 31, Infinity]
       }
     },
     
@@ -464,7 +486,7 @@
     // encodes as morse code
     encode : function (input, caller) {
       if (!input) {
-        Arona.say(Arona.speech.empty_encode[0], Arona.speech.empty_encode[1]);
+        Arona.say(Arona.speech.empty_encode);
         return false;
       }
       
@@ -531,7 +553,7 @@
     // decodes morse code
     decode : function (input, caller) {
       if (!input || !/💢|😭/.test(input)) {
-        Arona.say(Arona.speech.empty_decode[0], Arona.speech.empty_decode[1]);
+        Arona.say(Arona.speech.empty_decode);
         return false;
       }
       
@@ -568,7 +590,7 @@
     swap : function () {
       // message for when there's nothing to swap
       if (!Arona.node.input.value && !Arona.node.output.value) {
-        Arona.say(Arona.speech.empty_swap[0], Arona.speech.empty_swap[1]);
+        Arona.say(Arona.speech.empty_swap);
         return false;
       }
       
@@ -586,6 +608,8 @@
     anger : 0, // times sensei was mean to Arona
     lastResponse : [], // last encode message, used to prevent repeat dialogue
     response : function (value, mode) {
+      if (Arona.quitting) return false; // prevents other messages from interrupting Arona leaving
+      
       // messages Arona says when encoding
       if (/^arona say .*?/i.test(value)) { // make Arona say something
         // example Arona say Cunny {12}
@@ -593,145 +617,190 @@
         Arona.say(value.replace(/^arona say /i, '').replace(/</g, '&lt;').replace(/\{\d+\}/g, ''), /\{\d+\}/g.test(value) ? value.replace(/.*?\{(\d+)\}.*/g, '$1') : 31);
       }
       
+      // tell Arona your name
+      if (/^(?:my name is|call me) .*?$/i.test(value)) {
+        // get name, sanitize, and limit length
+        var name = value.replace(/^(?:my name is|call me) (.*?)$/i, '$1').slice(0, 20).replace(/</g, '&lt;');
+        
+        if (name.length) { // check to make sure name is at least 1 char
+          // finally format and set Sensei's name
+          Arona.sensei = name.slice(0, 1).toUpperCase() + name.slice(1, name.length).toLowerCase();
+          Arona.say(Arona.speech.name.set);
+          
+          // save Sensei's name to the browser
+          if (storageOK) {
+            localStorage.senseiName = Arona.sensei;
+          }
+        }
+        // fallback for empty name
+        else {
+          Arona.say(Arona.speech.name.empty);
+        }
+      }
+      
       // Arona shows Sensei her cool kicks
       else if (/show me your shoes/i.test(value)) {
         if (/show-shoes/.test(Arona.node.arona.className)) {
-          Arona.say(Arona.speech.show_shoes.shown[0], Arona.speech.show_shoes.shown[1]);
+          Arona.say(Arona.speech.show_shoes.shown[0]);
         } else {
           Arona.say(Arona.speech.show_shoes.start[0], Arona.speech.show_shoes.start[1], 1000, function () {
             Arona.node.arona.className = 'arona-leave';
 
             setTimeout(function() {
               Arona.node.arona.className = 'show-shoes';
-              Arona.say(Arona.speech.show_shoes.end[0], Arona.speech.show_shoes.end[1]);
+              Arona.say(Arona.speech.show_shoes.end);
             }, 1000);
           });
         }
       } 
       
       // shows help prompt if sensei asks arona for help
-      else if (/arona(?:,|) help(?: me|)|help(?: me|)(?:,|) arona/i.test(value)) {
+      else if (/arona(?:, | )help(?: me|)|help(?: me|)(?:, | )arona/i.test(value)) {
         Arona.help();
-      } 
+      }
       
       // Arona returns if you say sorry after making her mad
       else if (Arona.anger >= 5 && (/(?:I'm |)sorry/i.test(value) && !/not sorry/.test(value))) {
         Arona.comeBack();
       } 
       
-      else if (/correction/i.test(value)) {
-        Arona.say(Arona.speech.special.correction[0], Arona.speech.special.correction[1]);
+      // responses to greetings/farewells
+      else if (/(?:hello|hi|hey|good day|good evening|good afternoon|good morning)(?:, | )arona/i.test(value)) {
+        Arona.say(Arona.speech.greetings[Math.floor(Math.random() * 2)]);
       } 
       
+      else if (/(?:goodbye|good-bye)(?:, | )arona/i.test(value)) {
+        Arona.say(Arona.speech.special.goodbye);
+      } 
+      
+      else if (/good(?: |)night(?:, | )arona|arona(?:, | )good(?: |)night/i.test(value)) {
+        Arona.say(Arona.speech.special.goodnight[0], Arona.speech.special.goodnight[1], 3000, function () {
+          Arona.expression(34);
+          Arona.sleep();
+        });
+      } 
+      
+      else if (/how are you(?:, | )arona\?/i.test(value)) {
+        Arona.say(Arona.speech.special.how_are_you);
+      } 
+      
+      // responses to questions
       else if (/who was the first (?:person |)to (?:crack|decode) cunny code(?:\?|)|who (?:cracked|decoded) cunny code first(?:\?|)/i.test(value)) {
-        Arona.say(Arona.speech.special.first_decoder[0], Arona.speech.special.first_decoder[1], 15000);
+        Arona.say(Arona.speech.special.first_decoder);
       } 
       
       else if (/who (?:shared|sent) the first cunny code(?: message| post|)(?:\?|)|what was the first cunny code message(?:\?|)/i.test(value)) {
-        Arona.say(Arona.speech.special.first_message[0], Arona.speech.special.first_message[1], 15000);
+        Arona.say(Arona.speech.special.first_message);
       } 
       
-      else if (/(?:hello|hi|hey|good day|good evening|good afternoon)(?:,|) arona/i.test(value)) {
-        var msg = Arona.speech.greetings[Math.floor(Math.random() * 2)];
-        Arona.say(msg[0], msg[1]);
-      } 
-      
+      // meme responses
       else if (/never gonna give you up/i.test(value)) {
-        Arona.say(Arona.speech.special.rickroll[0], Arona.speech.special.rickroll[1]);
+        Arona.say(Arona.speech.special.rickroll);
       } 
       
       else if (/mutsuki dance/i.test(value)) {
-        Arona.say(Arona.speech.special.mutsuki[0], Arona.speech.special.mutsuki[1], Infinity);
+        Arona.say(Arona.speech.special.mutsuki);
       } 
       
-      else if (/how are you(?:, arona| arona)\?/i.test(value)) {
-        Arona.say(Arona.speech.special.how_are_you[0], Arona.speech.special.how_are_you[1]);
+      else if (/^69$|^69\s|\s69$|\s69\s/i.test(value)) {
+        Arona.say(Arona.speech.special.sixty_nine);
       } 
       
+      // responses to compliments
       else if (/arona is cunny/i.test(value)) {
-        Arona.say(Arona.speech.special.arona_cunny[0], Arona.speech.special.arona_cunny[1]);
+        Arona.say(Arona.speech.special.arona_cunny);
         if (Arona.anger > 0) Arona.anger--;
       } 
       
       else if (/arona is cute and funny/i.test(value)) {
-        Arona.say(Arona.speech.special.arona_cute_and_funny[0], Arona.speech.special.arona_cute_and_funny[1]);
+        Arona.say(Arona.speech.special.arona_cute_and_funny);
         if (Arona.anger > 0) Arona.anger--;
       } 
       
       else if (/arona (?:is |)cute/i.test(value)) {
-        Arona.say(Arona.speech.special.arona_cute[0], Arona.speech.special.arona_cute[1]);
+        Arona.say(Arona.speech.special.arona_cute);
         if (Arona.anger > 0) Arona.anger--;
       } 
       
       else if (/arona (?:is |)(?:breedable|hot|sexy)/i.test(value)) {
-        Arona.say(Arona.speech.special.breedable[0], Arona.speech.special.breedable[1]);
+        Arona.say(Arona.speech.special.breedable);
         if (Arona.anger > 0) Arona.anger--;
       } 
       
       else if (/arona (?:is |)(?:best|the best|best girl)/i.test(value)) {
-        Arona.say(Arona.speech.special.best[0], Arona.speech.special.best[1]);
+        Arona.say(Arona.speech.special.best);
         if (Arona.anger > 0) Arona.anger--;
       } 
       
       else if (/I love (?:you |you, |)arona/i.test(value)) {
-        Arona.say(Arona.speech.special.love[0], Arona.speech.special.love[1]);
+        Arona.say(Arona.speech.special.love);
         if (Arona.anger > 0) Arona.anger--;
       } 
       
+      // responses to mean comments
+      else if (/I hate (?:you |you, |)arona/i.test(value)) {
+        Arona.say(Arona.speech.special.hate);
+        if (++Arona.anger == 5) Arona.quit();
+      } 
+      
       else if (/arona (?:is |)(?:dumb|stupid)/i.test(value)) {
-        Arona.say(Arona.speech.special.dumb[0], Arona.speech.special.dumb[1]);
+        Arona.say(Arona.speech.special.dumb);
         if (++Arona.anger == 5) Arona.quit();
       } 
       
       else if (/arona (?:smells$|stinks)|arona (?:is |)(?:smelly|stinky)/i.test(value)) {
-        var key = /smelly/.test(value) ? 'smelly' : 'smells';
-        Arona.say(Arona.speech.special[key][0], Arona.speech.special[key][1]);
+        Arona.say(Arona.speech.special[/smelly/.test(value) ? 'smelly' : 'smells']);
         if (++Arona.anger == 5) Arona.quit();
       }
       
       else if (/arona sucks/i.test(value)) {
-        Arona.say(Arona.speech.special.sucks[0], Arona.speech.special.sucks[1]);
+        Arona.say(Arona.speech.special.sucks);
         if (++Arona.anger == 5) Arona.quit();
       }
       
+      // general responses
+      else if (/correction/i.test(value)) {
+        Arona.say(Arona.speech.special.correction);
+      } 
+      
       else if (/seggs|sex/i.test(value)) {
-        Arona.say(Arona.speech.special.seggs[0], Arona.speech.special.seggs[1]);
+        Arona.say(Arona.speech.special.seggs);
       } 
       
       else if (/u[o]+h/i.test(value)) {
-        Arona.say(Arona.speech.special.uoh[0], Arona.speech.special.uoh[1]);
+        Arona.say(Arona.speech.special.uoh);
       } 
       
       else if (/😭/i.test(value)) {
-        Arona.say(Arona.speech.special.sob[0], Arona.speech.special.sob[1]);
+        Arona.say(Arona.speech.special.sob);
       } 
       
       else if (/💢/i.test(value)) {
-        Arona.say(Arona.speech.special.anger[0], Arona.speech.special.anger[1]);
+        Arona.say(Arona.speech.special.anger);
       } 
       
       else if (/🦀/i.test(value)) {
-        Arona.say(Arona.speech.special.kani[0], Arona.speech.special.kani[1]);
+        Arona.say(Arona.speech.special.kani);
       } 
       
       else if (/cunny/i.test(value)) {
-        Arona.say(Arona.speech.special.cunny[0], Arona.speech.special.cunny[1]);
+        Arona.say(Arona.speech.special.cunny);
       } 
       
       else if (/cute and funny/i.test(value)) {
-        Arona.say(Arona.speech.special.cute_and_funny[0], Arona.speech.special.cute_and_funny[1]);
+        Arona.say(Arona.speech.special.cute_and_funny);
       } 
       
       else if (/strawberry milk/i.test(value)) {
-        Arona.say(Arona.speech.special.strawberry_milk[0], Arona.speech.special.strawberry_milk[1]);
+        Arona.say(Arona.speech.special.strawberry_milk);
       } 
       
       else if (/(?:kill|off) myself|kms|commit suicide/i.test(value)) {
-        Arona.say(Arona.speech.special.kms[0], Arona.speech.special.kms[1]);
+        Arona.say(Arona.speech.special.kms);
       } 
       
       else if (/arona/i.test(value)) {
-        Arona.say(Arona.speech.special.arona[mode][0], Arona.speech.special.arona[mode][1]);
+        Arona.say(Arona.speech.special.arona[mode]);
       } 
       
       // default messages
@@ -765,7 +834,7 @@
       } else if (duration) {
         Arona.say(msg[0], msg[1] || 1, duration);
       } else {
-        Arona.say(msg[0], msg[1] || 1);
+        Arona.say(msg);
       }
       
       // cache current selection for comparison next time
@@ -774,6 +843,7 @@
     
     // Arona quits helping Sensei after being mean to her 5 times
     quit : function () {
+      Arona.quitting = true;
       Arona.node.help.style.display = 'none';
       Arona.node.encode.disabled = true;
       Arona.node.decode.disabled = true;
@@ -782,6 +852,7 @@
         Arona.node.arona.className = 'fade-out';
         
         setTimeout(function() {
+          Arona.quitting = false;
           Arona.node.encode.removeAttribute('disabled');
           Arona.node.decode.removeAttribute('disabled');
           Arona.node.arona.style.display = 'none';
@@ -795,7 +866,7 @@
       Arona.node.arona.className = 'fade-in';
       Arona.node.help.style.display = '';
       
-      Arona.say(Arona.speech.special.sorry[0], Arona.speech.special.sorry[1]);
+      Arona.say(Arona.speech.special.sorry);
       Arona.anger = 0;
     },
     
@@ -810,14 +881,35 @@
     say : function (text, holo, duration, callback) {
       if (!Arona.node.dialogue) return 'dialogue not found';
       
-      holo = holo ? holo : 1;
-      duration = duration ? duration : Arona.messageDuration;
+      // assigns passed array values to their corresponding argument
+      if (Array.isArray(text)) {
+        callback = text[3] ? text[3] : null;
+        duration = text[2] ? text[2] : Arona.messageDuration;
+            holo = text[1] ? text[1] : 1;
+            text = text[0] ? text[0] : '';
+      }
       
+      // default values
+      else {
+        holo = holo ? holo : 1;
+        duration = duration ? duration : Arona.messageDuration;
+      }
+      
+      // format Sensei's name
+      if (/\{Sensei\}/i.test(text)) {
+        text = Arona.sensei ?
+          text.replace(/\{Sensei\}/ig, Arona.sensei + '-sensei') : // custom name, if set
+          text.replace(/\{Sensei\}/ig, 'Sensei'); // default "Sensei" if no custom name
+      }
+      
+      // changes sleeping Arona image if sleeptalking
       if (Arona.sleeping) {
-        Arona.node.bg.className = 'sleeptalk'; // changes sleeping Arona image if sleeptalking
+        Arona.node.bg.className = 'sleeptalk';
         Arona.node.bg.firstChild.className = 'fade-in';
       }
-      Arona.node.holo.src = getPaths() + 'resources/images/arona/' + holo + '.png';
+      
+      // standard image and dialogue change
+      Arona.expression(holo);
       Arona.node.dialogue.innerHTML = text;
       
       // remove classes on arona from interactions
@@ -841,7 +933,7 @@
             Arona.node.bg.className = '';
             Arona.node.bg.firstChild.className = 'fade-out';
           }
-          Arona.node.holo.src = getPaths() + 'resources/images/arona/1.png';
+          Arona.expression(1);
           Arona.node.dialogue_container.className = 'fade-out';
           delete Arona.timeout;
           
@@ -851,6 +943,15 @@
         }, duration);
       } else if (callback) {
         callback();
+      }
+    },
+    
+    
+    // changes Arona's expression
+    // id can be a number between 1-35 (see resources/images/arona/)
+    expression : function (id) {
+      if (Arona.node.holo) {
+        Arona.node.holo.src = getPaths() + 'resources/images/arona/' + (id > 35 ? 1 : id <= 0 ? 1 : id) + '.png';
       }
     },
     
@@ -888,10 +989,10 @@
 
         } catch (err) {
           console.error(err);
-          Arona.say(Arona.speech.copy.fail[0], Arona.speech.copy.fail[1]);
+          Arona.say(Arona.speech.copy.fail);
         }
       } else {
-        Arona.say(Arona.speech.copy.empty[0], Arona.speech.copy.empty[1]);
+        Arona.say(Arona.speech.copy.empty);
       }
     },
     
@@ -899,7 +1000,7 @@
     // Arona says something based on where the user touches her (head, face, chest, skirt, legs, shoes)
     touch : function (area) {
       if (area) {
-        Arona.say(Arona.speech.touch[area][0], Arona.speech.touch[area][1]);
+        Arona.say(Arona.speech.touch[area]);
         
         // reactions to being touched
         if (/head|leg/.test(area)) {
@@ -1008,7 +1109,7 @@
                 next.style.display = '';
                 next.focus();
               });
-              Arona.say(Arona.speech.help.step1[0], Arona.speech.help.step1[1], Infinity);
+              Arona.say(Arona.speech.help.step1);
             });
             break;
             
@@ -1017,13 +1118,13 @@
             Arona.node.encode.className = 'focused';
             Arona.node.encode.focus();
             
-            Arona.say(Arona.speech.help.step2[0], Arona.speech.help.step2[1], Infinity);
+            Arona.say(Arona.speech.help.step2);
             break;
             
           case 3:
             Arona.node.output.disabled = true;
             Arona.node.output.className = "focused";
-            Arona.say(Arona.speech.help.step3[0], Arona.speech.help.step3[1], Infinity);
+            Arona.say(Arona.speech.help.step3);
             document.getElementById('NEXT').focus();
             break;
             
@@ -1037,20 +1138,20 @@
             Arona.node.decode.className = 'focused';
             Arona.node.decode.focus();
             
-            Arona.say(Arona.speech.help.step4[0], Arona.speech.help.step4[1], Infinity);
+            Arona.say(Arona.speech.help.step4);
             break;
             
           case 5:
             Arona.node.output.className = 'focused';
             Arona.node.input.className = '';
             Arona.node.decode.className = '';
-            Arona.say(Arona.speech.help.step5[0], Arona.speech.help.step5[1], Infinity);
+            Arona.say(Arona.speech.help.step5);
             document.getElementById('NEXT').focus();
             break;
             
           case 6:
             Arona.node.output.className = '';
-            Arona.say(Arona.speech.help.step6[0], Arona.speech.help.step6[1], Infinity);
+            Arona.say(Arona.speech.help.step6);
             document.getElementById('NEXT').focus();
             break;
             
@@ -1090,7 +1191,7 @@
           Arona.speak('sensei');
         }
         
-        Arona.say(Arona.speech.help.prompt[0], Arona.speech.help.prompt[1], Infinity);
+        Arona.say(Arona.speech.help.prompt);
         document.getElementById('NEXT').focus();
       }
     },
@@ -1147,27 +1248,12 @@
               
               // reset Arona emote
               if (/34\.png/.test(Arona.node.holo.src)) {
-                Arona.node.holo.src = getPaths() + 'resources/images/arona/1.png';
+                Arona.expression(1);
               }
             }
             
-            // wake Arona up
-            if (Arona.sleeping) {
-              Arona.sleeping = false;
-              Arona.node.holo.src = getPaths() + 'resources/images/arona/23.png';
-              Arona.node.bg.className = 'fade-out';
-              Arona.node.dialogue_container.className = 'fade-out';
-              Arona.node.body.className = 'fade-in';
-              
-              // small timeout so fade in/out animates
-              setTimeout(function() {
-                document.body.className = '';
-                Arona.node.bg.firstChild.className = '';
-                
-                // welcome sensei back
-                Arona.randomizeMessage(Arona.speech.idle_awaken, 'lastAwakenMessage');
-              }, 900);
-            }
+            // wake Arona up if she's sleeping
+            Arona.awaken();
           });
         }
       }
@@ -1186,21 +1272,14 @@
         Arona.randomizeMessage(Arona.speech['idle' + (Arona.sleeping ? '_sleep' : '')], 'lastIdleMsg', 10000, function () {
           // change arona's holo to a sleepy face before finally falling asleep
           if (Arona.aboutToSleep) {
-            Arona.node.holo.src = getPaths() + 'resources/images/arona/34.png';
+            Arona.expression(34);
           }
         });
         
         // change background to Arona sleeping and hide the current Arona
         if (++Arona.idleCount == 6) {
           // add short delay for the idle message before switching to sleeping arona
-          Arona.aboutToSleep = setTimeout(function () {
-            Arona.sleeping = true;
-            document.body.className = 'sleep';
-            Arona.node.arona.className = '';
-            Arona.node.bg.className = 'fade-in';
-            Arona.node.body.className = 'fade-out';
-            delete Arona.aboutToSleep;
-          }, 15000);
+          Arona.aboutToSleep = setTimeout(Arona.sleep, 15000);
         }
         
         delete Arona.idling;
@@ -1210,6 +1289,45 @@
       }, 30000);
     },
     
+    // put Arona to sleep
+    sleep : function () {
+      if (!Arona.sleeping) {
+        if (Arona.idleCount < 6) Arona.idleCount = 6; // normalize idle count value if triggered outside of the idle functions
+
+        Arona.sleeping = true;
+        document.body.className = 'sleep';
+        Arona.node.arona.className = '';
+        Arona.node.bg.className = 'fade-in';
+        Arona.node.body.className = 'fade-out';
+        Arona.node.dialogue_container.className = 'fade-out';
+
+        if (Arona.aboutToSleep) {
+          clearTimeout(Arona.aboutToSleep);
+          delete Arona.aboutToSleep;
+        }
+      }
+    },
+    
+    // wake Arona up
+    awaken : function () {
+      if (Arona.sleeping) {
+        Arona.sleeping = false;
+        Arona.expression(23);
+        Arona.node.bg.className = 'fade-out';
+        Arona.node.dialogue_container.className = 'fade-out';
+        Arona.node.body.className = 'fade-in';
+
+        // small timeout so fade in/out animates
+        setTimeout(function() {
+          document.body.className = '';
+          Arona.node.bg.firstChild.className = '';
+
+          // welcome sensei back
+          Arona.randomizeMessage(Arona.speech.idle_awaken, 'lastAwakenMessage');
+        }, 900);
+      }
+    },
+    
     
     // toggles background music
     toggleBGM : function (play) {
@@ -1217,14 +1335,14 @@
       if (Arona.node.bgm.paused) {
         Arona.node.bgm.play();
         Arona.node.bgm_icon.src = getPaths() + 'resources/images/play.png';
-        Arona.say(Arona.speech.music.play[0], Arona.speech.music.play[1]);
+        Arona.say(Arona.speech.music.play);
       } 
       
       // pause music
       else {
         Arona.node.bgm.pause();
         Arona.node.bgm_icon.src = getPaths() + 'resources/images/mute.png';
-        Arona.say(Arona.speech.music.stop[0], Arona.speech.music.stop[1]);
+        Arona.say(Arona.speech.music.stop);
       }
     },
     
