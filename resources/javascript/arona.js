@@ -285,6 +285,7 @@
         how_are_you : ["I'm doing good!<br>I hope you are as well, {Sensei}!", 32],
         goodnight : ["Goodnight, Sensei...", 34],
         goodbye : ["Aww... You're leaving already, Sensei? I wanted to spend more time with you...", 24],
+        youtube : ['Here\'s your YouTube video, Sensei!<br><iframe id="video" src="https://www.youtube.com/embed/{ID}?autoplay=1" frameborder="0"></iframe>', 32],
         
         // memey
         uoh : ["What are you uoh'ing at, Sensei?", 2],
@@ -654,6 +655,21 @@
         }
       } 
       
+      // auto embeds youtube videos into the dialogue
+      else if (/youtube\.com|youtu\.be/i.test(value)) {
+        // attempt to grab video id
+        var vid = value.match(/.*(?:youtu.be\/|v\/|u\/\w\/|embed\/|live\/|watch\?v=)([^#\&\?]*).*/i);
+        
+        if (vid && vid[1]) { 
+          // clean video id of any trailing whitespace/words & sanitize
+          vid = (/\s/.test(vid[1]) ? vid[1].split(/\s/)[0] : vid[1]).replace(/</g, '');
+          
+          // replace the {ID} placeholder with the actual ID
+          Arona.say(Arona.speech.special.youtube[0].replace('{ID}', vid), Arona.speech.special.youtube[1], Infinity);
+          Arona.idlingStop = true; // prevent video interruption from idle messages
+        }
+      }
+      
       // shows help prompt if sensei asks arona for help
       else if (/arona(?:, | )help(?: me|)|help(?: me|)(?:, | )arona/i.test(value)) {
         Arona.help();
@@ -696,10 +712,12 @@
       // meme responses
       else if (/never gonna give you up/i.test(value)) {
         Arona.say(Arona.speech.special.rickroll);
+        Arona.idlingStop = true;
       } 
       
       else if (/mutsuki dance/i.test(value)) {
         Arona.say(Arona.speech.special.mutsuki);
+        Arona.idlingStop = true;
       } 
       
       else if (/^69$|^69\s|\s69$|\s69\s/i.test(value)) {
@@ -880,6 +898,7 @@
     messageDuration : 10000,
     say : function (text, holo, duration, callback) {
       if (!Arona.node.dialogue) return 'dialogue not found';
+      if (Arona.idlingStop) Arona.idlingStop = false; // resume idle messages if they were stopped
       
       // assigns passed array values to their corresponding argument
       if (Array.isArray(text)) {
@@ -1266,7 +1285,7 @@
       
       // set a timeout for an idle message
       Arona.idling = setTimeout(function () {
-        if (/tutorial/.test(document.body.className) || Arona.anger >= 5) return false; // prevent execution while in tutorial or if arona is mad
+        if (/tutorial/.test(document.body.className) || Arona.anger >= 5 || Arona.idlingStop) return false; // prevent execution when one of these states are active
         
         // Have Arona speak
         Arona.randomizeMessage(Arona.speech['idle' + (Arona.sleeping ? '_sleep' : '')], 'lastIdleMsg', 10000, function () {

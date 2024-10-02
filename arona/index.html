@@ -68,14 +68,14 @@
             
             <strong>Arona.encode(string)</strong>
             <div class="columns-2 clear">
-              <div style="width:80%;margin-bottom:5px;;"><code class="block">Arona.encode("Cunny");</code></div>
-              <div style="width:20%;margin-bottom:5px;;"><button onclick="Arona.say('Here is your encoded message, Sensei!<br>&quot;' + Arona.encode('Cunny') + '&quot;', 12); document.getElementById('arona_inner').focus();"><i>Run</i></button></div>
+              <div style="width:80%;margin-bottom:5px;"><code class="block">Arona.encode("Cunny");</code></div>
+              <div style="width:20%;margin-bottom:5px;"><button onclick="Arona.say('Here is your encoded message, Sensei!<br>&quot;' + Arona.encode('Cunny') + '&quot;', 12); document.getElementById('arona_inner').focus();"><i>Run</i></button></div>
             </div>
             
             <strong>Arona.decode(string)</strong>
             <div class="columns-2 clear">
-              <div style="width:80%;margin-bottom:5px;;"><code class="block">Arona.decode("^💢😭💢😭 😭😭💢 💢😭 💢😭 💢😭💢💢");</code></div>
-              <div style="width:20%;margin-bottom:5px;;"><button onclick="Arona.say('Here is your decoded message, Sensei!<br>&quot;' + Arona.decode('^💢😭💢😭 😭😭💢 💢😭 💢😭 💢😭💢💢') + '&quot;', 12); document.getElementById('arona_inner').focus();"><i>Run</i></button></div>
+              <div style="width:80%;margin-bottom:5px;"><code class="block">Arona.decode("^💢😭💢😭 😭😭💢 💢😭 💢😭 💢😭💢💢");</code></div>
+              <div style="width:20%;margin-bottom:5px;"><button onclick="Arona.say('Here is your decoded message, Sensei!<br>&quot;' + Arona.decode('^💢😭💢😭 😭😭💢 💢😭 💢😭 💢😭💢💢') + '&quot;', 12); document.getElementById('arona_inner').focus();"><i>Run</i></button></div>
             </div>
             <br>
             
@@ -114,8 +114,8 @@
             <p>Her expression is usually changed alongside messages, but you can also change it by itself via the console with the function below.</p>
             <strong>Arona.expression(id)</strong>
             <div class="columns-2 clear">
-              <div style="width:80%;margin-bottom:5px;;"><code class="block">Arona.expression(<input id="arona_exp" type="number" value="13" min="1" max="35" onchange="document.getElementById('exp_run').click();" style="width:50px;">);</code></div>
-              <div style="width:20%;margin-bottom:5px;;"><button id="exp_run" onclick="Arona.expression(document.getElementById('arona_exp').value); document.getElementById('arona_inner').focus();"><i>Run</i></button></div>
+              <div style="width:80%;margin-bottom:5px;"><code class="block">Arona.expression(<input id="arona_exp" type="number" value="13" min="1" max="35" onchange="document.getElementById('exp_run').click();" style="width:50px;">);</code></div>
+              <div style="width:20%;margin-bottom:5px;"><button id="exp_run" onclick="Arona.expression(document.getElementById('arona_exp').value); document.getElementById('arona_inner').focus();"><i>Run</i></button></div>
             </div>
             <p>There are currently <strong>35</strong> different expressions. Feel free to play with Arona's face!</p>
             
@@ -130,8 +130,8 @@
             <p>You can also use the following function via the console to make Arona say whatever you want.</p>
             <strong>Arona.say(message, expression, duration, callback)</strong>
             <div class="columns-2 clear">
-              <div style="width:80%;margin-bottom:5px;;"><code class="block">Arona.say("Cunny", 32, 3000);</code></div>
-              <div style="width:20%;margin-bottom:5px;;"><button onclick="Arona.say('Cunny', 32, 3000); document.getElementById('arona_inner').focus();"><i>Run</i></button></div>
+              <div style="width:80%;margin-bottom:5px;"><code class="block">Arona.say("Cunny", 32, 3000);</code></div>
+              <div style="width:20%;margin-bottom:5px;"><button onclick="Arona.say('Cunny', 32, 3000); document.getElementById('arona_inner').focus();"><i>Run</i></button></div>
             </div>
             
             <h3 id="sensei-name">Remembering Sensei's Name</h3>
@@ -167,8 +167,8 @@
             <p>Although limited, Arona's voice module allows her to speak! You may have heard her do so earlier if you poked her. You can use the following function in the console to make Arona speak:</p>
             <strong>Arona.speak(filename)</strong>
             <div class="columns-2 clear">
-              <div style="width:80%;margin-bottom:5px;;"><code class="block">Arona.speak("sensei");</code></div>
-              <div style="width:20%;margin-bottom:5px;;"><button onclick="Arona.say('Sensei!', 31, 2000); Arona.speak('sensei'); document.getElementById('arona_inner').focus();"><i>Run</i></button></div>
+              <div style="width:80%;margin-bottom:5px;"><code class="block">Arona.speak("sensei");</code></div>
+              <div style="width:20%;margin-bottom:5px;"><button onclick="Arona.say('Sensei!', 31, 2000); Arona.speak('sensei'); document.getElementById('arona_inner').focus();"><i>Run</i></button></div>
             </div>
             <p>Currently, her voice module only has four files: <code>sensei</code>, <code>ah</code>, <code>huh</code>, <code>heeheehee</code>.</p>
             
@@ -185,8 +185,8 @@
             <p>If you're inactive for 30 seconds, Arona will wonder where her dear Sensei went. After 3 minutes and a half she'll eventually fall asleep and wait for your return while sleep talking about various things. When you finally return, Arona will welcome you back!</p>
             <p>You can also force her to fall alseep by encoding or decoding the phrase "Goodnight, Arona." or using the following function via the console.</p>
             <div class="columns-2 clear">
-              <div style="width:80%;margin-bottom:5px;;"><code class="block">Arona.sleep();</code></div>
-              <div style="width:20%;margin-bottom:5px;;"><button onclick="setTimeout(Arona.sleep, 100);"><i>Run</i></button></div>
+              <div style="width:80%;margin-bottom:5px;"><code class="block">Arona.sleep();</code></div>
+              <div style="width:20%;margin-bottom:5px;"><button onclick="setTimeout(Arona.sleep, 100);"><i>Run</i></button></div>
             </div>
             <br>
             
@@ -195,8 +195,8 @@
             
             <strong>Arona.write(string)</strong>
             <div class="columns-2 clear">
-              <div style="width:80%;margin-bottom:5px;;"><code class="block">Arona.write("UOHHHHHHHHHH CUNNY 😭");</code></div>
-              <div style="width:20%;margin-bottom:5px;;"><button onclick="Arona.say('*confident typing*', 22, 3500); Arona.write('UOHHHHHHHHHH CUNNY 😭'); document.getElementById('arona_inner').focus();"><i>Run</i></button></div>
+              <div style="width:80%;margin-bottom:5px;"><code class="block">Arona.write("UOHHHHHHHHHH CUNNY 😭");</code></div>
+              <div style="width:20%;margin-bottom:5px;"><button onclick="Arona.say('*confident typing*', 22, 3500); Arona.write('UOHHHHHHHHHH CUNNY 😭'); document.getElementById('arona_inner').focus();"><i>Run</i></button></div>
             </div>
             <textarea id="input-demo" style="height:50px;" readonly></textarea>
           </div>
