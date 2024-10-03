@@ -135,6 +135,24 @@
   }
 }
 
+@keyframes swing {
+  0% {
+    transform:scale(0.5) rotate(-5deg);
+    margin-left:10px;
+    margin-top:5px;
+  }
+  50% {
+    transform:scale(0.51) rotate(5deg);
+    margin-left:0px;
+    margin-top:0px;
+  }
+  100% {
+    transform:scale(0.5) rotate(-5deg);
+    margin-left:10px;
+    margin-top:5px;
+  }
+}
+
 .fade-in {
   animation:fade-in 1000ms;
   opacity:1;
@@ -233,6 +251,7 @@ header {
   position:relative;
   z-index:1;
   overflow:hidden;
+  pointer-events:none;
 }
 
 /* fork me link */
@@ -254,6 +273,7 @@ a#fork-me {
   transition-property:color, background;
   transition-duration:300ms;
   user-select:none;
+  pointer-events:all;
 }
 
 a#fork-me:hover, a#fork-me:focus {
@@ -263,6 +283,7 @@ a#fork-me:hover, a#fork-me:focus {
 
 h1 { margin:0; }
 
+#logo { pointer-events:all; }
 #logo:hover, #logo:focus { opacity:0.7; }
 #logo img {
   height:150px;
@@ -563,6 +584,7 @@ button:active, .button:active {
 #arona #holo {
   width:400px;
   position:absolute;
+  pointer-events:none;
 }
 
 .arona_action {
@@ -571,6 +593,15 @@ button:active, .button:active {
   cursor:pointer;
 }
 .tutorial .arona_action { display:none; }
+
+#arona_halo, #arona.dragging #arona_halo {
+  top:35px;
+  left:212px;
+  height:25px;
+  width:80px;
+  transform:rotate(28deg);
+  border-radius:100%;
+}
 
 #arona_head {
   top:73px;
@@ -691,6 +722,33 @@ button:active, .button:active {
 
 #dialogue.hidden, .dialogue.hidden {
   opacity:0;
+}
+
+/* styles for when dragging arona */
+#arona.dragging {
+  height:400px;
+  width:400px;
+  margin-bottom:200px !important;
+  margin-left:0;
+  position:fixed;
+  transform:scale(0.5);
+  animation:swing 3s infinite ease-in-out;
+  z-index:2;
+}
+
+#arona.dragging #arona_inner {
+  width:400px;
+  height:400px;
+  position:static;
+  bottom:auto;
+}
+
+#arona.dragging #holo {
+  width:400px;
+}
+
+#arona.dragging #dialogue {
+  transform:scale(1.5);
 }
 
 /* menus */
@@ -879,6 +937,13 @@ footer li:first-child:before { display:none; }
     width:600px;
     position:absolute;
   }
+  
+  #arona_halo {
+    top:56px;
+    left:318px;
+    height:32px;
+    width:120px;
+  }
 
   #arona_head {
     top:106px;
@@ -968,6 +1033,13 @@ footer li:first-child:before { display:none; }
   #arona #holo {
     width:500px;
     position:absolute;
+  }
+  
+  #arona_halo {
+    top:45px;
+    left:265px;
+    height:30px;
+    width:100px;
   }
 
   #arona_head {

@@ -97,7 +97,7 @@ Cunny Code was made possible thanks to...
 - [morsecode.world](https://morsecode.world/international/morse2.html) for their comprehensive Morse Code resources.
 - [nulla2011](https://github.com/nulla2011) for the [Blue Archive Logo Generator](https://github.com/nulla2011/bluearchive-logo).
 - [Blue Archive Wiki](https://bluearchive.fandom.com/wiki/Arona/Gallery) and Blue Archive itself for the imagery and audio used in this project.
-- [BlueSechi](https://www.youtube.com/watch?v=T9F1Wk8DQdg) for the dancing Alice.
+- [BlueSechi](https://www.youtube.com/watch?v=T9F1Wk8DQdg) for the dancing Arisu.
 - Google for [Noto Sans](https://fonts.google.com/noto/specimen/Noto+Sans) and [DAJI](https://x.com/daji_nhnyk/status/1840259471819280870) for letting me know the font that Blue Archive uses.
 - [FontAwesome](https://github.com/FortAwesome/Font-Awesome) for the awesome icons.
 - [13rac1](https://github.com/13rac1) for the [Twemoji](https://github.com/13rac1/twemoji-color-font?tab=readme-ov-file) font so we could achieve that iconic U😭H.
@@ -111,5 +111,5 @@ If you found this project cute or funny, please see the [Donate page](https://se
 
 -----
 
-<div align="center"><a href="https://sethclydesdale.github.io/cunny-code/404"><img src="resources/images/alice.png" align="center" height="100"></a></div>
+<div align="center"><a href="https://sethclydesdale.github.io/cunny-code/404"><img src="resources/images/arisu.png" align="center" height="100"></a></div>
 <div align="center">Built with Cunny and Love</div>

@@ -24,7 +24,9 @@
   };
   
   
-  var hour = new Date().getHours(); // used for Arona's greetings
+  var hour = new Date().getHours(), // used for Arona's greetings
+      // used for youtube embeds
+      yt_embed = '<iframe id="video" src="https://www.youtube.com/embed/{ID}?autoplay=1" frameborder="0" allow="autoplay"></iframe>';
   
   // Arona's functionality
   window.Arona = {
@@ -285,7 +287,7 @@
         how_are_you : ["I'm doing good!<br>I hope you are as well, {Sensei}!", 32],
         goodnight : ["Goodnight, Sensei...", 34],
         goodbye : ["Aww... You're leaving already, Sensei? I wanted to spend more time with you...", 24],
-        youtube : ['Here\'s your YouTube video, Sensei!<br><iframe id="video" src="https://www.youtube.com/embed/{ID}?autoplay=1" frameborder="0" allow="autoplay"></iframe>', 32],
+        youtube : ['Here\'s your YouTube video, Sensei!<br>' + yt_embed, 32],
         
         // memey
         uoh : ["What are you uoh'ing at, Sensei?", 2],
@@ -295,8 +297,9 @@
         kms : ["Please don't do that, {Sensei}! Arona would be lonely without you...", 28],
         seggs : ["S-S-S-Se...!?", 17],
         sixty_nine : ["Why does everybody say 69 is a nice number, Sensei?", 2],
-        rickroll : ['Never gonna let you down🎵<br><iframe id="video" src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1" frameborder="0" allow="autoplay"></iframe>', 32, Infinity],
-        mutsuki : ['Wouldn\'t you rather watch Arona dance? ...No? Fine...here\'s your dumb Mutsuki dance.<br><iframe id="video" src="https://www.youtube.com/embed/GfKkSmQrVJw?autoplay=1" frameborder="0" allow="autoplay"></iframe>', 10, Infinity],
+        rickroll : ['Never gonna let you down🎵<br>' + yt_embed.replace('{ID}', 'dQw4w9WgXcQ'), 32, Infinity],
+        arisu_dance : ["Heehee, Arisu's dance is so cute and funny.<br>" + yt_embed.replace('{ID}', 'VSKIGdbf5Fg'), 32, Infinity],
+        mutsuki_dance : ['Wouldn\'t you rather watch Arona dance? ...No? Fine...here\'s your dumb Mutsuki dance.<br>' + yt_embed.replace('{ID}', 'GfKkSmQrVJw'), 10, Infinity],
         
         // first public cunny code message
         // https://x.com/SethC1995/status/1839472034721456176
@@ -388,6 +391,24 @@
         ["Ah! I-I wasn't sleeping!<br>I was just resting my eyes!", 18],
       ],
       
+      // messages when picking up Arona
+      pick_up : [
+        ['Weeeeee!', 12],
+        ['Higher, Sensei! Higher!', 12],
+        ["Arona's flying!", 25],
+        ["Wow! I can see so much from up here!", 25],
+        ["Wah! Please don't drop me, Sensei!", 28]
+      ],
+      
+      // messages when putting Arona back down
+      put_down : [
+        ['Again! Again!', 12],
+        ['That was so much fun!', 25],
+        ['That was fun! Thanks for playing with me, Sensei!', 11],
+        ['Uh-oh... I think that made Arona dizzy...', 29],
+        ['Aww... I wanted you to hold me for just a little longer...', 24]
+      ],
+      
       // messages displayed when clicking on Arona
       touch : {
          head : ['Heeheehee...', 13],
@@ -466,6 +487,7 @@
     node : {
       arona : document.getElementById('arona'),
       holo : document.getElementById('holo'),
+      halo : document.getElementById('arona_halo'),
       body : document.getElementById('arona_body'),
       
       dialogue_container : document.getElementById('dialogue_container'),
@@ -715,8 +737,13 @@
         Arona.idlingStop = true;
       } 
       
-      else if (/mutsuki dance/i.test(value)) {
-        Arona.say(Arona.speech.special.mutsuki);
+      else if (/show me (?:the |)(?:arisu|aris|alice) danc(?:e|ing)/i.test(value)) {
+        Arona.say(Arona.speech.special.arisu_dance);
+        Arona.idlingStop = true;
+      } 
+      
+      else if (/show me (?:the |)mutsuki danc(?:e|ing)/i.test(value)) {
+        Arona.say(Arona.speech.special.mutsuki_dance);
         Arona.idlingStop = true;
       } 
       
@@ -725,27 +752,27 @@
       } 
       
       // responses to compliments
-      else if (/arona is cunny/i.test(value)) {
+      else if (/arona is cunny|(?:you're|you are) cunny(?:, | )arona/i.test(value)) {
         Arona.say(Arona.speech.special.arona_cunny);
         if (Arona.anger > 0) Arona.anger--;
       } 
       
-      else if (/arona is cute and funny/i.test(value)) {
+      else if (/arona is cute and funny|(?:you're|you are) cute and funny(?:, | )arona/i.test(value)) {
         Arona.say(Arona.speech.special.arona_cute_and_funny);
         if (Arona.anger > 0) Arona.anger--;
       } 
       
-      else if (/arona (?:is |)cute/i.test(value)) {
+      else if (/arona (?:is |)cute|(?:you're|you are) cute(?:, | )arona/i.test(value)) {
         Arona.say(Arona.speech.special.arona_cute);
         if (Arona.anger > 0) Arona.anger--;
       } 
       
-      else if (/arona (?:is |)(?:breedable|hot|sexy)/i.test(value)) {
+      else if (/arona (?:is |)(?:breedable|hot|sexy)|(?:you're|you are) (?:breedable|hot|sexy)(?:, | )arona/i.test(value)) {
         Arona.say(Arona.speech.special.breedable);
         if (Arona.anger > 0) Arona.anger--;
       } 
       
-      else if (/arona (?:is |)(?:best|the best|best girl)/i.test(value)) {
+      else if (/arona (?:is |)(?:best|the best|best girl|amazing)|(?:you're|you are) (?:the best|amazing)(?:, | )arona/i.test(value)) {
         Arona.say(Arona.speech.special.best);
         if (Arona.anger > 0) Arona.anger--;
       } 
@@ -761,12 +788,12 @@
         if (++Arona.anger == 5) Arona.quit();
       } 
       
-      else if (/arona (?:is |)(?:dumb|stupid)/i.test(value)) {
+      else if (/arona (?:is |)(?:dumb|stupid)|(?:you're|you are) (?:dumb|stupid)(?:, | )arona/i.test(value)) {
         Arona.say(Arona.speech.special.dumb);
         if (++Arona.anger == 5) Arona.quit();
       } 
       
-      else if (/arona (?:smells$|stinks)|arona (?:is |)(?:smelly|stinky)/i.test(value)) {
+      else if (/arona (?:smells$|stinks)|arona (?:is |)(?:smelly|stinky)|(?:you're|you are) (?:smelly|stinky)(?:, | )arona/i.test(value)) {
         Arona.say(Arona.speech.special[/smelly/.test(value) ? 'smelly' : 'smells']);
         if (++Arona.anger == 5) Arona.quit();
       }
@@ -777,6 +804,10 @@
       }
       
       // general responses
+      else if (/(?:kill|off) myself|kms|commit suicide/i.test(value)) {
+        Arona.say(Arona.speech.special.kms);
+      } 
+      
       else if (/correction/i.test(value)) {
         Arona.say(Arona.speech.special.correction);
       } 
@@ -813,10 +844,6 @@
         Arona.say(Arona.speech.special.strawberry_milk);
       } 
       
-      else if (/(?:kill|off) myself|kms|commit suicide/i.test(value)) {
-        Arona.say(Arona.speech.special.kms);
-      } 
-      
       else if (/arona/i.test(value)) {
         Arona.say(Arona.speech.special.arona[mode]);
       } 
@@ -839,11 +866,12 @@
       }
       
       // randomize the message
-      var msg = message[Math.floor(Math.random() * message.length)];
+      var msg = message[Math.floor(Math.random() * message.length)], timeout = 0;
 
       // to stop the same message from showing twice in a row, loop the RNG until it gives a new message
       while (Arona[cache] == msg) {
         msg = message[Math.floor(Math.random() * message.length)];
+        if (timeout++ > 1000) break; // break out if no different message could be chosen
       }
 
       // have Arona say the selected message
@@ -978,6 +1006,7 @@
     // audio files for arona's voice module
     voice : {
       ah : new Audio(getPaths() + 'resources/audio/arona/ah.ogg'),
+      fue : new Audio(getPaths() + 'resources/audio/arona/fue.ogg'),
       heeheehee : new Audio(getPaths() + 'resources/audio/arona/heeheehee.ogg'),
       huh : new Audio(getPaths() + 'resources/audio/arona/huh.ogg'),
       sensei : new Audio(getPaths() + 'resources/audio/arona/sensei.ogg')
@@ -1042,6 +1071,48 @@
             Arona.speak('huh');
           }, 100);
         }
+      }
+    },
+    
+    
+    // pick up Arona and drag her around the screen
+    pickedUp : false,
+    pickUp : function (e) {
+      if (!Arona.pickedUp) {
+        Arona.pickedUp = true;
+        Arona.idlingStop = true;
+        Arona.node.arona.className = 'dragging';
+        document.body.style.overflow = 'hidden'; // hide overflow to prevent window scrolling on touch screens
+        
+        // show a random message and keep her expression locked to 35 to show she's having fun
+        Arona.speak('fue');
+        Arona.randomizeMessage(Arona.speech.pick_up, 'lastPickUpMsg', 5000, function () {
+          if (Arona.pickedUp) Arona.expression(35);
+        });
+        
+        // set initial coords for Arona (required if user doesn't move the mouse)
+        Arona.drag(e);
+      }
+    },
+    
+    // moves Arona around the screen
+    drag : function (e) {
+      if (Arona.pickedUp) {
+        Arona.node.arona.style.left = (e.clientX ? e.clientX : e.touches && e.touches[0] && e.touches[0].clientX ? e.touches[0].clientX : 0) - 230 + 'px';
+        Arona.node.arona.style.top = (e.clientY ? e.clientY : e.touches && e.touches[0] && e.touches[0].clientY ? e.touches[0].clientY : 0) - 123 + 'px';
+      }
+    },
+    
+    // puts Arona down and lets her go back to her regular position
+    putDown : function () {
+      if (Arona.pickedUp) {
+        Arona.pickedUp = false;
+        Arona.idlingStop = false;
+        Arona.node.arona.className = '';
+        document.body.style.overflow = '';
+        Arona.node.arona.style.left = '';
+        Arona.node.arona.style.top = '';
+        Arona.randomizeMessage(Arona.speech.put_down, 'lastPutDownMsg');
       }
     },
     
@@ -1494,5 +1565,19 @@
       }
     }
   }
+  
+  // event listeners for when dragging Arona
+  Arona.node.halo.onmousedown = function (e) {
+    Arona.pickUp(e);
+  };
+  
+  Arona.node.halo.ontouchstart = function (e) {
+    Arona.pickUp(e);
+  };
+  
+  document.onmousemove = Arona.drag;
+  document.ontouchmove = Arona.drag;
+  document.onmouseup = Arona.putDown;
+  document.ontouchend = Arona.putDown;
   
 }(window, document));

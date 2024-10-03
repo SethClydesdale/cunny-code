@@ -32,8 +32,8 @@
           <div class="menu-inner center">
             <h2 class="title" id="not-found" style="font-size:36px;">404 Cunny Not Found</h2>
             <p style="font-size:20px;">Sorry, but the cute and funny that you're looking for cannot be found.</p>
-            <div class="center"><img id="alice_dance" src="https://sethclydesdale.github.io/cunny-code/resources/images/alice.gif" alt="alice" style="display:none; cursor:pointer;"><img id="alice_idle" src="https://sethclydesdale.github.io/cunny-code/resources/images/alice.png" alt="alice" style="cursor:pointer;"><audio id="audio" loop><source src="https://sethclydesdale.github.io/cunny-code/resources/audio/Usagi Flap.mp3" type="audio/mpeg"></audio></div>
-            <div class="dialogue alice-dialogue" style="margin-top:-20px;margin-bottom:-20px;">Click Alice, Sensei!</div>
+            <div class="center"><img id="arisu_dance" src="https://sethclydesdale.github.io/cunny-code/resources/images/arisu.gif" alt="arisu" style="display:none; cursor:pointer;"><img id="arisu_idle" src="https://sethclydesdale.github.io/cunny-code/resources/images/arisu.png" alt="arisu" style="cursor:pointer;"><audio id="audio" loop><source src="https://sethclydesdale.github.io/cunny-code/resources/audio/Usagi Flap.mp3" type="audio/mpeg"></audio></div>
+            <div class="dialogue arisu-dialogue" style="margin-top:-20px;margin-bottom:-20px;">Click Arisu, Sensei!</div>
             <p><a href="https://sethclydesdale.github.io/cunny-code/" id="404-home" class="button"><i>Return to the Homepage</i></a></p>
           </div>
         </div>
@@ -42,6 +42,7 @@
           <div id="arona_inner">
             <div id="arona_body">
               <img id="holo" src="https://sethclydesdale.github.io/cunny-code/resources/images/arona/30.png" alt="Arona">
+              <div id="arona_halo" class="arona_action"></div>
               <div id="arona_face" class="arona_action" onclick="Arona.touch('face');"></div>
               <div id="arona_head" class="arona_action" onclick="Arona.touch('head');"></div>
               <div id="arona_chest" class="arona_action" onclick="Arona.touch('chest');"></div>
@@ -75,18 +76,18 @@
     <script>(function (window, document) {
       document.getElementById('audio').volume = 0.4; // normalize audio volume
         
-      // alice dance start
-      document.getElementById('alice_idle').onclick = function () {
+      // arisu dance start
+      document.getElementById('arisu_idle').onclick = function () {
         this.style.display = 'none';
-        document.getElementById('alice_dance').style.display = '';
+        document.getElementById('arisu_dance').style.display = '';
         document.getElementById('audio').play();
-        document.querySelector('.alice-dialogue').style.display = 'none'
+        document.querySelector('.arisu-dialogue').style.display = 'none'
       };
         
-      // alice dance stop
-      document.getElementById('alice_dance').onclick = function () {
+      // arisu dance stop
+      document.getElementById('arisu_dance').onclick = function () {
         this.style.display = 'none';
-        document.getElementById('alice_idle').style.display = '';
+        document.getElementById('arisu_idle').style.display = '';
         document.getElementById('audio').pause();
       };
         
