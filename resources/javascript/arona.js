@@ -508,6 +508,7 @@
     
     // encodes as morse code
     encode : function (input, caller) {
+      if (Arona.quitting) return false; // prevents encoding while Arona is leaving
       if (!input) {
         Arona.say(Arona.speech.empty_encode);
         return false;
@@ -575,6 +576,7 @@
     
     // decodes morse code
     decode : function (input, caller) {
+      if (Arona.quitting) return false; // prevents decoding while Arona is leaving
       if (!input || !/💢|😭/.test(input)) {
         Arona.say(Arona.speech.empty_decode);
         return false;
@@ -611,6 +613,8 @@
     
     // Swaps the values of the input and output fields
     swap : function () {
+      if (Arona.quitting) return false; // prevents swapping while Arona is leaving
+      
       // message for when there's nothing to swap
       if (!Arona.node.input.value && !Arona.node.output.value) {
         Arona.say(Arona.speech.empty_swap);
@@ -627,12 +631,28 @@
     },
     
     
+    // copies the output to the user's clipboard
+    copyText : function (value) {
+      if (Arona.quitting) return false; // prevents copying while Arona is leaving
+      if (value) {
+        try {
+          navigator.clipboard.writeText(value);
+          Arona.randomizeMessage(Arona.speech.copy.success);
+
+        } catch (err) {
+          console.error(err);
+          Arona.say(Arona.speech.copy.fail);
+        }
+      } else {
+        Arona.say(Arona.speech.copy.empty);
+      }
+    },
+    
+    
     // determines Arona's response to whatever is encoded or decoded
     anger : 0, // times sensei was mean to Arona
     lastResponse : [], // last encode message, used to prevent repeat dialogue
     response : function (value, mode) {
-      if (Arona.quitting) return false; // prevents other messages from interrupting Arona leaving
-      
       // messages Arona says when encoding
       if (/^arona say .*?/i.test(value)) { // make Arona say something
         // example Arona say Cunny {12}
@@ -891,16 +911,13 @@
     quit : function () {
       Arona.quitting = true;
       Arona.node.help.style.display = 'none';
-      Arona.node.encode.disabled = true;
-      Arona.node.decode.disabled = true;
       
       Arona.say(Arona.speech.quit[0], Arona.speech.quit[1], 5000, function () {
+        Arona.expression(6); // keep her face angry while fading out
         Arona.node.arona.className = 'fade-out';
         
         setTimeout(function() {
           Arona.quitting = false;
-          Arona.node.encode.removeAttribute('disabled');
-          Arona.node.decode.removeAttribute('disabled');
           Arona.node.arona.style.display = 'none';
         }, 950);
       });
@@ -1028,25 +1045,10 @@
     },
     
     
-    // copies the output to the user's clipboard
-    copyText : function (value) {
-      if (value) {
-        try {
-          navigator.clipboard.writeText(value);
-          Arona.randomizeMessage(Arona.speech.copy.success);
-
-        } catch (err) {
-          console.error(err);
-          Arona.say(Arona.speech.copy.fail);
-        }
-      } else {
-        Arona.say(Arona.speech.copy.empty);
-      }
-    },
-    
-    
     // Arona says something based on where the user touches her (head, face, chest, skirt, legs, shoes)
     touch : function (area) {
+      if (Arona.anger >= 5) return false; // Arona won't let you touch her if she's angry
+      
       if (area) {
         Arona.say(Arona.speech.touch[area]);
         
@@ -1078,6 +1080,8 @@
     // pick up Arona and drag her around the screen
     pickedUp : false,
     pickUp : function (e) {
+      if (Arona.anger >= 5) return false; // Arona won't let you pick her up if she's angry
+      
       if (!Arona.pickedUp) {
         Arona.pickedUp = true;
         Arona.idlingStop = true;
@@ -1421,6 +1425,8 @@
     
     // toggles background music
     toggleBGM : function (play) {
+      if (Arona.quitting) return false; // prevents toggling BGM while Arona is leaving
+      
       // play music
       if (Arona.node.bgm.paused) {
         Arona.node.bgm.play();
