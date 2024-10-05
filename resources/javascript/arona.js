@@ -685,7 +685,9 @@
         // updates the val with the decrypted value if there is one, otherwise show a wrong password message
         if (decrypted) {
           val = decrypted;
-        } else {
+        }
+        // checks if the output is identical to unencrypted strings first before showing the wrong password message
+        else if (/([a-zA-Z0-9/\+=])\w+/.test(val) && !/\s/.test(val)) {
           responseOK = false;
           Arona.randomizeMessage(Arona.speech.password_wrong, 'lastWrongPasswordMsg');
         }
