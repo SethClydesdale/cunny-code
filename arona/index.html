@@ -49,6 +49,7 @@
             <p>This page lists out all of Arona's functions and easter eggs.</p>
             <ul>
               <li><a href="#cunny-code">Encoding and Decoding</a></li>
+              <li><a href="#encryption-and-decryption">Encryption and Decryption</a></li>
               <li><a href="#responses">Responses</a></li>
               <li><a href="#expressions">Expressions</a></li>
               <li><a href="#custom-messages">Custom Messages</a></li>
@@ -77,6 +78,31 @@
             <div class="columns-2 clear">
               <div style="width:80%;margin-bottom:5px;"><code class="block">Arona.decode("^💢😭💢😭 😭😭💢 💢😭 💢😭 💢😭💢💢");</code></div>
               <div style="width:20%;margin-bottom:5px;"><button onclick="Arona.say('Here is your decoded message, Sensei!<br>&quot;' + Arona.decode('^💢😭💢😭 😭😭💢 💢😭 💢😭 💢😭💢💢') + '&quot;', 12); document.getElementById('arona_inner').focus();"><i>Run</i></button></div>
+            </div>
+            <br>
+            
+            <h3 id="encryption-and-decryption">Encryption and Decryption</h3>
+            <p>Arona also comes packed with the ability to encrypt or decrypt messages with a password, using <a href="https://en.wikipedia.org/wiki/Advanced_Encryption_Standard" target="_blank">AES encryption</a>. This is extra useful if you want to keep your messages private. It works the same as encoding, however, the contents of your message are encrypted first and then encoded as Cunny Code, giving it an extra layer of security.</p>
+            <strong>Arona.encode([message, password])</strong>
+            <div class="columns-2 clear">
+              <div style="width:80%;margin-bottom:5px;"><code class="block">Arona.encode(["UOHHH", "cunny"]);</code></div>
+              <div style="width:20%;margin-bottom:5px;"><button onclick="Arona.say('Here is your encrypted message, Sensei!<br><div style=&quot;max-height:150px;overflow:auto;&quot;>&quot;&quot;' + Arona.encode(['UOHHH', 'cunny']) + '&quot;</div>', 22); document.getElementById('arona_inner').focus();"><i>Run</i></button></div>
+            </div>
+            
+            <strong>Arona.decode([message, password])</strong>
+            <div class="columns-2 clear">
+              <div style="width:80%;margin-bottom:5px;"><code class="block overflow-y">Arona.decode(["^😭😭💢 😭😭💢💢💢 ^😭😭💢😭 😭😭😭 💢😭😭 ^💢💢😭 ^😭😭😭💢 💢😭💢 ^💢😭😭💢 😭💢💢💢💢 😭💢😭💢😭 💢😭😭😭 😭😭😭😭😭 ^💢💢 💢😭 💢💢 😭😭💢😭 ^💢😭💢💢 ^😭💢💢😭 😭💢😭 💢😭💢😭 ^😭💢😭😭 ^😭💢💢😭 💢💢 😭💢💢 ^💢😭 ^💢💢😭😭 ^💢😭💢💢 💢😭😭💢 ^💢💢😭💢 😭 ^💢😭💢💢 💢💢💢💢💢 ^💢😭💢😭 💢💢💢💢😭 ^💢😭💢 😭😭💢😭 😭💢😭 ^💢💢😭 💢💢😭 ^😭😭😭💢 ^😭😭😭💢 ^😭😭💢 💢😭😭😭💢", "cunny"]);</code></div>
+              <div style="width:20%;margin-bottom:5px;"><button onclick="Arona.say('Here is your decrypted message, Sensei!<br>' + Arona.decode(['^😭😭💢 😭😭💢💢💢 ^😭😭💢😭 😭😭😭 💢😭😭 ^💢💢😭 ^😭😭😭💢 💢😭💢 ^💢😭😭💢 😭💢💢💢💢 😭💢😭💢😭 💢😭😭😭 😭😭😭😭😭 ^💢💢 💢😭 💢💢 😭😭💢😭 ^💢😭💢💢 ^😭💢💢😭 😭💢😭 💢😭💢😭 ^😭💢😭😭 ^😭💢💢😭 💢💢 😭💢💢 ^💢😭 ^💢💢😭😭 ^💢😭💢💢 💢😭😭💢 ^💢💢😭💢 😭 ^💢😭💢💢 💢💢💢💢💢 ^💢😭💢😭 💢💢💢💢😭 ^💢😭💢 😭😭💢😭 😭💢😭 ^💢💢😭 💢💢😭 ^😭😭😭💢 ^😭😭😭💢 ^😭😭💢 💢😭😭😭💢', 'cunny']) + '&quot;', 22); document.getElementById('arona_inner').focus();"><i>Run</i></button></div>
+            </div>
+            
+            <p>To give another example, try decrypting Arona's super secret message below without the password and then with it.</p>
+            <code class="block overflow-y" id="arona_msg">^😭😭💢 😭😭💢💢💢 ^😭😭💢😭 😭😭😭 💢😭😭 ^💢💢😭 ^😭😭😭💢 💢😭💢 ^💢😭😭💢 😭💢💢💢💢 💢💢💢😭😭 💢😭😭💢😭 ^💢 ^😭💢 😭💢😭💢😭 ^💢💢 ^😭😭💢 😭💢😭💢😭 ^💢😭💢 😭 😭😭 😭😭😭😭 ^😭😭💢😭 ^😭😭😭 💢💢😭😭 😭😭💢 💢💢💢💢💢 ^😭😭😭 ^😭💢💢😭 ^💢😭😭😭 💢😭😭💢😭 💢💢😭 ^😭💢💢💢 💢😭 💢💢💢💢💢 💢💢😭💢 😭😭 😭💢💢💢💢 ^💢💢😭💢 ^💢💢💢 😭😭😭💢💢 ^😭😭 ^😭😭😭😭 ^😭💢😭 ^😭💢😭😭 ^💢😭💢 😭😭😭😭 ^😭😭😭 ^😭😭💢😭 💢💢💢💢💢 💢😭😭😭 ^😭😭😭💢 💢😭😭💢 ^💢😭😭💢 💢😭😭😭😭 ^💢😭😭😭 ^😭😭💢 💢💢💢💢💢 ^😭😭💢😭 😭😭😭😭 💢😭😭😭 😭😭😭💢💢 ^💢😭😭😭 ^💢💢😭😭</code>
+            <div class="columns-2 clear">
+              <div style="width:70%;margin-bottom:5px;">
+                <strong>Password:</strong> <input id="pw" type="text" onkeyup="if (event.key.toLowerCase() == 'enter') document.getElementById('decrypt').click();">
+                <div style="margin-top:3px; text-align:center;"><small><strong>Hint:</strong> <span class="spoiler">Arona's favorite flavor of milk</span></small></div>
+              </div>
+              <div style="width:30%;margin-bottom:5px;"><button id="decrypt" onclick="Arona.say((document.getElementById('pw').value == 'strawberry' ? 'What!? H-How did you guess my password!?' : 'Wrong! Better luck next time, Sensei.') + '<br><div style=&quot;word-break:break-all;&quot;>&quot;' + Arona.decode([document.getElementById('arona_msg').innerText, document.getElementById('pw').value]) + '&quot;</div>', document.getElementById('pw').value == 'strawberry' ? 28 : 13); document.getElementById('arona_inner').focus();"><i>Decrypt</i></button></div>
             </div>
             <br>
             
@@ -247,6 +273,7 @@
       </ul>
     </footer>
     
+    <script src="../resources/javascript/aes.js"></script>
     <script src="../resources/javascript/arona.min.js"></script>
     <script>
       Arona.node.input = document.getElementById('input-demo');

@@ -274,6 +274,33 @@
       ],
       empty_swap : ["There's nothing to swap, Sensei.", 24],
       
+      // messages for enabling password mode
+      password_on : [
+        ['Activating password mode!', 22],
+        ["I'll do my best to encrypt your message, Sensei!", 25],
+        ["Don't worry! Your password is safe with me!", 13],
+        ['Let me know what password you want to use!', 31],
+        ["It's tough working with passwords, but Arona will try her best.", 24]
+      ],
+      
+      // messages for disabling password mode
+      password_off : [
+        ['Password mode deactivated.', 13],
+        ['Phew... encoding and decoding with passwords is hard work.', 24],
+        ["I'll just pretend that I didn't see anything...", 3],
+        ["I'll keep your password safe for next time!", 22],
+        ['That was exhausting... Can Arona have something sweet now, Sensei?', 23]
+      ],
+      
+      // messages for when the password is wrong
+      password_wrong : [
+        ["I don't think that's the right password, Sensei...", 24],
+        ["This one is really hard to crack without the right password...", 30],
+        ["Sorry! That's the wrong password.", 18],
+        ["Are you sure this is the correct password, Sensei...?", 26],
+        ["It looks like this password doesn't work...", 10]
+      ],
+      
       // messages for when setting a custom name
       name : {
         set : ['Okay! Nice to meet you, {Sensei}!', 32],
@@ -428,6 +455,8 @@
       
       // messages displayed during help
       help : {
+        password : ["Setting a password allows you to protect your message. This means that only those who know the password can decode it!", 31, 15000],
+        
         prompt : [
           'Do you need my help using this tool, {Sensei}?'+
           '<div class="center">'+
@@ -499,6 +528,7 @@
       encode : document.getElementById('encode'),
       decode : document.getElementById('decode'),
       error : document.getElementById('error'),
+      password : document.getElementById('password'),
       help : document.getElementById('help'),
       
       bgm : document.getElementById('bgm_player'),
@@ -506,16 +536,49 @@
     },
     
     
+    // password settings
+    password : {
+      key : '',
+      on : false,
+
+      // toggles password mode and has Arona react to it
+      toggle : function (caller) {
+        Arona.password.on = caller.checked;
+        Arona.randomizeMessage(Arona.speech['password_' + (Arona.password.on ? 'on' : 'off')], 'lastPassword' + (Arona.password.on ? 'On' : 'Off') + 'Msg');
+      }
+    },
+    
+    
     // encodes as morse code
     encode : function (input, caller) {
       if (Arona.quitting) return false; // prevents encoding while Arona is leaving
+      
+      // updates password and input values if sent via an array like this: ['input', 'password']
+      if (Array.isArray(input)) {
+        Arona.password.key = input[1] ? input[1] : Arona.password.key ? Arona.password.key : '';
+        Arona.password.on = Arona.password.key ? true : false; // enable password if set
+        input = input[0] ? input[0] : '';
+      } else if (!caller) {
+        Arona.password.on = false; // disables password if plain string is passed without a caller
+      }
+      
+      // prevent encoding if no input
       if (!input) {
         Arona.say(Arona.speech.empty_encode);
         return false;
       }
       
+      // used for saving the unencrypted input for Arona's responses when a password is used
+      var unencryptedInput;
+      
       // auto-hide error log on encode
       if (Arona.node.error) Arona.node.error.style.display = 'none';
+      
+      // encrypts the string with a password first if set
+      if (Arona.password.on && Arona.password.key) {
+        unencryptedInput = input;
+        input = CryptoJS.AES.encrypt(input, Arona.password.key).toString();
+      }
       
       // encode the input using 💢 and 😭, and separate each encoded character by a space
       for (var val = '', str = input.replace(/[\uFF01-\uFF5E]/g, function (c) {
@@ -567,9 +630,9 @@
         Arona.randomizeMessage(Arona.speech.encode_error);
       }
       
-      // standard encoding message
+      // standard encoding messages
       else {
-        Arona.response(input, 'encode');
+        Arona.response(unencryptedInput ? unencryptedInput : input, 'encode');
       }
     },
     
@@ -577,10 +640,23 @@
     // decodes morse code
     decode : function (input, caller) {
       if (Arona.quitting) return false; // prevents decoding while Arona is leaving
+      
+      // updates password and input values if sent via an array like this: ['input', 'password']
+      if (Array.isArray(input)) {
+        Arona.password.key = input[1] ? input[1] : Arona.password.key ? Arona.password.key : '';
+        Arona.password.on = Arona.password.key ? true : false; // enable password if set
+        input = input[0] ? input[0] : '';
+      } else if (!caller) {
+        Arona.password.on = false; // disables password if plain string is passed without a caller
+      }
+      
       if (!input || !/💢|😭/.test(input)) {
         Arona.say(Arona.speech.empty_decode);
         return false;
       }
+      
+      // flag set to false if using Arona.say() in this code block instead of Arona.response();
+      var responseOK = true;
       
       // auto-hide error log on decode
       if (Arona.node.error) Arona.node.error.style.display = 'none';
@@ -596,6 +672,25 @@
         }
       }
       
+      // decrypts the string with the provided password
+      if (Arona.password.on && Arona.password.key) {
+        var decrypted = '';
+        
+        try { // will keep things going if a "Malformed UTF-8 data" error is thrown when the password is wrong
+          var decrypted = CryptoJS.AES.decrypt(val, Arona.password.key).toString(CryptoJS.enc.Utf8);
+        } catch (error) {
+          console.error(error);
+        }
+        
+        // updates the val with the decrypted value if there is one, otherwise show a wrong password message
+        if (decrypted) {
+          val = decrypted;
+        } else {
+          responseOK = false;
+          Arona.randomizeMessage(Arona.speech.password_wrong, 'lastWrongPasswordMsg');
+        }
+      }
+      
       if (Arona.node.output) Arona.node.output.value = val;
       
       if (!caller) return val; // return value if used without caller   
@@ -607,7 +702,8 @@
         return false;
       }
       
-      Arona.response(val, 'decode');
+      // have Arona respond to the decoded value
+      if (responseOK) Arona.response(val, 'decode');
     },
     
     
@@ -1177,6 +1273,12 @@
     help : function (step) {
       // starts tutorial after hitting yes
       if (step) {
+        // password help
+        if (step == 'password') {
+          Arona.say(Arona.speech.help.password);
+        }
+        
+        // standard tutorial
         switch (step) {
           case 1:
             Arona.helping = true;
@@ -1410,14 +1512,20 @@
         Arona.node.bg.className = 'fade-out';
         Arona.node.dialogue_container.className = 'fade-out';
         Arona.node.body.className = 'fade-in';
+        
+        // kill timeout if it's already set
+        if (Arona.aboutToAwaken) {
+          clearTimeout(Arona.aboutToAwaken);
+        }
 
         // small timeout so fade in/out animates
-        setTimeout(function() {
+        Arona.aboutToAwaken = setTimeout(function() {
           document.body.className = '';
           Arona.node.bg.firstChild.className = '';
 
           // welcome sensei back
           Arona.randomizeMessage(Arona.speech.idle_awaken, 'lastAwakenMessage');
+          delete Arona.aboutToAwaken;
         }, 900);
       }
     },
@@ -1541,31 +1649,33 @@
       if (/enter/i.test(e.key) && !e.shiftKey) e.preventDefault();
     };
 
-    // auto encode or decode when pressing the enter button
-    Arona.node.input.onkeyup = function (e) {
-      if (e.shiftKey) return false; // don't encode if holding shift; this indicates a line break
-      
-      if (/enter/i.test(e.key)) {
-        // mixed encode
-        if (/[A-Z0-9.,!?'"/\(\):;=+\-_@&`~\\\|#$%*\{\}\[\]<>🦀ÄÆĄÀÅÇĈĆŠĤÐŚÈŁÉĐĘĜĴŹÑŃÖØÓŜÞÜŬŻ]/i.test(this.value) && /😭|💢/.test(this.value)) {
-          Arona.encode(this.value, this);
+    // auto encode or decode when pressing the enter button on the input or password field
+    for (var node = ['input', 'password'], i = 0, j = node.length; i < j; i++) {
+      Arona.node[node[i]].onkeyup = function (e) {
+        if (e.shiftKey) return false; // don't encode if holding shift; this indicates a line break
+
+        if (/enter/i.test(e.key)) {
+          // mixed encode
+          if (/[A-Z0-9.,!?'"/\(\):;=+\-_@&`~\\\|#$%*\{\}\[\]<>🦀ÄÆĄÀÅÇĈĆŠĤÐŚÈŁÉĐĘĜĴŹÑŃÖØÓŜÞÜŬŻ]/i.test(Arona.node.input.value) && /😭|💢/.test(Arona.node.input.value)) {
+            Arona.encode(Arona.node.input.value, this);
+          }
+
+          // decode
+          else if (/😭|💢/.test(Arona.node.input.value)) {
+            Arona.decode(Arona.node.input.value, this);
+          } 
+
+          // default encode
+          else {
+            Arona.encode(Arona.node.input.value, this);
+          }
         }
-        
-        // decode
-        else if (/😭|💢/.test(this.value)) {
-          Arona.decode(this.value, this);
-        } 
-        
-        // default encode
-        else {
-          Arona.encode(this.value, this);
-        }
-      }
-    };
+      };
+    }
     
     // copy output if enter is pressed on the output field
     Arona.node.output.onkeyup = function (e) {
-      if(/enter/i.test(e.key)) {
+      if (/enter/i.test(e.key)) {
         this.select();
         Arona.copyText(this.value);
       }

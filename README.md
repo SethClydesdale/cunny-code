@@ -41,6 +41,18 @@ Arona.encode("Cunny"); // ^💢😭💢😭 😭😭💢 💢😭 💢😭
 Arona.decode("^💢😭💢😭 😭😭💢 💢😭 💢😭 💢😭💢💢"); // Cunny
 ```
 
+Arona also comes packed with the ability to encrypt or decrypt messages with a password, using [AES encryption](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard). This is extra useful if you want to keep your messages private. It works the same as encoding, however, the contents of your message are encrypted first and then encoded as Cunny Code, giving it an extra layer of security.
+
+**Arona.encode([message, password])**
+```javascript
+Arona.encode(["UOHHH", "cunny"]); // 😭😭💢 😭😭💢💢💢 ^😭😭💢😭 😭😭😭 💢😭😭 ^💢💢😭 ^😭😭😭💢 💢😭💢 ^💢😭😭💢 😭💢💢💢💢 😭💢😭💢😭 💢😭😭😭 😭😭😭😭😭 ^💢💢 💢😭 💢💢 😭😭💢😭 ^💢😭💢💢 ^😭💢💢😭 😭💢😭 💢😭💢😭 ^😭💢😭😭 ^😭💢💢😭 💢💢 😭💢💢 ^💢😭 ^💢💢😭😭 ^💢😭💢💢 💢😭😭💢 ^💢💢😭💢 😭 ^💢😭💢💢 💢💢💢💢💢 ^💢😭💢😭 💢💢💢💢😭 ^💢😭💢 😭😭💢😭 😭💢😭 ^💢💢😭 💢💢😭 ^😭😭😭💢 ^😭😭😭💢 ^😭😭💢 💢😭😭😭💢
+```
+
+**Arona.decode([message, password])**
+```javascript
+Arona.decode(["^😭😭💢 😭😭💢💢💢 ^😭😭💢😭 😭😭😭 💢😭😭 ^💢💢😭 ^😭😭😭💢 💢😭💢 ^💢😭😭💢 😭💢💢💢💢 😭💢😭💢😭 💢😭😭😭 😭😭😭😭😭 ^💢💢 💢😭 💢💢 😭😭💢😭 ^💢😭💢💢 ^😭💢💢😭 😭💢😭 💢😭💢😭 ^😭💢😭😭 ^😭💢💢😭 💢💢 😭💢💢 ^💢😭 ^💢💢😭😭 ^💢😭💢💢 💢😭😭💢 ^💢💢😭💢 😭 ^💢😭💢💢 💢💢💢💢💢 ^💢😭💢😭 💢💢💢💢😭 ^💢😭💢 😭😭💢😭 😭💢😭 ^💢💢😭 💢💢😭 ^😭😭😭💢 ^😭😭😭💢 ^😭😭💢 💢😭😭😭💢", "cunny"]); // UOHHH
+```
+
 A-Z, numbers, and almost all punctuation characters are supported. 
 
 <p align="center"><img src="resources/images/readme/cunny-code.png" align="center" alt="Cunny Code"></p>
@@ -98,6 +110,7 @@ Cunny Code was made possible thanks to...
 - [nulla2011](https://github.com/nulla2011) for the [Blue Archive Logo Generator](https://github.com/nulla2011/bluearchive-logo).
 - [Blue Archive Wiki](https://bluearchive.fandom.com/wiki/Arona/Gallery) and Blue Archive itself for the imagery and audio used in this project.
 - [BlueSechi](https://www.youtube.com/watch?v=T9F1Wk8DQdg) for the dancing Arisu.
+- [CryptoJS](https://github.com/brix/crypto-js) for the methods used to encrypt messages with a password.
 - Google for [Noto Sans](https://fonts.google.com/noto/specimen/Noto+Sans) and [DAJI](https://x.com/daji_nhnyk/status/1840259471819280870) for letting me know the font that Blue Archive uses.
 - [FontAwesome](https://github.com/FortAwesome/Font-Awesome) for the awesome icons.
 - [13rac1](https://github.com/13rac1) for the [Twemoji](https://github.com/13rac1/twemoji-color-font?tab=readme-ov-file) font so we could achieve that iconic U😭H.

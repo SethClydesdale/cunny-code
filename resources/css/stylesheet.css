@@ -308,6 +308,17 @@ h1 { margin:0; }
   clear:both;
 }
 
+.spoiler {
+  color:#333;
+  background:#333;
+  display:inline-block;
+  padding:2px;
+}
+
+.spoiler:hover {
+  color:#FFF;
+}
+
 /* navigation */
 nav {
   text-align:right;
@@ -502,6 +513,17 @@ textarea:focus, input[type="text"]:focus, input[type="number"]:focus { border-co
 #buttons {
   margin-bottom:10px;
 }
+
+#password_field {
+  text-align:center;
+  margin:5px 0;
+}
+
+#password_help {
+  font-size:24px;
+  visibility:hidden;
+}
+input:checked ~ #password_help { visibility:visible; }
 
 a.button {
   display:inline-block;
@@ -798,6 +820,12 @@ code.block {
   margin:5px;
 }
 
+code.block.overflow-y {
+  overflow-y:hidden;
+  overflow-x:auto;
+  white-space:nowrap;
+}
+
 
 /* table styles */
 table {
@@ -850,6 +878,69 @@ table td {
 }
 
 .tutorial .focused.no-outline { outline:none; }
+
+
+/* CUSTOM INPUTS */
+/* checkboxes */
+.pseudo_checkbox {
+  display:inline-block;
+  text-align:center;
+  background:#FFF;
+  border:1px solid #CCC;
+  height:20px;
+  width:20px;
+  vertical-align:middle;
+  margin-right:3px;
+  position:relative;
+  overflow:hidden;
+  cursor:pointer;
+}
+
+.pseudo_checkbox:hover, .pseudo_checkbox:focus {
+  border-color:#18F;
+  outline:none;
+}
+
+.pseudo_checkbox:after {
+  content:"\f00c";
+  color:#18F;
+  font-family:FontAwesomeWeb, FontAwesome;
+  font-size:0px;
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  line-height:20px;
+  text-align:left;
+}
+
+input:checked + .pseudo_checkbox:after { font-size:20px; }
+.input_hidden {
+  visibility:hidden;
+  position:absolute;
+}
+
+/* disabled */
+input[disabled] + .pseudo_checkbox {
+  opacity:0.5;
+  cursor:not-allowed;
+}
+
+/* label state and style */
+.checkbox_label {
+  font-weight:600;
+  cursor:pointer;
+  user-select:none;
+  opacity:0.5
+}
+
+input:checked ~ .checkbox_label {
+  opacity:1;
+}
+
+/* checkbox input toggle */
+.checkbox_input { visibility:hidden; }
+input:checked ~ .checkbox_input { visibility:visible; }
 
 
 /* footer */
