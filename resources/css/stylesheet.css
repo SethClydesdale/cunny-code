@@ -911,7 +911,6 @@ table td {
   left:0;
   right:0;
   line-height:20px;
-  text-align:left;
 }
 
 input:checked + .pseudo_checkbox:after { font-size:20px; }
@@ -933,6 +932,8 @@ input[disabled] + .pseudo_checkbox {
   user-select:none;
   opacity:0.5
 }
+
+.checkbox_label:hover { opacity:0.8; }
 
 input:checked ~ .checkbox_label {
   opacity:1;
