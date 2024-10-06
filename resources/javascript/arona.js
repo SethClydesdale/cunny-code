@@ -277,18 +277,18 @@
       // messages for enabling password mode
       password_on : [
         ['Activating password mode!', 22],
-        ["I'll do my best to encrypt your message, Sensei!", 25],
-        ["Don't worry! Your password is safe with me!", 13],
+        ["I'll do my best to encrypt your messages!", 25],
+        ["Don't worry! Your secrets are safe with me, Sensei.", 13],
         ['Let me know what password you want to use!', 31],
         ["It's tough working with passwords, but Arona will try her best.", 24]
       ],
       
       // messages for disabling password mode
       password_off : [
-        ['Password mode deactivated.', 13],
+        ['Password mode deactivated.', 33],
+        ["(I'll just pretend that I didn't see anything...)", 3],
+        ["You have some strange passwords, Sensei.", 26],
         ['Phew... encoding and decoding with passwords is hard work.', 24],
-        ["I'll just pretend that I didn't see anything...", 3],
-        ["I'll keep your password safe for next time!", 22],
         ['That was exhausting... Can Arona have something sweet now, Sensei?', 23]
       ],
       
