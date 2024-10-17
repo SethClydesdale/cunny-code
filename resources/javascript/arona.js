@@ -15,7 +15,7 @@
   window.getPaths = function () {
     var path = window.location.pathname;
     
-    if (/\/report\/|\/download\/|\/donate\/|\/privacy\/|\/arona\/|\/code\/(index|$)/.test(path)) {
+    if (/\/report\/|\/download\/|\/donate\/|\/privacy\/|\/arona\/|\/code\/|\/extension\/(index|$)/.test(path)) {
       return '../';  
                
     } else {
@@ -23,15 +23,19 @@
     }
   };
   
-  
   var hour = new Date().getHours(), // used for Arona's greetings
       // used for youtube embeds
       yt_embed = '<iframe id="video" src="https://www.youtube.com/embed/{ID}?autoplay=1" frameborder="0" allow="autoplay"></iframe>';
   
+  // transfers old sensei name storage item to the new version
+  if (storageOK && localStorage.senseiName) {
+    localStorage.cc_sensei_name = localStorage.senseiName;
+    localStorage.removeItem('senseiName');
+  }
+  
+  
   // Arona's functionality
   window.Arona = {
-    sensei : (storageOK && localStorage.senseiName) ? localStorage.senseiName : '', // Sensei's name
-    
     // encoder/decoder lists
     cunny : {
       encoder : {
@@ -304,6 +308,7 @@
       // messages for when setting a custom name
       name : {
         set : ['Okay! Nice to meet you, {Sensei}!', 32],
+        same : ["What a coincidence! We have the same name!", 12],
         empty : ["I don't know what to call you if you don't write it, Sensei.", 24]
       },
       
@@ -528,7 +533,9 @@
       encode : document.getElementById('encode'),
       decode : document.getElementById('decode'),
       error : document.getElementById('error'),
+      error_list : document.getElementById('error_list'),
       password : document.getElementById('password'),
+      enable_password : document.getElementById('enable_password'),
       help : document.getElementById('help'),
       
       bgm : document.getElementById('bgm_player'),
@@ -536,15 +543,222 @@
     },
     
     
+    // user settings
+    settings : {
+      auto_translate : (storageOK && localStorage.cc_auto_translate == 'false') ? false : true,
+      keep_password_state : (storageOK && localStorage.cc_keep_password_state == 'true') ? true : false,
+      save_password : (storageOK && localStorage.cc_save_password == 'true') ? true : false,
+      sensei_name : (storageOK && localStorage.cc_sensei_name !== undefined) ? localStorage.cc_sensei_name : '',
+      
+      // opens the settings manager
+      open : function () {
+        Arona.modal.open({
+          title : 'Settings Manager',
+          content : 
+          '<h3 class="settings-title">Encoder Settings</h3>'+
+          '<div class="columns-2 clear">'+
+            '<div class="settings-label"><label for="auto_translate">Auto translate:</label></div>'+
+            '<div class="settings-value">'+
+              '<div class="columns-2">'+
+                '<div style="width:10%" class="center">'+
+                  '<input id="auto_translate" type="checkbox" class="checkbox_setting input_hidden"' + (Arona.settings.auto_translate ? 'checked' : '') + ' onchange="Arona.settings.toggle(this);">'+
+                  '<span tabindex="0" class="pseudo_checkbox" id="auto_translate_clone" onclick="this.previousSibling.click();" onkeyup="/enter/i.test(event.key) && this.previousSibling.click();"></span>'+
+                '</div>'+
+                '<div style="width:90%">Automatically encodes or decodes Cunny Code when text is entered into the input field.</div>'+
+              '</div>'+
+            '</div>'+
+          '</div>'+
+
+          '<div class="columns-2 clear">'+
+            '<div class="settings-label"><label for="keep_password_state" id="label_keep_password_state">Keep password state:</label></div>'+
+            '<div class="settings-value">'+
+              '<div class="columns-2">'+
+                '<div style="width:10%" class="center">'+
+                  '<input id="keep_password_state" type="checkbox" class="checkbox_setting input_hidden"' + (Arona.settings.keep_password_state ? 'checked' : '') + ' onchange="Arona.settings.toggle(this);">'+
+                  '<span tabindex="0" class="pseudo_checkbox" onclick="this.previousSibling.click();" onkeyup="/enter/i.test(event.key) && this.previousSibling.click();"></span>'+
+                '</div>'+
+                '<div style="width:90%">'+
+                  'Whenever you visit the website, the password checkbox will remain ticked or unticked, depending on what you last set it to.<br>'+
+                  '<small>(If disabled, the password checkbox defaults to off every time you visit.)</small>'+
+                '</div>'+
+              '</div>'+
+            '</div>'+
+          '</div>'+
+
+          '<div class="columns-2 clear">'+
+            '<div class="settings-label"><label for="save_password" id="label_save_password">Save password:</label></div>'+
+            '<div class="settings-value">'+
+              '<div class="columns-2">'+
+                '<div style="width:10%" class="center">'+
+                  '<input id="save_password" type="checkbox" class="checkbox_setting input_hidden"' + (Arona.settings.save_password ? 'checked' : '') + ' onchange="Arona.settings.toggle(this);">'+
+                  '<span tabindex="0" class="pseudo_checkbox" onclick="this.previousSibling.click();" onkeyup="/enter/i.test(event.key) && this.previousSibling.click();"></span>'+
+                '</div>'+
+                '<div style="width:90%">'+
+                  'Saves your most recent password so you don\'t have to type it again when encrypting or decrypting.<br>'+
+                  '<small>(The saved password is deleted upon disabling this option.)</small>'+
+                '</div>'+
+              '</div>'+
+            '</div>'+
+          '</div>'+
+
+          '<h3 class="settings-title">Other</h3>'+
+          '<div class="columns-2 clear">'+
+            '<div class="settings-label"><label for="sensei_name" id="label_save_password">Sensei name:</label></div>'+
+            '<div class="settings-value">'+
+              '<input id="sensei_name" type="text" placeholder="Sensei" value="' + (Arona.settings.sensei_name ? Arona.settings.sensei_name : '') + '" oninput="Arona.settings.updateName(this.value);" maxlength="20"><br>'+
+              'Changes the name that Arona calls you by in certain situations, such as greetings.'+
+            '</div>'+
+          '</div>'+
+          '<br>',
+
+          buttonText : 'Close',
+          noFocus : true,
+          focus : '#auto_translate_clone',
+          
+          customButton : '<button onclick="Arona.settings.reset();"><i>Reset</i></button>',
+
+          customSize : {
+            top : '5%',
+            left : '25%',
+            bottom : '5%',
+            right : '25%'
+          }
+        });
+      },
+      
+      // handler for general settings that have a boolean value
+      toggle : function (setting) {
+        var id = setting.id;
+        Arona.settings[id] = setting.checked;
+        
+        if (storageOK) {
+          localStorage['cc_' + id] = setting.checked.toString();
+          
+          // saves or deletes saved password
+          if (id == 'save_password') {
+            if (!setting.checked) {
+              localStorage.removeItem('cc_password_key');
+            } else {
+              localStorage.cc_password_key = Arona.password.key;
+            }
+          }
+
+          // saves or deletes saved password state
+          if (id == 'keep_password_state') {
+            if (!setting.checked) {
+              localStorage.removeItem('cc_password_state');
+            } else {
+              localStorage.cc_password_state = Arona.password.on;
+            }
+          }
+        }
+      },
+      
+      // updates Sensei's name
+      updateName : function (name) {
+        name = name.slice(0, 20).replace(/</g, '&lt;');
+        
+        if (name.length) { // check to make sure name is at least 1 char
+          // finally format and set Sensei's name
+          Arona.settings.sensei_name = name.slice(0, 1).toUpperCase() + name.slice(1, name.length).toLowerCase();
+          
+          // save Sensei's name to the browser
+          if (storageOK) {
+            localStorage.cc_sensei_name = Arona.settings.sensei_name;
+          }
+        }
+      },
+      
+      // reset settings to their default values
+      reset : function () {
+        if (!confirm('This will reset all settings to their defaults. Do you want to continue?')) return false;
+        
+        // update settings
+        Arona.settings.auto_translate = true;
+        document.getElementById('auto_translate').checked = true;
+        
+        Arona.settings.keep_password_state = false;
+        document.getElementById('keep_password_state').checked = false;
+        
+        Arona.settings.save_password = false;
+        document.getElementById('save_password').checked = false;
+        
+        Arona.settings.sensei_name = '';
+        document.getElementById('sensei_name').value = '';
+        
+        
+        // update storage items
+        if (storageOK) {
+          localStorage.cc_auto_translate = true;
+          localStorage.cc_keep_password_state = false;
+          localStorage.cc_save_password = false;
+          localStorage.cc_sensei_name = '';
+          localStorage.removeItem('cc_password_key');
+          localStorage.removeItem('cc_password_state');
+        }
+      }
+    },
+    
+    
     // password settings
     password : {
-      key : '',
-      on : false,
+      key : (storageOK && localStorage.cc_save_password == 'true' && localStorage.cc_password_key !== undefined) ? localStorage.cc_password_key : '',
+      on : (storageOK && localStorage.cc_keep_password_state == 'true' && localStorage.cc_password_state == 'true') ? true : false,
 
       // toggles password mode and has Arona react to it
       toggle : function (caller) {
         Arona.password.on = caller.checked;
         Arona.randomizeMessage(Arona.speech['password_' + (Arona.password.on ? 'on' : 'off')], 'lastPassword' + (Arona.password.on ? 'On' : 'Off') + 'Msg');
+        
+        // saves password state
+        if (Arona.settings.keep_password_state && storageOK) {
+          localStorage.cc_password_state = caller.checked;
+        }
+      }
+    },
+    
+    
+    // determines whether Arona should encode or decode the passed input
+    determineMode : function (input, caller) {
+      // mixed encode
+      if (/[A-Z0-9.,!?'"/\(\):;=+\-_@&`~\\\|#$%*\{\}\[\]<>🦀ÄÆĄÀÅÇĈĆŠĤÐŚÈŁÉĐĘĜĴŹÑŃÖØÓŜÞÜŬŻ]/i.test(input) && /😭|💢/.test(input)) {
+        Arona.encode(input, caller);
+      }
+
+      // decode
+      else if (/😭|💢/.test(input)) {
+        Arona.decode(input, caller);
+      } 
+
+      // default encode
+      else {
+        Arona.encode(input, caller);
+      }
+    },
+    
+    
+    // delays encoding/decoding if auto_translate is enabled
+    // mainly used for Arona.node.input and Arona.node.password
+    delay : function (callback) {
+      if (Arona.settings.auto_translate) {
+        if (Arona.delayTimeout) clearTimeout(Arona.delayTimeout);
+        
+        // displays an ellipsis in the output to indicate that it's about to change
+        if (!Arona.delayEllipsis) {
+          Arona.delayEllipsis = true;
+          Arona.node.output.value = Arona.node.output.value + '⋯';
+        }
+        
+        // disable the delay ellipsis after the timeout and continue with encoding/decoding
+        Arona.delayTimeout = setTimeout(function () {
+          Arona.delayEllipsis = false;
+          if (!Arona.node.input.value) Arona.node.output.value = '';
+          
+          callback && callback();
+          delete Arona.delayTimeout;
+        }, 350);
+      } else {
+        callback && callback();
       }
     },
     
@@ -619,11 +833,7 @@
       
       // display error message if some characters could not be encoded
       if (Arona.node.error && err.length) {
-        // parse error log
-        Arona.node.error.innerHTML =
-          '<h3>Error</h3>'+
-          '<strong>The following could not be encoded.</strong><br><div class="overflow-box">' + err.replace(/</g, '&lt;') + '</div>'+
-          '<a href="#close" class="close-button" onclick="this.parentNode.style.display = \'none\'; return false;" title="close"><i class="fa">&#xf00d;</i></a>';
+        Arona.node.error_list.innerText = err;
         Arona.node.error.style.display = '';
         
         // make Arona say something about the error
@@ -759,18 +969,18 @@
       }
       
       // tell Arona your name
-      if (/^(?:my name is|call me) .*?$/i.test(value)) {
+      else if (/^(?:my name is|call me) .*?$/i.test(value)) {
         // get name, sanitize, and limit length
         var name = value.replace(/^(?:my name is|call me) (.*?)$/i, '$1').slice(0, 20).replace(/</g, '&lt;');
         
         if (name.length) { // check to make sure name is at least 1 char
           // finally format and set Sensei's name
-          Arona.sensei = name.slice(0, 1).toUpperCase() + name.slice(1, name.length).toLowerCase();
-          Arona.say(Arona.speech.name.set);
+          Arona.settings.sensei_name = name.slice(0, 1).toUpperCase() + name.slice(1, name.length).toLowerCase();
+          Arona.say(Arona.settings.sensei_name == 'Arona' ? Arona.speech.name.same : Arona.speech.name.set);
           
           // save Sensei's name to the browser
           if (storageOK) {
-            localStorage.senseiName = Arona.sensei;
+            localStorage.cc_sensei_name = Arona.settings.sensei_name;
           }
         }
         // fallback for empty name
@@ -1059,8 +1269,8 @@
       
       // format Sensei's name
       if (/\{Sensei\}/i.test(text)) {
-        text = Arona.sensei ?
-          text.replace(/\{Sensei\}/ig, Arona.sensei + '-sensei') : // custom name, if set
+        text = Arona.settings.sensei_name ?
+          text.replace(/\{Sensei\}/ig, Arona.settings.sensei_name + '-sensei') : // custom name, if set
           text.replace(/\{Sensei\}/ig, 'Sensei'); // default "Sensei" if no custom name
       }
       
@@ -1588,6 +1798,107 @@
         var img = new Image();
         img.src = Arona.preload.imgPath + src;
       }
+    },
+    
+    
+    // popup modal
+    modal : {
+      // opens a new modal
+      // params: object (optional)
+      // {
+      //           title : string, (popup title)
+      //         content : string, (popup content)
+      //      buttonText : string, (custom text for the OK button)
+      // closeButtonText : string, (custom text for the close button)
+      //         noFocus : bool, (keeps buttons from being focused)
+      //           focus : string, (pass a css selector to focus a specific element; overrides noFocus)
+      //      customSize : object, manually set the top, left, right, and bottom css properties
+      //    customButton : string, add custom HTML to the button area
+      //        keepOpen : bool, (keeps the modal open when clicking the callback button; useful for opening another modal afterwards)
+      //         noClose : bool, (removes the close button)
+      //          zIndex : 'low', lowers the z-index so the exercise menu can be used
+      //        callback : function (function to execute when the OK button is clicked)
+      //   closeCallback : function (function to execute when the close button is clicked)
+      // } // all values are optional
+      open : function (o) {
+        o = o ? o : {};
+
+        Arona.modal.close();
+
+        // create the modal and set its params
+        var modal = document.createElement('DIV'), button, buttons;
+        modal.id = 'cunny-modal';
+        modal.innerHTML = 
+        '<div id="cunny-modal-overlay"' + ( o.zIndex == 'low' ? ' style="z-index:1;"' : '' ) + '></div>'+
+        '<div id="cunny-modal-body" style="' + ( o.zIndex == 'low' ? 'z-index:2;' : '' ) + ( o.customSize ? 'top:' + o.customSize.top + ';right:' + o.customSize.right + ';bottom:' + o.customSize.bottom + ';left:' + o.customSize.left + ';' : '' ) + '">'+
+          '<h2 id="cunny-modal-header"><span id="cunny-modal-header-text">' + ( o.title ? o.title : 'Popup' ) + '</span></h2>'+
+          '<div id="cunny-modal-content">' + ( o.content ? o.content : '' ) + '</div>'+
+          '<div id="cunny-modal-buttons" class="center">'+
+            (o.customButton ? o.customButton : '') +
+            (o.noClose ? '' : '<button id="cunny-modal-close" class="button" onclick="Arona.modal.close();"><i>' + (o.closeButtonText ? o.closeButtonText : 'Close') + '</i></button>')+
+          '</div>'+
+        '</div>';
+
+        // create a button for the callback function
+        if (o.callback) {
+          button = document.createElement('BUTTON');
+          buttons = modal.querySelector('#cunny-modal-buttons');
+
+          // set button params
+          button.innerText = o.buttonText ? o.buttonText : 'OK';
+          button.id = 'cunny-modal-ok';
+          button.className = 'button';
+          button.onclick = function () {
+            o.callback();
+            !o.keepOpen && Arona.modal.close();
+          };
+
+          // insert button into buttons list
+          buttons.insertBefore(button, buttons.firstChild);
+        }
+
+        // add the modal to the document
+        document.body.style.overflow = 'hidden';
+        document.body.appendChild(modal);
+
+        // focus confirm/ok button
+        if (o.focus) {
+          document.querySelector(o.focus).focus();
+
+        } else if (!o.noFocus) {
+          document.getElementById('cunny-modal-' + (o.callback ? 'ok' : 'close')).focus();
+        }
+
+        // apply close button callback
+        if (o.closeCallback) {
+          document.getElementById('cunny-modal-close').onclick = function () {
+            o.closeCallback();
+            !o.keepOpen && Arona.modal.close();
+          };
+        }
+
+        // pause the timer when opening the modal
+        if (window.Genki && Genki.timer && Genki.timer.isRunning()) {
+          Genki.pauseTimerWhenOpenPopup();
+        }
+
+        return o;
+      },
+
+      // close the modal
+      close : function () {
+        var modal = document.getElementById('cunny-modal');
+
+        if (modal) {
+          document.body.style.overflow = '';
+          document.body.removeChild(modal);
+        }
+
+        // resume the timer when closing the modal
+        if (window.Genki && Genki.timer && Genki.timer.isPaused()) {
+          Genki.startTimerWhenClosePopup();
+        }
+      }
     }
   };
   
@@ -1644,6 +1955,16 @@
       if (/:(?:crab|kani):/ig.test(this.value)) {
         this.value = this.value.replace(/:(?:crab|kani):/ig, '🦀');
       }
+      
+      // auto encode/decode
+      if (Arona.settings.auto_translate) {
+        Arona.delay(function () {
+          Arona.determineMode(Arona.node.input.value, Arona.node.input);
+        });
+        
+        // stop last message from sending if no value
+        if (!Arona.node.input.value) Arona.delay();
+      }
     };
     
     // disables enter key's normal behavior unless SHIFT is held down
@@ -1657,20 +1978,7 @@
         if (e.shiftKey) return false; // don't encode if holding shift; this indicates a line break
 
         if (/enter/i.test(e.key)) {
-          // mixed encode
-          if (/[A-Z0-9.,!?'"/\(\):;=+\-_@&`~\\\|#$%*\{\}\[\]<>🦀ÄÆĄÀÅÇĈĆŠĤÐŚÈŁÉĐĘĜĴŹÑŃÖØÓŜÞÜŬŻ]/i.test(Arona.node.input.value) && /😭|💢/.test(Arona.node.input.value)) {
-            Arona.encode(Arona.node.input.value, this);
-          }
-
-          // decode
-          else if (/😭|💢/.test(Arona.node.input.value)) {
-            Arona.decode(Arona.node.input.value, this);
-          } 
-
-          // default encode
-          else {
-            Arona.encode(Arona.node.input.value, this);
-          }
+          Arona.determineMode(Arona.node.input.value, this);
         }
       };
     }
@@ -1682,6 +1990,37 @@
         Arona.copyText(this.value);
       }
     }
+  }
+
+  
+  if (Arona.node.password) {
+    // updates password and saves it if enabled
+    Arona.node.password.oninput = function () {
+      Arona.password.key = this.value;
+
+      // auto encode/decode if preferred
+      if (Arona.settings.auto_translate && Arona.node.input.value) {
+        Arona.delay(function () {
+          Arona.determineMode(Arona.node.input.value, Arona.node.password);
+        });
+      }
+
+      // save the password
+      if (Arona.settings.save_password && storageOK) {
+        localStorage.cc_password_key = this.value;
+      }
+    };
+    
+    // applies the saved password
+    if (Arona.settings.save_password && storageOK) {
+      Arona.node.password.value = Arona.password.key;
+    }
+  }
+  
+  
+  // toggles password state depending on preferences
+  if (Arona.settings.keep_password_state && Arona.node.enable_password) {
+    Arona.node.enable_password.checked = Arona.password.on;
   }
   
   // event listeners for when dragging Arona

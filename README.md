@@ -16,6 +16,7 @@ Give it a try by decoding the message below!
 
 **Quick Links**
 - [What is Cunny Code?](#what-is-cunny-code)
+- [Browser Extension](#browser-extension)
 - [Using the Offline Version](#using-the-offline-version)
 - [Suggestions, Feedback, Bug Reports](#suggestions-feedback-bug-reports)
 - [The Great Decoding Experiment](#the-great-decoding-experiment)
@@ -45,7 +46,7 @@ Arona also comes packed with the ability to encrypt or decrypt messages with a p
 
 **Arona.encode([message, password])**
 ```javascript
-Arona.encode(["UOHHH", "cunny"]); // 😭😭💢 😭😭💢💢💢 ^😭😭💢😭 😭😭😭 💢😭😭 ^💢💢😭 ^😭😭😭💢 💢😭💢 ^💢😭😭💢 😭💢💢💢💢 😭💢😭💢😭 💢😭😭😭 😭😭😭😭😭 ^💢💢 💢😭 💢💢 😭😭💢😭 ^💢😭💢💢 ^😭💢💢😭 😭💢😭 💢😭💢😭 ^😭💢😭😭 ^😭💢💢😭 💢💢 😭💢💢 ^💢😭 ^💢💢😭😭 ^💢😭💢💢 💢😭😭💢 ^💢💢😭💢 😭 ^💢😭💢💢 💢💢💢💢💢 ^💢😭💢😭 💢💢💢💢😭 ^💢😭💢 😭😭💢😭 😭💢😭 ^💢💢😭 💢💢😭 ^😭😭😭💢 ^😭😭😭💢 ^😭😭💢 💢😭😭😭💢
+Arona.encode(["UOHHH", "cunny"]); // ^😭😭💢 😭😭💢💢💢 ^😭😭💢😭 😭😭😭 💢😭😭 ^💢💢😭 ^😭😭😭💢 💢😭💢 ^💢😭😭💢 😭💢💢💢💢 😭💢😭💢😭 💢😭😭😭 😭😭😭😭😭 ^💢💢 💢😭 💢💢 😭😭💢😭 ^💢😭💢💢 ^😭💢💢😭 😭💢😭 💢😭💢😭 ^😭💢😭😭 ^😭💢💢😭 💢💢 😭💢💢 ^💢😭 ^💢💢😭😭 ^💢😭💢💢 💢😭😭💢 ^💢💢😭💢 😭 ^💢😭💢💢 💢💢💢💢💢 ^💢😭💢😭 💢💢💢💢😭 ^💢😭💢 😭😭💢😭 😭💢😭 ^💢💢😭 💢💢😭 ^😭😭😭💢 ^😭😭😭💢 ^😭😭💢 💢😭😭😭💢
 ```
 
 **Arona.decode([message, password])**
@@ -73,6 +74,16 @@ These emojis were chosen due to their relation to the "cunny" meme. I'll give a 
 💢 is often used when a character is being so bratty or mean that it brings one to want to discipline or "correct" said character.
 
 Needless to say, these two emojis are synonymous with the Blue Archive community due to the amount of cute and bratty characters that are present in the game. This is also the reason why the tool is themed after Blue Archive.
+
+
+### Browser Extension
+Cunny Code also has a browser extension called "Cunny Translate" that lets you easily translate to and from Cunny Code while browsing the web! Visit the link below to get it!
+
+https://sethclydesdale.github.io/cunny-code/extension/
+
+<div align="center"><img src="resources/images/general/demo.png"></div>
+
+You can also contribute to the development of Cunny Translate or view the source code [here](https://github.com/SethClydesdale/cunny-translate).
 
 
 ### Using the Offline Version
@@ -125,4 +136,4 @@ If you found this project cute or funny, please see the [Donate page](https://se
 -----
 
 <div align="center"><a href="https://sethclydesdale.github.io/cunny-code/404"><img src="resources/images/arisu.png" align="center" height="100"></a></div>
-<div align="center">Built with Cunny and Love</div>
+<div align="center">Made with Cunny and Love</div>
