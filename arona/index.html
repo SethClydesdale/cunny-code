@@ -43,199 +43,201 @@
     <div id="bg_layer"><div id="bg_layer2"></div></div>
     <div id="content">
       <div class="content-block clear">
-        <div id="encoder" class="menu">
-          <div class="menu-inner">
-            <h2>About Arona</h2>
-            <p>This page lists out all of Arona's functions and easter eggs.</p>
-            <ul>
-              <li><a href="#cunny-code">Encoding and Decoding</a></li>
-              <li><a href="#encryption-and-decryption">Encryption and Decryption</a></li>
-              <li><a href="#responses">Responses</a></li>
-              <li><a href="#expressions">Expressions</a></li>
-              <li><a href="#custom-messages">Custom Messages</a></li>
-              <li><a href="#sensei-name">Remembering Sensei's Name</a></li>
-              <li><a href="#getting-upset">Getting Upset</a></li>
-              <li><a href="#poking">Poking</a></li>
-              <li><a href="#speaking">Speaking</a></li>
-              <li><a href="#helping">Helping</a></li>
-              <li><a href="#teasing">Teasing</a></li>
-              <li><a href="#playing-music">Playing Music</a></li>
-              <li><a href="#fetching-videos">Fetching Videos</a></li>
-              <li><a href="#idling-and-sleeping">Idling and Sleeping</a></li>
-              <li><a href="#writing">Writing</a></li>
-            </ul>
-            
-            <h3 id="cunny-code">Encoding and Decoding</h3>
-            <p>Arona's standard function for this tool is encoding and decoding Cunny Code. You can perform this function from the <a href="../">homepage</a>, but you can also perfom it through the console using the following functions.</p>
-            
-            <strong>Arona.encode(string)</strong>
-            <div class="columns-2 clear">
-              <div style="width:80%;margin-bottom:5px;"><code class="block">Arona.encode("Cunny");</code></div>
-              <div style="width:20%;margin-bottom:5px;"><button onclick="Arona.say('Here is your encoded message, Sensei!<br>&quot;' + Arona.encode('Cunny') + '&quot;', 12); document.getElementById('arona_inner').focus();"><i>Run</i></button></div>
-            </div>
-            
-            <strong>Arona.decode(string)</strong>
-            <div class="columns-2 clear">
-              <div style="width:80%;margin-bottom:5px;"><code class="block">Arona.decode("^💢😭💢😭 😭😭💢 💢😭 💢😭 💢😭💢💢");</code></div>
-              <div style="width:20%;margin-bottom:5px;"><button onclick="Arona.say('Here is your decoded message, Sensei!<br>&quot;' + Arona.decode('^💢😭💢😭 😭😭💢 💢😭 💢😭 💢😭💢💢') + '&quot;', 12); document.getElementById('arona_inner').focus();"><i>Run</i></button></div>
-            </div>
-            <br>
-            
-            <h3 id="encryption-and-decryption">Encryption and Decryption</h3>
-            <p>Arona also comes packed with the ability to encrypt or decrypt messages with a password, using <a href="https://en.wikipedia.org/wiki/Advanced_Encryption_Standard" target="_blank">AES encryption</a>. This is extra useful if you want to keep your messages private. It works the same as encoding, however, the contents of your message are encrypted first and then encoded as Cunny Code, giving it an extra layer of security.</p>
-            <strong>Arona.encode([message, password])</strong>
-            <div class="columns-2 clear">
-              <div style="width:80%;margin-bottom:5px;"><code class="block">Arona.encode(["UOHHH", "cunny"]);</code></div>
-              <div style="width:20%;margin-bottom:5px;"><button onclick="Arona.say('Here is your encrypted message, Sensei!<br><div style=&quot;max-height:150px;overflow:auto;&quot;>&quot;&quot;' + Arona.encode(['UOHHH', 'cunny']) + '&quot;</div>', 22); document.getElementById('arona_inner').focus();"><i>Run</i></button></div>
-            </div>
-            
-            <strong>Arona.decode([message, password])</strong>
-            <div class="columns-2 clear">
-              <div style="width:80%;margin-bottom:5px;"><code class="block overflow-y">Arona.decode(["^😭😭💢 😭😭💢💢💢 ^😭😭💢😭 😭😭😭 💢😭😭 ^💢💢😭 ^😭😭😭💢 💢😭💢 ^💢😭😭💢 😭💢💢💢💢 😭💢😭💢😭 💢😭😭😭 😭😭😭😭😭 ^💢💢 💢😭 💢💢 😭😭💢😭 ^💢😭💢💢 ^😭💢💢😭 😭💢😭 💢😭💢😭 ^😭💢😭😭 ^😭💢💢😭 💢💢 😭💢💢 ^💢😭 ^💢💢😭😭 ^💢😭💢💢 💢😭😭💢 ^💢💢😭💢 😭 ^💢😭💢💢 💢💢💢💢💢 ^💢😭💢😭 💢💢💢💢😭 ^💢😭💢 😭😭💢😭 😭💢😭 ^💢💢😭 💢💢😭 ^😭😭😭💢 ^😭😭😭💢 ^😭😭💢 💢😭😭😭💢", "cunny"]);</code></div>
-              <div style="width:20%;margin-bottom:5px;"><button onclick="Arona.say('Here is your decrypted message, Sensei!<br>' + Arona.decode(['^😭😭💢 😭😭💢💢💢 ^😭😭💢😭 😭😭😭 💢😭😭 ^💢💢😭 ^😭😭😭💢 💢😭💢 ^💢😭😭💢 😭💢💢💢💢 😭💢😭💢😭 💢😭😭😭 😭😭😭😭😭 ^💢💢 💢😭 💢💢 😭😭💢😭 ^💢😭💢💢 ^😭💢💢😭 😭💢😭 💢😭💢😭 ^😭💢😭😭 ^😭💢💢😭 💢💢 😭💢💢 ^💢😭 ^💢💢😭😭 ^💢😭💢💢 💢😭😭💢 ^💢💢😭💢 😭 ^💢😭💢💢 💢💢💢💢💢 ^💢😭💢😭 💢💢💢💢😭 ^💢😭💢 😭😭💢😭 😭💢😭 ^💢💢😭 💢💢😭 ^😭😭😭💢 ^😭😭😭💢 ^😭😭💢 💢😭😭😭💢', 'cunny']) + '&quot;', 22); document.getElementById('arona_inner').focus();"><i>Run</i></button></div>
-            </div>
-            
-            <p>To give another example, try decrypting Arona's super secret message below without the password and then with it.</p>
-            <code class="block overflow-y" id="arona_msg">^😭😭💢 😭😭💢💢💢 ^😭😭💢😭 😭😭😭 💢😭😭 ^💢💢😭 ^😭😭😭💢 💢😭💢 ^💢😭😭💢 😭💢💢💢💢 💢💢💢😭😭 💢😭😭💢😭 ^💢 ^😭💢 😭💢😭💢😭 ^💢💢 ^😭😭💢 😭💢😭💢😭 ^💢😭💢 😭 😭😭 😭😭😭😭 ^😭😭💢😭 ^😭😭😭 💢💢😭😭 😭😭💢 💢💢💢💢💢 ^😭😭😭 ^😭💢💢😭 ^💢😭😭😭 💢😭😭💢😭 💢💢😭 ^😭💢💢💢 💢😭 💢💢💢💢💢 💢💢😭💢 😭😭 😭💢💢💢💢 ^💢💢😭💢 ^💢💢💢 😭😭😭💢💢 ^😭😭 ^😭😭😭😭 ^😭💢😭 ^😭💢😭😭 ^💢😭💢 😭😭😭😭 ^😭😭😭 ^😭😭💢😭 💢💢💢💢💢 💢😭😭😭 ^😭😭😭💢 💢😭😭💢 ^💢😭😭💢 💢😭😭😭😭 ^💢😭😭😭 ^😭😭💢 💢💢💢💢💢 ^😭😭💢😭 😭😭😭😭 💢😭😭😭 😭😭😭💢💢 ^💢😭😭😭 ^💢💢😭😭</code>
-            <div class="columns-2 clear">
-              <div style="width:70%;margin-bottom:5px;">
-                <strong>Password:</strong> <input id="pw" type="text" onkeyup="if (event.key.toLowerCase() == 'enter') document.getElementById('decrypt').click();">
-                <div style="margin-top:3px; text-align:center;"><small><strong>Hint:</strong> <span class="spoiler">Arona's favorite flavor of milk</span></small></div>
+        <div id="encoder">
+          <div class="menu">
+            <div class="menu-inner">
+              <h2>About Arona</h2>
+              <p>This page lists out all of Arona's functions and easter eggs.</p>
+              <ul>
+                <li><a href="#cunny-code">Encoding and Decoding</a></li>
+                <li><a href="#encryption-and-decryption">Encryption and Decryption</a></li>
+                <li><a href="#responses">Responses</a></li>
+                <li><a href="#expressions">Expressions</a></li>
+                <li><a href="#custom-messages">Custom Messages</a></li>
+                <li><a href="#sensei-name">Remembering Sensei's Name</a></li>
+                <li><a href="#getting-upset">Getting Upset</a></li>
+                <li><a href="#poking">Poking</a></li>
+                <li><a href="#speaking">Speaking</a></li>
+                <li><a href="#helping">Helping</a></li>
+                <li><a href="#teasing">Teasing</a></li>
+                <li><a href="#playing-music">Playing Music</a></li>
+                <li><a href="#fetching-videos">Fetching Videos</a></li>
+                <li><a href="#idling-and-sleeping">Idling and Sleeping</a></li>
+                <li><a href="#writing">Writing</a></li>
+              </ul>
+
+              <h3 id="cunny-code">Encoding and Decoding</h3>
+              <p>Arona's standard function for this tool is encoding and decoding Cunny Code. You can perform this function from the <a href="../">homepage</a>, but you can also perfom it through the console using the following functions.</p>
+
+              <strong>Arona.encode(string)</strong>
+              <div class="columns-2 clear">
+                <div style="width:80%;margin-bottom:5px;"><code class="block">Arona.encode("Cunny");</code></div>
+                <div style="width:20%;margin-bottom:5px;"><button onclick="Arona.say('Here is your encoded message, Sensei!<br>&quot;' + Arona.encode('Cunny') + '&quot;', 12); document.getElementById('arona_inner').focus();"><i>Run</i></button></div>
               </div>
-              <div style="width:30%;margin-bottom:5px;"><button id="decrypt" onclick="Arona.say((document.getElementById('pw').value == 'strawberry' ? 'What!? H-How did you guess my password!?' : 'Wrong! Better luck next time, Sensei.') + '<br><div style=&quot;word-break:break-all;&quot;>&quot;' + Arona.decode([document.getElementById('arona_msg').innerText, document.getElementById('pw').value]) + '&quot;</div>', document.getElementById('pw').value == 'strawberry' ? 28 : 13); document.getElementById('arona_inner').focus();"><i>Decrypt</i></button></div>
+
+              <strong>Arona.decode(string)</strong>
+              <div class="columns-2 clear">
+                <div style="width:80%;margin-bottom:5px;"><code class="block">Arona.decode("^💢😭💢😭 😭😭💢 💢😭 💢😭 💢😭💢💢");</code></div>
+                <div style="width:20%;margin-bottom:5px;"><button onclick="Arona.say('Here is your decoded message, Sensei!<br>&quot;' + Arona.decode('^💢😭💢😭 😭😭💢 💢😭 💢😭 💢😭💢💢') + '&quot;', 12); document.getElementById('arona_inner').focus();"><i>Run</i></button></div>
+              </div>
+              <br>
+
+              <h3 id="encryption-and-decryption">Encryption and Decryption</h3>
+              <p>Arona also comes packed with the ability to encrypt or decrypt messages with a password, using <a href="https://en.wikipedia.org/wiki/Advanced_Encryption_Standard" target="_blank">AES encryption</a>. This is extra useful if you want to keep your messages private. It works the same as encoding, however, the contents of your message are encrypted first and then encoded as Cunny Code, giving it an extra layer of security.</p>
+              <strong>Arona.encode([message, password])</strong>
+              <div class="columns-2 clear">
+                <div style="width:80%;margin-bottom:5px;"><code class="block">Arona.encode(["UOHHH", "cunny"]);</code></div>
+                <div style="width:20%;margin-bottom:5px;"><button onclick="Arona.say('Here is your encrypted message, Sensei!<br><div style=&quot;max-height:150px;overflow:auto;&quot;>&quot;&quot;' + Arona.encode(['UOHHH', 'cunny']) + '&quot;</div>', 22); document.getElementById('arona_inner').focus();"><i>Run</i></button></div>
+              </div>
+
+              <strong>Arona.decode([message, password])</strong>
+              <div class="columns-2 clear">
+                <div style="width:80%;margin-bottom:5px;"><code class="block overflow-y">Arona.decode(["^😭😭💢 😭😭💢💢💢 ^😭😭💢😭 😭😭😭 💢😭😭 ^💢💢😭 ^😭😭😭💢 💢😭💢 ^💢😭😭💢 😭💢💢💢💢 😭💢😭💢😭 💢😭😭😭 😭😭😭😭😭 ^💢💢 💢😭 💢💢 😭😭💢😭 ^💢😭💢💢 ^😭💢💢😭 😭💢😭 💢😭💢😭 ^😭💢😭😭 ^😭💢💢😭 💢💢 😭💢💢 ^💢😭 ^💢💢😭😭 ^💢😭💢💢 💢😭😭💢 ^💢💢😭💢 😭 ^💢😭💢💢 💢💢💢💢💢 ^💢😭💢😭 💢💢💢💢😭 ^💢😭💢 😭😭💢😭 😭💢😭 ^💢💢😭 💢💢😭 ^😭😭😭💢 ^😭😭😭💢 ^😭😭💢 💢😭😭😭💢", "cunny"]);</code></div>
+                <div style="width:20%;margin-bottom:5px;"><button onclick="Arona.say('Here is your decrypted message, Sensei!<br>' + Arona.decode(['^😭😭💢 😭😭💢💢💢 ^😭😭💢😭 😭😭😭 💢😭😭 ^💢💢😭 ^😭😭😭💢 💢😭💢 ^💢😭😭💢 😭💢💢💢💢 😭💢😭💢😭 💢😭😭😭 😭😭😭😭😭 ^💢💢 💢😭 💢💢 😭😭💢😭 ^💢😭💢💢 ^😭💢💢😭 😭💢😭 💢😭💢😭 ^😭💢😭😭 ^😭💢💢😭 💢💢 😭💢💢 ^💢😭 ^💢💢😭😭 ^💢😭💢💢 💢😭😭💢 ^💢💢😭💢 😭 ^💢😭💢💢 💢💢💢💢💢 ^💢😭💢😭 💢💢💢💢😭 ^💢😭💢 😭😭💢😭 😭💢😭 ^💢💢😭 💢💢😭 ^😭😭😭💢 ^😭😭😭💢 ^😭😭💢 💢😭😭😭💢', 'cunny']) + '&quot;', 22); document.getElementById('arona_inner').focus();"><i>Run</i></button></div>
+              </div>
+
+              <p>To give another example, try decrypting Arona's super secret message below without the password and then with it.</p>
+              <code class="block overflow-y" id="arona_msg">^😭😭💢 😭😭💢💢💢 ^😭😭💢😭 😭😭😭 💢😭😭 ^💢💢😭 ^😭😭😭💢 💢😭💢 ^💢😭😭💢 😭💢💢💢💢 💢💢💢😭😭 💢😭😭💢😭 ^💢 ^😭💢 😭💢😭💢😭 ^💢💢 ^😭😭💢 😭💢😭💢😭 ^💢😭💢 😭 😭😭 😭😭😭😭 ^😭😭💢😭 ^😭😭😭 💢💢😭😭 😭😭💢 💢💢💢💢💢 ^😭😭😭 ^😭💢💢😭 ^💢😭😭😭 💢😭😭💢😭 💢💢😭 ^😭💢💢💢 💢😭 💢💢💢💢💢 💢💢😭💢 😭😭 😭💢💢💢💢 ^💢💢😭💢 ^💢💢💢 😭😭😭💢💢 ^😭😭 ^😭😭😭😭 ^😭💢😭 ^😭💢😭😭 ^💢😭💢 😭😭😭😭 ^😭😭😭 ^😭😭💢😭 💢💢💢💢💢 💢😭😭😭 ^😭😭😭💢 💢😭😭💢 ^💢😭😭💢 💢😭😭😭😭 ^💢😭😭😭 ^😭😭💢 💢💢💢💢💢 ^😭😭💢😭 😭😭😭😭 💢😭😭😭 😭😭😭💢💢 ^💢😭😭😭 ^💢💢😭😭</code>
+              <div class="columns-2 clear">
+                <div style="width:70%;margin-bottom:5px;">
+                  <strong>Password:</strong> <input id="pw" type="text" onkeyup="if (event.key.toLowerCase() == 'enter') document.getElementById('decrypt').click();">
+                  <div style="margin-top:3px; text-align:center;"><small><strong>Hint:</strong> <span class="spoiler">Arona's favorite flavor of milk</span></small></div>
+                </div>
+                <div style="width:30%;margin-bottom:5px;"><button id="decrypt" onclick="Arona.say((document.getElementById('pw').value == 'strawberry' ? 'What!? H-How did you guess my password!?' : 'Wrong! Better luck next time, Sensei.') + '<br><div style=&quot;word-break:break-all;&quot;>&quot;' + Arona.decode([document.getElementById('arona_msg').innerText, document.getElementById('pw').value]) + '&quot;</div>', document.getElementById('pw').value == 'strawberry' ? 28 : 13); document.getElementById('arona_inner').focus();"><i>Decrypt</i></button></div>
+              </div>
+              <br>
+
+              <h3 id="responses">Responses</h3>
+              <p>Aside from Arona's usual responses to encoding or decoding messages, she also has unique responses based on certain keywords or phrases that you may encode or decode. You can find a list of those keywords/phrases below.</p>
+              <ol id="response-list">
+                <li>Hello, Arona.</li>
+                <li>How are you, Arona?</li>
+                <li>Goodbye, Arona.</li>
+                <li>Goodnight, Arona.</li>
+                <li>I love you, Arona.</li>
+                <li>Arona is cute.</li>
+                <li>Arona is cunny.</li>
+                <li>Arona is cute and funny.</li>
+                <li>Arona is the best.</li>
+                <li>strawberry milk</li>
+                <li>Who was the first person to decode Cunny Code?</li>
+                <li>Who shared the first cunny code?</li>
+                <li>uoh</li>
+                <li>cunny</li>
+                <li>cute and funny</li>
+                <li>correction</li>
+                <li>seggs</li>
+                <li>kms</li>
+                <li>Show me the Arisu dance. (Alice/Aris also supported)</li>
+                <li>Show me the Mutsuki dance.</li>
+                <li>Never gonna give you up</li>
+                <li>69</li>
+                <li>😭</li>
+                <li>💢</li>
+                <li>🦀</li>
+              </ol>
+              <p>Try encoding or decoding some of these to see what Arona says!</p>
+
+              <h3 id="expressions">Expressions</h3>
+              <p>Arona is an expressive little AI who wears her emotions on her sleeve. Depending on the content of what you encode or decode, Arona's expression will change, from a happy smile to a look of despair. She has a wide range of emotions!</p>
+              <p>Her expression is usually changed alongside messages, but you can also change it by itself via the console with the function below.</p>
+              <strong>Arona.expression(id)</strong>
+              <div class="columns-2 clear">
+                <div style="width:80%;margin-bottom:5px;"><code class="block">Arona.expression(<input id="arona_exp" type="number" value="13" min="1" max="35" onchange="document.getElementById('exp_run').click();" style="width:50px;">);</code></div>
+                <div style="width:20%;margin-bottom:5px;"><button id="exp_run" onclick="Arona.expression(document.getElementById('arona_exp').value); document.getElementById('arona_inner').focus();"><i>Run</i></button></div>
+              </div>
+              <p>There are currently <strong>35</strong> different expressions. Feel free to play with Arona's face!</p>
+
+              <h3 id="custom-messages">Custom Messages</h3>
+              <p>A fun feature of this tool is that you can hijack Arona's speech module to make her say whatever you want. You can do this by encoding or decoding the following phrase:</p>
+              <code class="block"><span style="color:red">Arona say</span> <span style="color:green;">Cunny</span> <span style="color:blue;">{32}</span></code>
+              <ul>
+                <li><span style="color:red">red</span>: command used to hijack the speech module</li>
+                <li><span style="color:green;">green</span>: message you want Arona to say</li>
+                <li><span style="color:blue;">blue</span>: Arona's expression (1-35 available)</li>
+              </ul>
+              <p>You can also use the following function via the console to make Arona say whatever you want.</p>
+              <strong>Arona.say(message, expression, duration, callback)</strong>
+              <div class="columns-2 clear">
+                <div style="width:80%;margin-bottom:5px;"><code class="block">Arona.say("Cunny", 32, 3000);</code></div>
+                <div style="width:20%;margin-bottom:5px;"><button onclick="Arona.say('Cunny', 32, 3000); document.getElementById('arona_inner').focus();"><i>Run</i></button></div>
+              </div>
+
+              <h3 id="sensei-name">Remembering Sensei's Name</h3>
+              <p>If you tell Arona your name, she'll remember it and even use it in some dialogue lines, such as greetings! You can tell Arona your name by encoding one of the following messages:</p>
+              <ul>
+                <li>My name is NAME</li>
+                <li>Call me NAME</li>
+              </ul>
+              <p>After encoding one of these lines, she'll use and remember your name whenever you visit!</p>
+
+              <h3 id="getting-upset">Getting Upset</h3>
+              <p>One thing Sensei should never do is be mean to cute innocent little Arona. If Sensei is mean to Arona 5 times, she will leave and won't come back until you apologize. The following phrases will upset Arona:</p>
+              <ul>
+                <li>I hate Arona.</li>
+                <li>Arona is dumb.</li>
+                <li>Arona smells.</li>
+                <li>Arona sucks.</li>
+              </ul>
+              <p>Remember to say "Sorry" or "I'm sorry" if you upset Arona!</p>
+
+              <h3 id="poking">Poking</h3>
+              <p>Aside from encoding and decoding, you can also interact with Arona by clicking or "poking" her. The following parts of Arona can be clicked for different reactions:</p>
+              <ul>
+                <li>Halo (Press and hold)</li>
+                <li>Head</li>
+                <li>Face</li>
+                <li>Chest</li>
+                <li>Skirt</li>
+                <li>Legs</li>
+                <li>Shoes (ask Arona "show me your shoes")</li>
+              </ul>
+
+              <h3 id="speaking">Speaking</h3>
+              <p>Although limited, Arona's voice module allows her to speak! You may have heard her do so earlier if you poked her. You can use the following function in the console to make Arona speak:</p>
+              <strong>Arona.speak(filename)</strong>
+              <div class="columns-2 clear">
+                <div style="width:80%;margin-bottom:5px;"><code class="block">Arona.speak("sensei");</code></div>
+                <div style="width:20%;margin-bottom:5px;"><button onclick="Arona.say('Sensei!', 31, 2000); Arona.speak('sensei'); document.getElementById('arona_inner').focus();"><i>Run</i></button></div>
+              </div>
+              <p>Currently, her voice module only has <strong>5</strong> files: <code>ah</code>, <code>fue</code>, <code>huh</code>, <code>heeheehee</code>, <code>sensei</code>.</p>
+
+              <h3 id="helping">Helping</h3>
+              <p>You may have noticed a "<i class="fa">&#xf059;</i>" in the top right of the encoder on the <a href="../">homepage</a>. Clicking this will initiate a tutorial where Arona will help teach you how to use Cunny Code.</p>
+
+              <h3 id="teasing">Teasing</h3>
+              <p>If you did the tutorial, you may have noticed that you could deny Arona's help. You can tease her in this manner by denying her help 5 times. What happens after you ask for help a 6th time? Well, that's for you to find out!</p>
+
+              <h3 id="playing-music">Playing Music</h3>
+              <p>Arona can play her favorite music for you on the <a href="../">homepage</a> if you click the <img src="../resources/images/mute.png" alt="music" style="vertical-align:middle; height:20px;"> icon. Give it a try if you want something to listen to while you encode/decode!</p>
+
+              <h3 id="fetching-videos">Fetching Videos</h3>
+              <p>If you encode or decode a YouTube video link, Arona will automatically fetch and play it for you! You can give it a try below.</p>
+              <div class="columns-2 clear">
+                <div style="width:80%;margin-bottom:5px;"><code class="block">Arona.encode("youtu.be/VSKIGdbf5Fg");</code></div>
+                <div style="width:20%;margin-bottom:5px;"><button onclick="Arona.say(Arona.speech.special.youtube[0].replace('{ID}', 'VSKIGdbf5Fg'), Arona.speech.special.youtube[1], 36000, function () { Arona.idlingStop = false; }); Arona.idlingStop = true;"><i>Run</i></button></div>
+              </div>
+              <p>※ Autoplay may not work depending on the browser and its settings. Also, certain videos may not work on the offline version.</p>
+
+              <h3 id="idling-and-sleeping">Idling and Sleeping</h3>
+              <p>If you're inactive for 30 seconds, Arona will wonder where her dear Sensei went. After 3 minutes and a half she'll eventually fall asleep and wait for your return while sleep talking about various things. When you finally return, Arona will welcome you back!</p>
+              <p>You can also force her to fall alseep by encoding or decoding the phrase "Goodnight, Arona." or using the following function via the console.</p>
+              <div class="columns-2 clear">
+                <div style="width:80%;margin-bottom:5px;"><code class="block">Arona.sleep();</code></div>
+                <div style="width:20%;margin-bottom:5px;"><button onclick="setTimeout(Arona.sleep, 100);"><i>Run</i></button></div>
+              </div>
+              <br>
+
+              <h3 id="writing">Writing</h3>
+              <p>If you did the tutorial, you probably noticed Arona typing into the input field, albeit slowly since her AI needs an upgrade. At this time, this is the only area where this function is employed, however, if you're a high-level Sensei, you can still use this function via the console on the <a href="../">homepage</a>. You can also take it for a spin below.</p>
+
+              <strong>Arona.write(string)</strong>
+              <div class="columns-2 clear">
+                <div style="width:80%;margin-bottom:5px;"><code class="block">Arona.write("UOHHHHHHHHHH CUNNY 😭");</code></div>
+                <div style="width:20%;margin-bottom:5px;"><button onclick="Arona.say('*confident typing*', 22, 3500); Arona.write('UOHHHHHHHHHH CUNNY 😭'); document.getElementById('arona_inner').focus();"><i>Run</i></button></div>
+              </div>
+              <textarea id="input-demo" style="height:50px;" readonly></textarea>
             </div>
-            <br>
-            
-            <h3 id="responses">Responses</h3>
-            <p>Aside from Arona's usual responses to encoding or decoding messages, she also has unique responses based on certain keywords or phrases that you may encode or decode. You can find a list of those keywords/phrases below.</p>
-            <ol id="response-list">
-              <li>Hello, Arona.</li>
-              <li>How are you, Arona?</li>
-              <li>Goodbye, Arona.</li>
-              <li>Goodnight, Arona.</li>
-              <li>I love you, Arona.</li>
-              <li>Arona is cute.</li>
-              <li>Arona is cunny.</li>
-              <li>Arona is cute and funny.</li>
-              <li>Arona is the best.</li>
-              <li>strawberry milk</li>
-              <li>Who was the first person to decode Cunny Code?</li>
-              <li>Who shared the first cunny code?</li>
-              <li>uoh</li>
-              <li>cunny</li>
-              <li>cute and funny</li>
-              <li>correction</li>
-              <li>seggs</li>
-              <li>kms</li>
-              <li>Show me the Arisu dance. (Alice/Aris also supported)</li>
-              <li>Show me the Mutsuki dance.</li>
-              <li>Never gonna give you up</li>
-              <li>69</li>
-              <li>😭</li>
-              <li>💢</li>
-              <li>🦀</li>
-            </ol>
-            <p>Try encoding or decoding some of these to see what Arona says!</p>
-            
-            <h3 id="expressions">Expressions</h3>
-            <p>Arona is an expressive little AI who wears her emotions on her sleeve. Depending on the content of what you encode or decode, Arona's expression will change, from a happy smile to a look of despair. She has a wide range of emotions!</p>
-            <p>Her expression is usually changed alongside messages, but you can also change it by itself via the console with the function below.</p>
-            <strong>Arona.expression(id)</strong>
-            <div class="columns-2 clear">
-              <div style="width:80%;margin-bottom:5px;"><code class="block">Arona.expression(<input id="arona_exp" type="number" value="13" min="1" max="35" onchange="document.getElementById('exp_run').click();" style="width:50px;">);</code></div>
-              <div style="width:20%;margin-bottom:5px;"><button id="exp_run" onclick="Arona.expression(document.getElementById('arona_exp').value); document.getElementById('arona_inner').focus();"><i>Run</i></button></div>
-            </div>
-            <p>There are currently <strong>35</strong> different expressions. Feel free to play with Arona's face!</p>
-            
-            <h3 id="custom-messages">Custom Messages</h3>
-            <p>A fun feature of this tool is that you can hijack Arona's speech module to make her say whatever you want. You can do this by encoding or decoding the following phrase:</p>
-            <code class="block"><span style="color:red">Arona say</span> <span style="color:green;">Cunny</span> <span style="color:blue;">{32}</span></code>
-            <ul>
-              <li><span style="color:red">red</span>: command used to hijack the speech module</li>
-              <li><span style="color:green;">green</span>: message you want Arona to say</li>
-              <li><span style="color:blue;">blue</span>: Arona's expression (1-35 available)</li>
-            </ul>
-            <p>You can also use the following function via the console to make Arona say whatever you want.</p>
-            <strong>Arona.say(message, expression, duration, callback)</strong>
-            <div class="columns-2 clear">
-              <div style="width:80%;margin-bottom:5px;"><code class="block">Arona.say("Cunny", 32, 3000);</code></div>
-              <div style="width:20%;margin-bottom:5px;"><button onclick="Arona.say('Cunny', 32, 3000); document.getElementById('arona_inner').focus();"><i>Run</i></button></div>
-            </div>
-            
-            <h3 id="sensei-name">Remembering Sensei's Name</h3>
-            <p>If you tell Arona your name, she'll remember it and even use it in some dialogue lines, such as greetings! You can tell Arona your name by encoding one of the following messages:</p>
-            <ul>
-              <li>My name is NAME</li>
-              <li>Call me NAME</li>
-            </ul>
-            <p>After encoding one of these lines, she'll use and remember your name whenever you visit!</p>
-            
-            <h3 id="getting-upset">Getting Upset</h3>
-            <p>One thing Sensei should never do is be mean to cute innocent little Arona. If Sensei is mean to Arona 5 times, she will leave and won't come back until you apologize. The following phrases will upset Arona:</p>
-            <ul>
-              <li>I hate Arona.</li>
-              <li>Arona is dumb.</li>
-              <li>Arona smells.</li>
-              <li>Arona sucks.</li>
-            </ul>
-            <p>Remember to say "Sorry" or "I'm sorry" if you upset Arona!</p>
-            
-            <h3 id="poking">Poking</h3>
-            <p>Aside from encoding and decoding, you can also interact with Arona by clicking or "poking" her. The following parts of Arona can be clicked for different reactions:</p>
-            <ul>
-              <li>Halo (Press and hold)</li>
-              <li>Head</li>
-              <li>Face</li>
-              <li>Chest</li>
-              <li>Skirt</li>
-              <li>Legs</li>
-              <li>Shoes (ask Arona "show me your shoes")</li>
-            </ul>
-            
-            <h3 id="speaking">Speaking</h3>
-            <p>Although limited, Arona's voice module allows her to speak! You may have heard her do so earlier if you poked her. You can use the following function in the console to make Arona speak:</p>
-            <strong>Arona.speak(filename)</strong>
-            <div class="columns-2 clear">
-              <div style="width:80%;margin-bottom:5px;"><code class="block">Arona.speak("sensei");</code></div>
-              <div style="width:20%;margin-bottom:5px;"><button onclick="Arona.say('Sensei!', 31, 2000); Arona.speak('sensei'); document.getElementById('arona_inner').focus();"><i>Run</i></button></div>
-            </div>
-            <p>Currently, her voice module only has <strong>5</strong> files: <code>ah</code>, <code>fue</code>, <code>huh</code>, <code>heeheehee</code>, <code>sensei</code>.</p>
-            
-            <h3 id="helping">Helping</h3>
-            <p>You may have noticed a "<i class="fa">&#xf059;</i>" in the top right of the encoder on the <a href="../">homepage</a>. Clicking this will initiate a tutorial where Arona will help teach you how to use Cunny Code.</p>
-            
-            <h3 id="teasing">Teasing</h3>
-            <p>If you did the tutorial, you may have noticed that you could deny Arona's help. You can tease her in this manner by denying her help 5 times. What happens after you ask for help a 6th time? Well, that's for you to find out!</p>
-            
-            <h3 id="playing-music">Playing Music</h3>
-            <p>Arona can play her favorite music for you on the <a href="../">homepage</a> if you click the <img src="../resources/images/mute.png" alt="music" style="vertical-align:middle; height:20px;"> icon. Give it a try if you want something to listen to while you encode/decode!</p>
-            
-            <h3 id="fetching-videos">Fetching Videos</h3>
-            <p>If you encode or decode a YouTube video link, Arona will automatically fetch and play it for you! You can give it a try below.</p>
-            <div class="columns-2 clear">
-              <div style="width:80%;margin-bottom:5px;"><code class="block">Arona.encode("youtu.be/VSKIGdbf5Fg");</code></div>
-              <div style="width:20%;margin-bottom:5px;"><button onclick="Arona.say(Arona.speech.special.youtube[0].replace('{ID}', 'VSKIGdbf5Fg'), Arona.speech.special.youtube[1], 36000, function () { Arona.idlingStop = false; }); Arona.idlingStop = true;"><i>Run</i></button></div>
-            </div>
-            <p>※ Autoplay may not work depending on the browser and its settings. Also, certain videos may not work on the offline version.</p>
-            
-            <h3 id="idling-and-sleeping">Idling and Sleeping</h3>
-            <p>If you're inactive for 30 seconds, Arona will wonder where her dear Sensei went. After 3 minutes and a half she'll eventually fall asleep and wait for your return while sleep talking about various things. When you finally return, Arona will welcome you back!</p>
-            <p>You can also force her to fall alseep by encoding or decoding the phrase "Goodnight, Arona." or using the following function via the console.</p>
-            <div class="columns-2 clear">
-              <div style="width:80%;margin-bottom:5px;"><code class="block">Arona.sleep();</code></div>
-              <div style="width:20%;margin-bottom:5px;"><button onclick="setTimeout(Arona.sleep, 100);"><i>Run</i></button></div>
-            </div>
-            <br>
-            
-            <h3 id="writing">Writing</h3>
-            <p>If you did the tutorial, you probably noticed Arona typing into the input field, albeit slowly since her AI needs an upgrade. At this time, this is the only area where this function is employed, however, if you're a high-level Sensei, you can still use this function via the console on the <a href="../">homepage</a>. You can also take it for a spin below.</p>
-            
-            <strong>Arona.write(string)</strong>
-            <div class="columns-2 clear">
-              <div style="width:80%;margin-bottom:5px;"><code class="block">Arona.write("UOHHHHHHHHHH CUNNY 😭");</code></div>
-              <div style="width:20%;margin-bottom:5px;"><button onclick="Arona.say('*confident typing*', 22, 3500); Arona.write('UOHHHHHHHHHH CUNNY 😭'); document.getElementById('arona_inner').focus();"><i>Run</i></button></div>
-            </div>
-            <textarea id="input-demo" style="height:50px;" readonly></textarea>
           </div>
         </div>
     

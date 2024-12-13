@@ -1194,6 +1194,12 @@ h2#cunny-modal-header {
   margin-bottom:0 !important;
 }
 
+/* ADS */
+.ad-container {
+  text-align:center;
+  margin:30px 0;
+}
+
 
 /* Arona size increase on screens 1750-2200px+ */
 @media (min-width:1750px) and (max-width:2200px) {

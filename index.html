@@ -44,47 +44,49 @@
     <div id="bg_layer"><div id="bg_layer2"></div></div>
     <div id="content">
       <div class="content-block clear">
-        <div id="encoder" class="menu">
-          <div class="menu-inner">
-            <h3>Input <a href="javascript:Arona.help();" id="help" title="Help me, Arona!"><i class="fa">&#xf059;</i></a></h3>
-            <textarea id="input"></textarea>
-            
-            <div id="password_field" class="columns-2">
-              <input id="enable_password" type="checkbox" class="input_hidden" onchange="Arona.password.toggle(this);"><span tabindex="0" class="pseudo_checkbox" onclick="this.previousSibling.click();" onkeypress="event.key == 'Enter' && this.previousSibling.click();"></span><label for="enable_password" class="checkbox_label">Set Password</label>
-              <input id="password" type="text" class="checkbox_input">
-              <a href="javascript:Arona.help('password');" id="password_help" title="Help me, Arona!"><i class="fa">&#xf059;</i></a>
-            </div>
+        <div id="encoder">
+          <div class="menu">
+            <div class="menu-inner">
+              <h3>Input <a href="javascript:Arona.help();" id="help" title="Help me, Arona!"><i class="fa">&#xf059;</i></a></h3>
+              <textarea id="input"></textarea>
 
-            <div id="buttons" class="center">
-              <button id="encode" onclick="Arona.encode(Arona.node.input.value, this);"><i>Encode</i></button>
-              <button id="swap" onclick="Arona.swap();" title="Swap input and output"><i class="fa">&#xf021;</i></button>
-              <button id="decode" onclick="Arona.decode(Arona.node.input.value, this);"><i>Decode</i></button>
-            </div>
+              <div id="password_field" class="columns-2">
+                <input id="enable_password" type="checkbox" class="input_hidden" onchange="Arona.password.toggle(this);"><span tabindex="0" class="pseudo_checkbox" onclick="this.previousSibling.click();" onkeypress="event.key == 'Enter' && this.previousSibling.click();"></span><label for="enable_password" class="checkbox_label">Set Password</label>
+                <input id="password" type="text" class="checkbox_input">
+                <a href="javascript:Arona.help('password');" id="password_help" title="Help me, Arona!"><i class="fa">&#xf059;</i></a>
+              </div>
 
-            <div id="error" style="display:none;">
-              <h3 id="error_title">Error</h3>
-              <strong id="error_body">The following could not be encoded.</strong><br>
-              <div id="error_list" class="overflow-box"></div>
-              <a href="#close" id="close_button" class="close-button" onclick="this.parentNode.style.display = 'none'; return false;"><i class="fa">&#xf00d;</i></a>
-            </div>
+              <div id="buttons" class="center">
+                <button id="encode" onclick="Arona.encode(Arona.node.input.value, this);"><i>Encode</i></button>
+                <button id="swap" onclick="Arona.swap();" title="Swap input and output"><i class="fa">&#xf021;</i></button>
+                <button id="decode" onclick="Arona.decode(Arona.node.input.value, this);"><i>Decode</i></button>
+              </div>
 
-            <h3>Output</h3>
-            <textarea id="output" readonly></textarea>
-            
-            <div class="center">
-              <button id="copy" onclick="Arona.node.output.select(); Arona.copyText(Arona.node.output.value);"><i>Copy</i></button>
+              <div id="error" style="display:none;">
+                <h3 id="error_title">Error</h3>
+                <strong id="error_body">The following could not be encoded.</strong><br>
+                <div id="error_list" class="overflow-box"></div>
+                <a href="#close" id="close_button" class="close-button" onclick="this.parentNode.style.display = 'none'; return false;"><i class="fa">&#xf00d;</i></a>
+              </div>
+
+              <h3>Output</h3>
+              <textarea id="output" readonly></textarea>
+
+              <div class="center">
+                <button id="copy" onclick="Arona.node.output.select(); Arona.copyText(Arona.node.output.value);"><i>Copy</i></button>
+              </div>
+
+              <div id="cunny_translate" class="center">
+                <strong style="color:red;">New:</strong> <a href="extension/">Get the Cunny Translate Extension!</a>
+              </div>
+
+              <div id="bgm">
+                <img id="bgm_icon" src="resources/images/mute.png" onclick="Arona.toggleBGM();" onkeyup="if (/enter/i.test(event.key)) Arona.toggleBGM();" title="Toggle BGM" alt="BGM" tabindex="0">
+                <audio id="bgm_player" ontimeupdate="if (this.currentTime >= 114.5) this.currentTime = 0;" loop><source src="resources/audio/Shooting%20Stars.mp3" type="audio/mpeg"></audio>
+              </div>
+
+              <div id="version">v1.5.0</div>
             </div>
-            
-            <div id="cunny_translate" class="center">
-              <strong style="color:red;">New:</strong> <a href="extension/">Get the Cunny Translate Extension!</a>
-            </div>
-            
-            <div id="bgm">
-              <img id="bgm_icon" src="resources/images/mute.png" onclick="Arona.toggleBGM();" onkeyup="if (/enter/i.test(event.key)) Arona.toggleBGM();" title="Toggle BGM" alt="BGM" tabindex="0">
-              <audio id="bgm_player" ontimeupdate="if (this.currentTime >= 114.5) this.currentTime = 0;" loop><source src="resources/audio/Shooting%20Stars.mp3" type="audio/mpeg"></audio>
-            </div>
-            
-            <div id="version">v1.5.0</div>
           </div>
         </div>
     
