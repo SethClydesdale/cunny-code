@@ -93,11 +93,13 @@
 
 @keyframes lean-in {
   0% {
-    transform:scale(1);
+    -webkit-transform:scale(1);
+            transform:scale(1);
   }
   
   100% {
-    transform:scale(1.1);
+    -webkit-transform:scale(1.1);
+            transform:scale(1.1);
   }
 }
 
@@ -113,11 +115,13 @@
 
 @keyframes show-shoes {
   0% {
-    transform:rotate(0deg);
+    -webkit-transform:rotate(0deg);
+            transform:rotate(0deg);
   }
   
   100% {
-    transform:rotate(180deg);
+    -webkit-transform:rotate(180deg);
+            transform:rotate(180deg);
   }
 }
 
@@ -137,17 +141,20 @@
 
 @keyframes swing {
   0% {
-    transform:scale(0.5) rotate(-5deg);
+    -webkit-transform:scale(0.5) rotate(-5deg);
+            transform:scale(0.5) rotate(-5deg);
     margin-left:10px;
     margin-top:5px;
   }
   50% {
-    transform:scale(0.51) rotate(5deg);
+    -webkit-transform:scale(0.51) rotate(5deg);
+            transform:scale(0.51) rotate(5deg);
     margin-left:0px;
     margin-top:0px;
   }
   100% {
-    transform:scale(0.5) rotate(-5deg);
+    -webkit-transform:scale(0.5) rotate(-5deg);
+            transform:scale(0.5) rotate(-5deg);
     margin-left:10px;
     margin-top:5px;
   }
@@ -266,7 +273,8 @@ a#fork-me {
   line-height:30px;
   height:30px;
   width:200px;
-  transform:rotate(45deg);
+  -webkit-transform:rotate(45deg);
+          transform:rotate(45deg);
   position:absolute;
   right:-55px;
   top:30px;
@@ -547,7 +555,8 @@ button, .button {
   border-radius:12px;
   box-shadow:0px 0px 2px rgba(0, 0, 0, 0.7), 0px 3px 3px rgba(0, 0, 0, 0.3);
   cursor:pointer;
-  transform:skew(-10deg);
+  -webkit-transform:skew(-10deg);
+          transform:skew(-10deg);
   user-select:none;
   outline:none;
 }
@@ -557,7 +566,8 @@ button i.fa, .button i.fa { font-size:20px; }
 button i, .button i {
   font-style:normal;
   display:inline-block;
-  transform:skew(10deg);
+  -webkit-transform:skew(10deg);
+          transform:skew(10deg);
 }
 
 .button:hover, .button:focus { color:#2D4663; }
@@ -589,14 +599,16 @@ button:active, .button:active {
 }
 
 #arona.show-shoes #arona_inner {
-  transform:rotate(180deg);
+  -webkit-transform:rotate(180deg);
+          transform:rotate(180deg);
   bottom:-400px;
   top:auto;
   animation:show-shoes 1000ms;
 }
 
 #arona.show-shoes #dialogue_container {
-  transform:rotate(-180deg);
+  -webkit-transform:rotate(-180deg);
+          transform:rotate(-180deg);
   bottom:-80%;
   top:auto;
 }
@@ -606,7 +618,8 @@ button:active, .button:active {
 #arona_body.shake { animation:shake 200ms linear; }
 #arona_body.lean-in {
   animation:lean-in 600ms ease-in-out;
-  transform:scale(1.1);
+  -webkit-transform:scale(1.1);
+          transform:scale(1.1);
 }
 
 #arona #holo {
@@ -627,7 +640,8 @@ button:active, .button:active {
   left:212px;
   height:25px;
   width:80px;
-  transform:rotate(28deg);
+  -webkit-transform:rotate(28deg);
+          transform:rotate(28deg);
   border-radius:100%;
 }
 
@@ -637,7 +651,8 @@ button:active, .button:active {
   height:80px;
   width:120px;
   border-radius:100%;
-  transform:rotate(10deg);
+  -webkit-transform:rotate(10deg);
+          transform:rotate(10deg);
 }
 
 #arona_face {
@@ -759,7 +774,8 @@ button:active, .button:active {
   margin-bottom:200px !important;
   margin-left:0;
   position:fixed;
-  transform:scale(0.5);
+  -webkit-transform:scale(0.5);
+          transform:scale(0.5);
   animation:swing 3s infinite ease-in-out;
   z-index:2;
 }
@@ -776,7 +792,8 @@ button:active, .button:active {
 }
 
 #arona.dragging #dialogue {
-  transform:scale(1.5);
+  -webkit-transform:scale(1.5);
+          transform:scale(1.5);
 }
 
 /* menus */
@@ -1049,7 +1066,8 @@ footer li:first-child:before { display:none; }
     height:130px;
     width:180px;
     border-radius:100%;
-    transform:rotate(10deg);
+    -webkit-transform:rotate(10deg);
+            transform:rotate(10deg);
   }
 
   #arona_face {
@@ -1237,7 +1255,8 @@ h2#cunny-modal-header {
     height:110px;
     width:150px;
     border-radius:100%;
-    transform:rotate(10deg);
+    -webkit-transform:rotate(10deg);
+            transform:rotate(10deg);
   }
 
   #arona_face {
