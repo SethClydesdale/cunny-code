@@ -322,16 +322,23 @@
         youtube : ['Here\'s your YouTube video, Sensei!<br>' + yt_embed, 32],
         
         // memey
+        omg : ["Oh my god, it's Momoi!<br>" + yt_embed.replace('{ID}', 'qYn6iXeFiD0'), 25, Infinity],
         uoh : ["What are you uoh'ing at, Sensei?", 2],
+        uoooh : ["That's a funny song, Sensei!<br>" + yt_embed.replace('{ID}', 'TmD8I7Wd6LA'), 32, Infinity],
         cunny : ['Am I cunny, Sensei?', 31],
         cute_and_funny : ['Is Arona cute and funny?', 31],
         correction : ["P-Please don't correct me, Sensei!<br>I've been good, I promise...!", 18],
         kms : ["Please don't do that, {Sensei}! Arona would be lonely without you...", 28],
         seggs : ["S-S-S-Se...!?", 17],
+        airfryer : ["Sensei, Sensei! Do you have an Air Fryer at Schale? Arona wants to cook some nuggies...", 23],
+        sixty_seven : ["Why do the kids at Plum Blossom Garden keep saying 6 7, Sensei? Arona is confused...", 29],
         sixty_nine : ["Why does everybody say 69 is a nice number, Sensei?", 2],
         rickroll : ['Never gonna let you down🎵<br>' + yt_embed.replace('{ID}', 'dQw4w9WgXcQ'), 32, Infinity],
         arisu_dance : ["Heehee, Arisu's dance is so cute and funny.<br>" + yt_embed.replace('{ID}', 'VSKIGdbf5Fg'), 32, Infinity],
         mutsuki_dance : ['Wouldn\'t you rather watch Arona dance? ...No? Fine...here\'s your dumb Mutsuki dance.<br>' + yt_embed.replace('{ID}', 'GfKkSmQrVJw'), 10, Infinity],
+        
+        // misc
+        aod : ['Arona really likes this new idol group! Have you listened to them, Sensei?<br>' + yt_embed.replace('{ID}', 'triNgwM3bGI'), 35, Infinity],
         
         // first public cunny code message
         // https://x.com/SethC1995/status/1839472034721456176
@@ -1077,9 +1084,23 @@
         Arona.idlingStop = true;
       } 
       
+      else if (/^67$|^67\s|\s67$|\s67\s/i.test(value)) {
+        Arona.say(Arona.speech.special.sixty_seven);
+      } 
+      
       else if (/^69$|^69\s|\s69$|\s69\s/i.test(value)) {
         Arona.say(Arona.speech.special.sixty_nine);
       } 
+      
+      // misc responses
+      else if (/aod|angels of delusion/i.test(value)) {
+        Arona.say(Arona.speech.special.aod);
+        Arona.idlingStop = true;
+      } 
+      
+      else if (/air fryer|airfryer/i.test(value)) {
+        Arona.say(Arona.speech.special.airfryer);
+      }
       
       // responses to compliments
       else if (/arona is cunny|(?:you're|you are) cunny(?:, | )arona/i.test(value)) {
@@ -1144,6 +1165,16 @@
       
       else if (/seggs|sex/i.test(value)) {
         Arona.say(Arona.speech.special.seggs);
+      } 
+      
+      else if (/omg/i.test(value)) {
+        Arona.say(Arona.speech.special.omg);
+        Arona.idlingStop = true;
+      } 
+      
+      else if (/uoooh/i.test(value)) {
+        Arona.say(Arona.speech.special.uoooh);
+        Arona.idlingStop = true;
       } 
       
       else if (/u[o]+h/i.test(value)) {
