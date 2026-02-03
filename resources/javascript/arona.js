@@ -940,9 +940,11 @@
     
     
     // copies the output to the user's clipboard
-    copyText : function (value) {
+    copyText : function (value, URL) {
       if (Arona.quitting) return false; // prevents copying while Arona is leaving
       if (value) {
+        if (URL) value = (window.location.protocol + '//' + window.location.host + window.location.pathname) + '?input=' + encodeURIComponent(value);  
+        
         try {
           navigator.clipboard.writeText(value);
           Arona.randomizeMessage(Arona.speech.copy.success);
@@ -2037,4 +2039,10 @@
   document.onmouseup = Arona.putDown;
   document.ontouchend = Arona.putDown;
   
+  
+  // add the input that's in the URL into the input zone and decode/encode it
+  if (/input=/.test(window.location.search) && Arona.node.input) {
+    Arona.node.input.value = decodeURIComponent(window.location.search.replace(/.*?input=(.*)/, '$1'));
+    Arona.determineMode(Arona.node.input.value, Arona.node.input);
+  }
 }(window, document));

@@ -73,7 +73,8 @@
               <textarea id="output" readonly></textarea>
 
               <div class="center">
-                <button id="copy" onclick="Arona.node.output.select(); Arona.copyText(Arona.node.output.value);"><i>Copy</i></button>
+                <button id="copy" onclick="Arona.node.output.select(); Arona.copyText(Arona.node.output.value);"><i>Copy Output</i></button>
+                <button id="copy-url" onclick="Arona.node.output.select(); Arona.copyText(Arona.node.output.value, true);"><i>Copy URL</i></button>
               </div>
 
               <div id="cunny_translate" class="center">
@@ -85,7 +86,7 @@
                 <audio id="bgm_player" ontimeupdate="if (this.currentTime >= 114.5) this.currentTime = 0;" loop><source src="resources/audio/Shooting%20Stars.mp3" type="audio/mpeg"></audio>
               </div>
 
-              <div id="version">v1.5.0</div>
+              <div id="version">v1.6.0</div>
             </div>
           </div>
         </div>
@@ -128,7 +129,7 @@
     <script src="resources/javascript/arona.min.js"></script>
     <script>
       // have Arona greet her dear Sensei
-      Arona.say(Arona.speech.greetings[Math.floor(Math.random() * Arona.speech.greetings.length)]);
+      if (!/input=/.test(window.location.search)) Arona.say(Arona.speech.greetings[Math.floor(Math.random() * Arona.speech.greetings.length)]);
       
       Arona.preload.assets(); // preload images
       Arona.idle(true); // start idle listener
